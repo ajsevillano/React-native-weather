@@ -18,9 +18,12 @@ export default function App() {
   const [weekly, setWeekly] = useState([]);
   const [fetchError, setFetchError] = useState('');
   const [cityName, setCityName] = useState(``);
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async (city) => {
     try {
+      setLoading(true);
+      setCurrent('');
       const cityCoordinates = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=${API_KEY}`
       );
@@ -36,6 +39,7 @@ export default function App() {
       setCurrent(Data.current);
       setCityName(city);
       setWeekly(Data.daily.filter((data, index) => index !== 0));
+      setLoading(false);
     } catch (error) {
       setFetchError(`City doesn't exist`);
     }
@@ -45,50 +49,55 @@ export default function App() {
     <View style={styles.container}>
       {/* <Text style={styles.header}>{fetchError && fetchError}</Text>
       <TextInput onChangeText={(val) => setName(val)} style={styles.input} />
-      <Button title="Update name" onPress={fetchData} />
+
     
       <StatusBar style="auto" /> */}
       <View style={styles.inputContainer}>
         <TextInput onChangeText={(val) => setName(val)} style={styles.input} />
+        {/* A button that calls the fetchData function. */}
         <TouchableOpacity onPress={fetchData}>
           <Text style={styles.buttoncolor}>Get weather</Text>
         </TouchableOpacity>
       </View>
-
-      <Text style={styles.currentWeather}>
-        Weahter: {current && current.weather[0].main}
-      </Text>
+      {/* Conditionally render the card if there is data from the fetch. */}
+      {loading && <Text>Loading...</Text>}
+      {current ? (
+        <View style={styles.Card}>
+          <Text style={styles.currentWeather}>{name}</Text>
+          <Text style={styles.temperature}>{current.temp.toFixed(0)}°C</Text>
+          <Text style={styles.feelsLike}>
+            Feels like: {current.feels_like.toFixed(0)}°C
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     color: 'white',
     flexDirection: 'column',
   },
   inputContainer: {
-    margin: 20,
-    alignItems: 'center',
     flexDirection: 'row',
+    margin: 20,
     borderWidth: 1,
     borderColor: '#dcdfe0',
     borderRadius: 10,
   },
+
   input: {
-    flex: 2,
+    flex: 1,
     color: '#2c3e50',
     margin: 10,
     padding: 8,
     fontSize: 30,
   },
   buttoncolor: {
-    flex: 1,
     backgroundColor: 'coral',
     margin: 10,
     textAlign: 'center',
@@ -97,7 +106,26 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
+  Card: {
+    flexDirection: 'column',
+    margin: 20,
+    borderRadius: 10,
+    padding: 20,
+    backgroundColor: '#3498db',
+  },
   currentWeather: {
     fontSize: 26,
+    color: 'white',
+  },
+
+  temperature: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  feelsLike: {
+    marginTop: 5,
+    color: 'white',
+    fontSize: 16,
   },
 });
