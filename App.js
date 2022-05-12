@@ -1,6 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
+import { API_KEY } from '@env';
 import Constants from 'expo-constants';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { useState } from 'react';
 
 export default function App() {
@@ -14,13 +22,13 @@ export default function App() {
   const fetchData = async (city) => {
     try {
       const cityCoordinates = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=`
+        `https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=${API_KEY}`
       );
       const coordinatesData = await cityCoordinates.json();
       const lon = coordinatesData.coord.lon;
       const lat = coordinatesData.coord.lat;
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely&appid=`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely&appid=${API_KEY}`
       );
       const Data = await res.json();
       /* Cleaning the state of fetchError. */
@@ -38,29 +46,33 @@ export default function App() {
       {/* <Text style={styles.header}>{fetchError && fetchError}</Text>
       <TextInput onChangeText={(val) => setName(val)} style={styles.input} />
       <Button title="Update name" onPress={fetchData} />
-      <Text style={styles.header}>
-        Your name is {current && current.weather[0].main}
-      </Text>
+    
       <StatusBar style="auto" /> */}
       <View style={styles.inputContainer}>
         <TextInput onChangeText={(val) => setName(val)} style={styles.input} />
-        <Text style={styles.buttoncolor}>Get weather</Text>
+        <TouchableOpacity onPress={fetchData}>
+          <Text style={styles.buttoncolor}>Get weather</Text>
+        </TouchableOpacity>
       </View>
+
+      <Text style={styles.currentWeather}>
+        Weahter: {current && current.weather[0].main}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: Constants.statusBarHeight,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     color: 'white',
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   inputContainer: {
-    flex: 1,
     margin: 20,
     alignItems: 'center',
     flexDirection: 'row',
@@ -84,5 +96,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3498db',
     color: 'white',
     fontSize: 16,
+  },
+  currentWeather: {
+    fontSize: 26,
   },
 });
