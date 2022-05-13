@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import SVGImg from '../../assets/cloudy.svg';
+import Cloudy from '../../assets/cloudy.svg';
+import Clear from '../../assets/clear.svg';
 
 const WeatherCard = ({ current, cityName, countryName }) => {
   return (
     <View style={styles.weatherCard}>
-      <SVGImg />
+      {current.weather[0].main === 'Clear' ? <Clear /> : <Cloudy />}
       <Text>{current.weather[0].description}</Text>
       <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
       <Text style={styles.currentWeather}>
@@ -19,7 +20,6 @@ const WeatherCard = ({ current, cityName, countryName }) => {
 
 const styles = StyleSheet.create({
   weatherCard: {
-    flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
     borderRadius: 10,

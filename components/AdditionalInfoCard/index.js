@@ -31,14 +31,15 @@ const styles = StyleSheet.create({
   additionalInfo: {
     flex: 1,
     backgroundColor: 'white',
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 40,
   },
 
   moreInfo: {
     fontSize: 20,
     marginTop: 40,
     marginBottom: 10,
-    marginLeft: 40,
-    marginRight: 40,
     borderRadius: 10,
     fontWeight: 'bold',
     color: '#273365',
@@ -51,8 +52,6 @@ const styles = StyleSheet.create({
 
   infoBlock: {
     flexDirection: 'row',
-    marginLeft: 40,
-    marginRight: 40,
     marginTop: 10,
     justifyContent: 'space-between',
   },

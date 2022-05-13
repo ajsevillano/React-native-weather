@@ -1,7 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import { useState, useEffect } from 'react';
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
 import WeatherCard from './components/weatherCard';
@@ -13,6 +19,7 @@ export default function App() {
   const [weekly, setWeekly] = useState([]);
   const [fetchError, setFetchError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -44,12 +51,25 @@ export default function App() {
     }
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <StatusBar backgroundColor="#f5f5f5" />
       {/* Conditionally render the weatherCard if there is data from the fetch. */}
       {loading && (
-        <View style={styles.weatherCard}>
+        <View style={styles.weatherCardLoading}>
           <Text>Loading...</Text>
         </View>
       )}
@@ -63,7 +83,7 @@ export default function App() {
           <AdditionalInfoCard current={current} />
         </>
       ) : null}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -71,13 +91,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     backgroundColor: '#f5f5f5',
-    flex: 1,
     marginTop: Constants.statusBarHeight,
     color: 'white',
-    flexDirection: 'column',
+    flexGrow: 0,
   },
 
-  weatherCard: {
+  weatherCardLoading: {
     flexDirection: 'column',
     alignItems: 'center',
     margin: 20,
