@@ -2,12 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
 import { StyleSheet, Text, View } from 'react-native';
-import SVGImg from './assets/cloudy.svg';
 import { useState, useEffect } from 'react';
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
+import WeatherCard from './components/weatherCard';
 
 export default function App() {
-  const [citiName, setcitiName] = useState('Lewes');
+  const [cityName, setcityName] = useState('Lewes');
   const [countryName, setCountryName] = useState('');
   const [current, setCurrent] = useState('');
   const [weekly, setWeekly] = useState([]);
@@ -23,7 +23,7 @@ export default function App() {
       setLoading(true);
       setCurrent('');
       const cityCoordinates = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${citiName}&units=metric&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`
       );
       const coordinatesData = await cityCoordinates.json();
       const lon = coordinatesData.coord.lon;
@@ -55,17 +55,11 @@ export default function App() {
       )}
       {current ? (
         <>
-          <View style={styles.weatherCard}>
-            <SVGImg />
-            <Text>{current.weather[0].description}</Text>
-            <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
-            <Text style={styles.currentWeather}>
-              {citiName}, {countryName}
-            </Text>
-            <Text style={styles.feelsLike}>
-              Feels like: {current.feels_like.toFixed(0)}°C
-            </Text>
-          </View>
+          <WeatherCard
+            current={current}
+            cityName={cityName}
+            countryName={countryName}
+          />
           <AdditionalInfoCard current={current} />
         </>
       ) : null}
@@ -82,17 +76,6 @@ const styles = StyleSheet.create({
     color: 'white',
     flexDirection: 'column',
   },
-  inputContainer: {
-    flexDirection: 'row',
-    margin: 20,
-    borderWidth: 1,
-    borderColor: '#dcdfe0',
-    borderRadius: 10,
-  },
-
-  weatherIcon: {
-    alignSelf: 'center',
-  },
 
   weatherCard: {
     flexDirection: 'column',
@@ -100,25 +83,5 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     padding: 20,
-  },
-
-  temperature: {
-    fontSize: 90,
-    fontWeight: 'bold',
-    marginLeft: 10,
-    color: '#273365',
-  },
-
-  currentWeather: {
-    fontSize: 26,
-    color: '#818181',
-    margin: 0,
-    padding: 0,
-  },
-
-  feelsLike: {
-    marginTop: 5,
-    fontSize: 16,
-    color: '#aaaaaa',
   },
 });
