@@ -1,62 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import Svg, {
-  Circle,
-  Ellipse,
-  G,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
-  Use,
-  Symbol,
-  Defs,
-  LinearGradient,
-  RadialGradient,
-  Stop,
-  ClipPath,
-  Pattern,
-  Mask,
-} from 'react-native-svg';
-
+import { StyleSheet, Text, View } from 'react-native';
+import SVGImg from './assets/cloudy.svg';
 import { useState, useEffect } from 'react';
 
 export default function App() {
-  const [example, setExample] = useState('default');
-  const [name, setName] = useState('Lewes');
+  const [citiName, setcitiName] = useState('Lewes');
+  const [countryName, setCountryName] = useState('');
   const [current, setCurrent] = useState('');
   const [weekly, setWeekly] = useState([]);
   const [fetchError, setFetchError] = useState('');
-  const [cityName, setCityName] = useState(``);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async (city) => {
+  const fetchData = async () => {
     try {
       setLoading(true);
       setCurrent('');
       const cityCoordinates = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${citiName}&units=metric&appid=${API_KEY}`
       );
       const coordinatesData = await cityCoordinates.json();
       const lon = coordinatesData.coord.lon;
       const lat = coordinatesData.coord.lat;
+      setCountryName(coordinatesData.sys.country);
+
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely&appid=${API_KEY}`
       );
@@ -64,7 +36,6 @@ export default function App() {
       /* Cleaning the state of fetchError. */
       setFetchError('');
       setCurrent(Data.current);
-      setCityName(city);
       setWeekly(Data.daily.filter((data, index) => index !== 0));
       setLoading(false);
     } catch (error) {
@@ -81,42 +52,22 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.header}>{fetchError && fetchError}</Text>
-      <TextInput onChangeText={(val) => setName(val)} style={styles.input} />
-
-    
-      <StatusBar style="auto" /> */}
       <StatusBar backgroundColor="#f5f5f5" />
-      {/* <View style={styles.inputContainer}>
-        <TextInput onChangeText={(val) => setName(val)} style={styles.input} /> */}
-      {/* A button that calls the fetchData function. */}
-      {/* <TouchableOpacity onPress={fetchData}>
-          <Text style={styles.buttoncolor}>Get weather</Text>
-        </TouchableOpacity>
-      </View> */}
       {/* Conditionally render the card if there is data from the fetch. */}
-      {loading && <Text>Loading...</Text>}
+      {loading && (
+        <View style={styles.Card}>
+          <Text>Loading...</Text>
+        </View>
+      )}
       {current ? (
         <>
           <View style={styles.Card}>
-            <Svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-cloud"
-              width="88"
-              height="88"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="#a4a4a4"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <Path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <Path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
-            </Svg>
+            <SVGImg />
             <Text>{current.weather[0].description}</Text>
             <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
-            <Text style={styles.currentWeather}>{name}</Text>
+            <Text style={styles.currentWeather}>
+              {citiName}, {countryName}
+            </Text>
             <Text style={styles.feelsLike}>
               Feels like: {current.feels_like.toFixed(0)}°C
             </Text>
@@ -171,20 +122,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  // input: {
-  //   flex: 1,
-  //   color: '#2c3e50',
-  //   margin: 10,
-  //   padding: 8,
-  //   fontSize: 30,
-  // },
-  // buttoncolor: {
-  //   margin: 10,
-  //   textAlign: 'center',
-  //   padding: 15,
-  //   backgroundColor: '#3498db',
-  //   fontSize: 16,
-  // },
   Card: {
     flexDirection: 'column',
     alignItems: 'center',
