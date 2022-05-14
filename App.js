@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
-import WeatherCard from './components/weatherCard';
+import WeatherCard from './components/WeatherCard';
+import HourlyWeather from './components/HourlyWeather';
 
 export default function App() {
   const [cityName, setcityName] = useState('Lewes');
@@ -81,6 +82,7 @@ export default function App() {
             countryName={countryName}
           />
           <AdditionalInfoCard current={current} />
+          <HourlyWeather />
         </>
       ) : null}
     </ScrollView>
