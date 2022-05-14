@@ -1,20 +1,46 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Windy from '../../assets/weatherIcons/wind.svg';
+import Sunrise from '../../assets/weatherIcons/sunrise.svg';
+import Sunset from '../../assets/weatherIcons/sunset.svg';
+import Pressure from '../../assets/weatherIcons/pressure.svg';
+import Humidity from '../../assets/weatherIcons/humidity.svg';
+import UV from '../../assets/weatherIcons/uv.svg';
 
 const AdditionalInfoCard = ({ current }) => {
   return (
     <View style={styles.additionalInfo}>
       <Text style={styles.moreInfo}>Additional info</Text>
       <View style={styles.infoBlock}>
-        <Text style={styles.humidity}>Wind: {current.humidity} m/h</Text>
-        <Text style={styles.humidity}>Humidity: {current.wind_speed}%</Text>
+        <View style={styles.InfoContainerLeft}>
+          <Windy />
+          <Text style={styles.textWind}>Wind: {current.wind_speed} m/h</Text>
+        </View>
+        <View style={styles.InfoContainerRight}>
+          <Humidity />
+          <Text style={styles.textWind}>Humidity: {current.humidity}%</Text>
+        </View>
       </View>
       <View style={styles.infoBlock}>
-        <Text style={styles.humidity}>Sunrise: {getTime(current.sunrise)}</Text>
-        <Text style={styles.humidity}>Sunset: {getTime(current.sunset)}</Text>
+        <View style={styles.InfoContainerLeft}>
+          <Sunrise />
+          <Text style={styles.textWind}>
+            Sunrise: {getTime(current.sunrise)}
+          </Text>
+        </View>
+        <View style={styles.InfoContainerRight}>
+          <Sunset />
+          <Text style={styles.textWind}>Sunset: {getTime(current.sunset)}</Text>
+        </View>
       </View>
       <View style={styles.infoBlock}>
-        <Text style={styles.humidity}>Pressure: {current.pressure} mb</Text>
-        <Text style={styles.humidity}>UV: {current.uvi} </Text>
+        <View style={styles.InfoContainerLeft}>
+          <Pressure />
+          <Text style={styles.textWind}>Press.: {current.pressure} mb</Text>
+        </View>
+        <View style={styles.InfoContainerRight}>
+          <UV />
+          <Text style={styles.textWind}>UV: {current.uvi} </Text>
+        </View>
       </View>
     </View>
   );
@@ -36,6 +62,25 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
 
+  InfoContainerLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+
+  InfoContainerRight: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginLeft: 35,
+  },
+
+  textWind: {
+    fontSize: 17,
+    color: '#777575',
+    marginLeft: 5,
+  },
+
   moreInfo: {
     fontSize: 20,
     marginTop: 40,
@@ -51,9 +96,10 @@ const styles = StyleSheet.create({
   },
 
   infoBlock: {
+    flex: 1,
     flexDirection: 'row',
     marginTop: 10,
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 });
 
