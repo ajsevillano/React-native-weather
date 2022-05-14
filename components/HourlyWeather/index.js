@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import Windy from '../../assets/weatherIcons/wind.svg';
+import Clouds from '../../assets/weatherIcons/small/Clouds.svg';
+import Rain from '../../assets/weatherIcons/small/Rain.svg';
+import Sunny from '../../assets/weatherIcons/small/Clear.svg';
 
 const HourlyWeather = ({ hourly }) => {
   const getTime = (timestamp) => {
@@ -7,6 +9,19 @@ const HourlyWeather = ({ hourly }) => {
     const dateObject = new Date(milliseconds);
     const time = dateObject.toString().split(' ');
     return time[4]?.split('').slice(0, 5);
+  };
+
+  const getWeatherIcon = (weather) => {
+    switch (true) {
+      case weather[0].main === 'Clouds':
+        return <Clouds />;
+
+      case weather[0].main === 'Rain':
+        return <Rain />;
+
+      default:
+        return <Sunny />;
+    }
   };
 
   return (
@@ -24,7 +39,7 @@ const HourlyWeather = ({ hourly }) => {
               <Text style={styles.temperatureText}>
                 {item.temp.toFixed(0)}°
               </Text>
-              <Windy />
+              {getWeatherIcon(item.weather)}
               <Text style={styles.hour}>{getTime(item.dt)}</Text>
             </View>
           )}
@@ -48,13 +63,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#273365',
     paddingBottom: 20,
-  },
-
-  hourlyWeatherCardsContainer: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
 
   hourlyWeatherCard: {
