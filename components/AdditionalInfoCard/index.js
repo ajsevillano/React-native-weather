@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingLeft: 40,
     paddingRight: 40,
-    paddingBottom: 40,
+    paddingBottom: 30,
   },
 
   InfoContainerLeft: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 
   moreInfo: {
     fontSize: 20,
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 10,
     borderRadius: 10,
     fontWeight: 'bold',

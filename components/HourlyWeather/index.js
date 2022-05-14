@@ -1,44 +1,41 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Windy from '../../assets/weatherIcons/wind.svg';
 
-const HourlyWeather = () => {
+const HourlyWeather = ({ hourly }) => {
+  const getTime = (timestamp) => {
+    const milliseconds = timestamp * 1000;
+    const dateObject = new Date(milliseconds);
+    const time = dateObject.toString().split(' ');
+    return time[4]?.split('').slice(0, 5);
+  };
+
   return (
     <>
       <View style={styles.hourlySectionContainer}>
-        <Text style={styles.titleHeader}>Weather by hours</Text>
-
-        <View style={styles.hourlyWeatherCardsContainer}>
-          <View style={styles.hourlyWeatherCard}>
-            <Text>12°</Text>
-            <Windy />
-            <Text>17:00</Text>
-          </View>
-          <View style={styles.hourlyWeatherCard}>
-            <Text>12°</Text>
-            <Windy />
-            <Text>18:00</Text>
-          </View>
-          <View style={styles.hourlyWeatherCard}>
-            <Text>12°</Text>
-            <Windy />
-            <Text>19:00</Text>
-          </View>
-          <View style={styles.hourlyWeatherCard}>
-            <Text>12°</Text>
-            <Windy />
-            <Text>20:00</Text>
-          </View>
+        <View>
+          <Text style={styles.titleHeader}>Hourly weather</Text>
         </View>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          data={hourly}
+          renderItem={({ item }) => (
+            <View style={styles.hourlyWeatherCard}>
+              <Text style={styles.temperatureText}>
+                {item.temp.toFixed(0)}°
+              </Text>
+              <Windy />
+              <Text style={styles.hour}>{getTime(item.dt)}</Text>
+            </View>
+          )}
+        ></FlatList>
       </View>
     </>
   );
 };
 
-export default HourlyWeather;
-
 const styles = StyleSheet.create({
   hourlySectionContainer: {
-    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
     paddingLeft: 40,
@@ -61,11 +58,28 @@ const styles = StyleSheet.create({
   },
 
   hourlyWeatherCard: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 30,
-    paddingTop: 30,
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingLeft: 18,
+    paddingRight: 18,
+    paddingBottom: 16,
+    paddingTop: 16,
     borderRadius: 10,
     backgroundColor: '#f5f5f5',
+    marginRight: 20,
+  },
+
+  temperatureText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#273365',
+    marginBottom: 15,
+  },
+
+  hour: {
+    marginTop: 15,
+    color: '#273365',
   },
 });
+
+export default HourlyWeather;

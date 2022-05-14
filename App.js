@@ -14,10 +14,14 @@ import WeatherCard from './components/WeatherCard';
 import HourlyWeather from './components/HourlyWeather';
 
 export default function App() {
+  //Location info
   const [cityName, setcityName] = useState('Lewes');
   const [countryName, setCountryName] = useState('');
+  //Weather states
   const [current, setCurrent] = useState('');
   const [weekly, setWeekly] = useState([]);
+  const [hourly, setHourly] = useState([]);
+  //Other
   const [fetchError, setFetchError] = useState('');
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -45,6 +49,7 @@ export default function App() {
       /* Cleaning the state of fetchError. */
       setFetchError('');
       setCurrent(Data.current);
+      setHourly(Data.hourly);
       setWeekly(Data.daily.filter((data, index) => index !== 0));
       setLoading(false);
     } catch (error) {
@@ -82,7 +87,7 @@ export default function App() {
             countryName={countryName}
           />
           <AdditionalInfoCard current={current} />
-          <HourlyWeather />
+          <HourlyWeather hourly={hourly} />
         </>
       ) : null}
     </ScrollView>
