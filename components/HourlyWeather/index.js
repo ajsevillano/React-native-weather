@@ -38,7 +38,7 @@ const HourlyWeather = ({ hourly }) => {
               <Text style={styles.temperatureText}>
                 {item.temp.toFixed(0)}°
               </Text>
-              {getWeatherIcon(item.weather)}
+              {getWeatherIcon(item.weather, 'small')}
               <Text style={styles.hour}>{getTime(item.dt)}</Text>
             </View>
           )}

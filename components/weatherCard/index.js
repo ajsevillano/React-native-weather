@@ -1,26 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-//SVG Icons
-import Clouds from '../../assets/weatherIcons/big/cloudy.svg';
-import Sunny from '../../assets/weatherIcons/big/clear.svg';
-import Rain from '../../assets/weatherIcons/big/Rain.svg';
+import { getWeatherIcon } from '../../libs/getIcons';
 
 const WeatherCard = ({ current, cityName, countryName }) => {
-  const getWeatherIcon = (weather) => {
-    switch (true) {
-      case weather[0].main === 'Clouds':
-        return <Clouds />;
-
-      case weather[0].main === 'Rain':
-        return <Rain />;
-
-      default:
-        return <Sunny />;
-    }
-  };
-
   return (
     <View style={styles.weatherCard}>
-      {getWeatherIcon(current.weather)}
+      {getWeatherIcon(current.weather, 'big')}
       <Text>{current.weather[0].description}</Text>
       <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
       <Text style={styles.currentWeather}>
