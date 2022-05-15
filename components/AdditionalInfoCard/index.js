@@ -1,12 +1,13 @@
+//Libs
 import { StyleSheet, Text, View } from 'react-native';
-import Windy from '../../assets/weatherIcons/wind.svg';
-import Sunrise from '../../assets/weatherIcons/sunrise.svg';
-import Sunset from '../../assets/weatherIcons/sunset.svg';
-import Pressure from '../../assets/weatherIcons/pressure.svg';
-import Humidity from '../../assets/weatherIcons/humidity.svg';
-import UV from '../../assets/weatherIcons/uv.svg';
-
 import { getTime } from '../../libs/time';
+//SVG Icons
+import Windy from '../../assets/additionalInfo/wind.svg';
+import Sunrise from '../../assets/additionalInfo/sunrise.svg';
+import Sunset from '../../assets/additionalInfo/sunset.svg';
+import Pressure from '../../assets/additionalInfo/pressure.svg';
+import Humidity from '../../assets/additionalInfo/humidity.svg';
+import UV from '../../assets/additionalInfo/uv.svg';
 
 const AdditionalInfoCard = ({ current }) => {
   return (
