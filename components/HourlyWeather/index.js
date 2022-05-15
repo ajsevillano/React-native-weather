@@ -1,27 +1,11 @@
 //Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { getTime } from '../../libs/time';
-//SVG Icons
-import Clouds from '../../assets/weatherIcons/small/Clouds.svg';
-import Rain from '../../assets/weatherIcons/small/Rain.svg';
-import Sunny from '../../assets/weatherIcons/small/Clear.svg';
+import { getWeatherIcon } from '../../libs/getIcons';
 
 const HourlyWeather = ({ hourly }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
   const filterHours = hourly.filter((hour, index) => index > 0 && index < 8);
-
-  const getWeatherIcon = (weather) => {
-    switch (true) {
-      case weather[0].main === 'Clouds':
-        return <Clouds />;
-
-      case weather[0].main === 'Rain':
-        return <Rain />;
-
-      default:
-        return <Sunny />;
-    }
-  };
 
   return (
     <>
