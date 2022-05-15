@@ -1,15 +1,14 @@
+//Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { getTime } from '../../libs/time';
+//SVG Icons
 import Clouds from '../../assets/weatherIcons/small/Clouds.svg';
 import Rain from '../../assets/weatherIcons/small/Rain.svg';
 import Sunny from '../../assets/weatherIcons/small/Clear.svg';
 
 const HourlyWeather = ({ hourly }) => {
-  const getTime = (timestamp) => {
-    const milliseconds = timestamp * 1000;
-    const dateObject = new Date(milliseconds);
-    const time = dateObject.toString().split(' ');
-    return time[4]?.split('').slice(0, 5);
-  };
+  /* Filtering the hourly array to only show the next 8 hours. */
+  const filterHours = hourly.filter((hour, index) => index > 0 && index < 8);
 
   const getWeatherIcon = (weather) => {
     switch (true) {
@@ -33,7 +32,7 @@ const HourlyWeather = ({ hourly }) => {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal={true}
-          data={hourly}
+          data={filterHours}
           renderItem={({ item }) => (
             <View style={styles.hourlyWeatherCard}>
               <Text style={styles.temperatureText}>

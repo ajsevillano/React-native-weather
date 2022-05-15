@@ -6,6 +6,8 @@ import Pressure from '../../assets/weatherIcons/pressure.svg';
 import Humidity from '../../assets/weatherIcons/humidity.svg';
 import UV from '../../assets/weatherIcons/uv.svg';
 
+import { getTime } from '../../libs/time';
+
 const AdditionalInfoCard = ({ current }) => {
   return (
     <View style={styles.additionalInfo}>
@@ -44,13 +46,6 @@ const AdditionalInfoCard = ({ current }) => {
       </View>
     </View>
   );
-};
-
-const getTime = (timestamp) => {
-  const milliseconds = timestamp * 1000;
-  const dateObject = new Date(milliseconds);
-  const time = dateObject.toString().split(' ');
-  return time[4]?.split('').slice(0, 5);
 };
 
 const styles = StyleSheet.create({
