@@ -8,7 +8,9 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
+//Libs
 import { useState, useEffect } from 'react';
+//Components
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
 import WeatherCard from './components/WeatherCard';
 import HourlyWeather from './components/HourlyWeather';
@@ -23,7 +25,6 @@ export default function App() {
   const [hourly, setHourly] = useState([]);
   //Other
   const [fetchError, setFetchError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -32,7 +33,6 @@ export default function App() {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       setCurrent('');
       const cityCoordinates = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`
@@ -51,7 +51,6 @@ export default function App() {
       setCurrent(Data.current);
       setHourly(Data.hourly);
       setWeekly(Data.daily.filter((data, index) => index !== 0));
-      setLoading(false);
     } catch (error) {
       setFetchError(`City doesn't exist`);
     }
@@ -73,23 +72,13 @@ export default function App() {
       }
     >
       <StatusBar backgroundColor="#f5f5f5" />
-      {/* Conditionally render the weatherCard if there is data from the fetch. */}
-      {loading && (
-        <View style={styles.weatherCardLoading}>
-          <Text>Loading...</Text>
-        </View>
-      )}
-      {current ? (
-        <>
-          <WeatherCard
-            current={current}
-            cityName={cityName}
-            countryName={countryName}
-          />
-          <AdditionalInfoCard current={current} />
-          <HourlyWeather hourly={hourly} />
-        </>
-      ) : null}
+      <WeatherCard
+        current={current}
+        cityName={cityName}
+        countryName={countryName}
+      />
+      <AdditionalInfoCard current={current} />
+      <HourlyWeather hourly={hourly} />
     </ScrollView>
   );
 }
