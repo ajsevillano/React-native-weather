@@ -1,11 +1,18 @@
 //Libs
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 //Components
 import HourlyWeatherCard from './HourlyWeatherCard';
 
 const HourlyWeather = ({ hourly }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
-  const filterHours = hourly.filter((hour, index) => index > 0 && index < 8);
+  const filterHours =
+    hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
   return (
     <>
@@ -13,12 +20,21 @@ const HourlyWeather = ({ hourly }) => {
         <View>
           <Text style={styles.titleHeader}>Hourly weather</Text>
         </View>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          data={filterHours}
-          renderItem={({ item }) => <HourlyWeatherCard item={item} />}
-        ></FlatList>
+        {!hourly ? (
+          <>
+            <View style={styles.loadingIndicatorContainer}>
+              <Text style={styles.loadingText}>Loading</Text>
+              <ActivityIndicator size="large" color="#273365" />
+            </View>
+          </>
+        ) : (
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            data={filterHours}
+            renderItem={({ item }) => <HourlyWeatherCard item={item} />}
+          ></FlatList>
+        )}
       </View>
     </>
   );
@@ -26,6 +42,7 @@ const HourlyWeather = ({ hourly }) => {
 
 const styles = StyleSheet.create({
   hourlySectionContainer: {
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
     paddingLeft: 40,
@@ -38,6 +55,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#273365',
     paddingBottom: 20,
+  },
+
+  loadingIndicatorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+
+  loadingText: {
+    marginBottom: 20,
   },
 });
 

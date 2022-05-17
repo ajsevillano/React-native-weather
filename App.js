@@ -22,7 +22,7 @@ export default function App() {
   //Weather states
   const [current, setCurrent] = useState('');
   const [weekly, setWeekly] = useState([]);
-  const [hourly, setHourly] = useState([]);
+  const [hourly, setHourly] = useState('');
   //Other
   const [fetchError, setFetchError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
