@@ -16,33 +16,43 @@ const AdditionalInfoCard = ({ current }) => {
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
           <Windy />
-          <Text style={styles.textWind}>Wind: {current.wind_speed} m/h</Text>
+          <Text style={styles.textWind}>
+            Wind: {!current ? '- - m/h' : `${current.wind_speed}m/h`}
+          </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <Humidity />
-          <Text style={styles.textWind}>Humidity: {current.humidity}%</Text>
+          <Text style={styles.textWind}>
+            Humidity: {!current ? '- -%' : `${current.humidity}%`}
+          </Text>
         </View>
       </View>
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
           <Sunrise />
           <Text style={styles.textWind}>
-            Sunrise: {getTime(current.sunrise)}
+            Sunrise: {!current ? '--:--' : getTime(current.sunrise)}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <Sunset />
-          <Text style={styles.textWind}>Sunset: {getTime(current.sunset)}</Text>
+          <Text style={styles.textWind}>
+            Sunset: {!current ? '--:--' : getTime(current.sunset)}
+          </Text>
         </View>
       </View>
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
           <Pressure />
-          <Text style={styles.textWind}>Press.: {current.pressure} mb</Text>
+          <Text style={styles.textWind}>
+            Press.: {!current ? '- -  mb' : `${current.pressure} mb`}
+          </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <UV />
-          <Text style={styles.textWind}>UV: {current.uvi} </Text>
+          <Text style={styles.textWind}>
+            UV: {!current ? '- -' : `${current.uvi}`}
+          </Text>
         </View>
       </View>
     </View>
