@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   ScrollView,
   RefreshControl,
 } from 'react-native';
@@ -14,6 +15,7 @@ import { useState, useEffect } from 'react';
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
 import WeatherCard from './components/WeatherCard';
 import HourlyWeather from './components/HourlyWeather';
+import * as Location from 'expo-location';
 
 export default function App() {
   //Location info
@@ -26,6 +28,22 @@ export default function App() {
   //Other
   const [fetchError, setFetchError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -79,6 +97,11 @@ export default function App() {
       />
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>
+          {location && location.coords.latitude}
+        </Text>
+      </View>
     </ScrollView>
   );
 }
