@@ -1,14 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  ScrollView,
-  RefreshControl,
-} from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 //Libs
 import { useState, useEffect } from 'react';
 //Components
@@ -19,7 +12,8 @@ import * as Location from 'expo-location';
 
 export default function App() {
   //Location info
-  const [userLocation, setUserLocation] = useState([]);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [cityAndCountry, setCityAndCountry] = useState([]);
 
   //Weather states
@@ -35,9 +29,13 @@ export default function App() {
     const fetchUserLocation = async () => {
       /* Asking for permission to access the user's location. */
       let { status } = await Location.requestForegroundPermissionsAsync();
+      console.log(status);
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
+        Alert.alert(
+          'Permission denied',
+          'This app needs access to your location to show the weather in your area',
+          [{ text: 'OK' }]
+        );
       }
 
       /* Getting the user's location. */
@@ -45,11 +43,16 @@ export default function App() {
         accuracy: Location.Accuracy.Highest,
         maximumAge: 10000,
       });
-      fetchCityAndCountry(
-        Number(location.coords.latitude.toString().slice(0, 7)),
-        Number(location.coords.longitude.toString().slice(0, 7))
+
+      /* Slicing the latitude and longitude to 7 digits. */
+      const latitude = Number(location.coords.latitude.toString().slice(0, 7));
+      const longitude = Number(
+        location.coords.longitude.toString().slice(0, 7)
       );
-      setUserLocation(location);
+
+      fetchCityAndCountry(latitude, longitude);
+      setLatitude(latitude);
+      setLongitude(longitude);
     };
     fetchUserLocation();
   }, []);
@@ -64,8 +67,6 @@ export default function App() {
     fetchWeatherInfo(thelat, thelon);
   };
 
-  console.log(userLocation);
-
   const fetchWeatherInfo = async (thelat, thelon) => {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
@@ -79,10 +80,7 @@ export default function App() {
   // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
-    fetchCityAndCountry(
-      Number(userLocation.coords.latitude.toString().slice(0, 7)),
-      Number(userLocation.coords.longitude.toString().slice(0, 7))
-    );
+    fetchCityAndCountry(latitude, longitude);
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
