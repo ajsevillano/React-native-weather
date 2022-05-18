@@ -17,13 +17,23 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerLeft}>
           <Windy />
           <Text style={styles.textWind}>
-            Wind: {!current ? '- - m/h' : `${current.wind_speed}m/h`}
+            Wind:{' '}
+            {!current ? (
+              '- - m/h'
+            ) : (
+              <Text style={styles.boldData}>{`${current.wind_speed}m/h`}</Text>
+            )}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <Humidity />
           <Text style={styles.textWind}>
-            Humidity: {!current ? '- -%' : `${current.humidity}%`}
+            Humidity:{' '}
+            {!current ? (
+              '- -%'
+            ) : (
+              <Text style={styles.boldData}>{`${current.humidity}%`}</Text>
+            )}
           </Text>
         </View>
       </View>
@@ -31,13 +41,23 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerLeft}>
           <Sunrise />
           <Text style={styles.textWind}>
-            Sunrise: {!current ? '--:--' : getTime(current.sunrise)}
+            Sunrise:{' '}
+            {!current ? (
+              '--:--'
+            ) : (
+              <Text style={styles.boldData}>{getTime(current.sunrise)}</Text>
+            )}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <Sunset />
           <Text style={styles.textWind}>
-            Sunset: {!current ? '--:--' : getTime(current.sunset)}
+            Sunset:{' '}
+            {!current ? (
+              '--:--'
+            ) : (
+              <Text style={styles.boldData}>{getTime(current.sunset)}</Text>
+            )}
           </Text>
         </View>
       </View>
@@ -45,13 +65,23 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerLeft}>
           <Pressure />
           <Text style={styles.textWind}>
-            Press.: {!current ? '- -  mb' : `${current.pressure} mb`}
+            Press.:{' '}
+            {!current ? (
+              '- -  mb'
+            ) : (
+              <Text style={styles.boldData}>{`${current.pressure} mb`}</Text>
+            )}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
           <UV />
           <Text style={styles.textWind}>
-            UV: {!current ? '- -' : `${current.uvi}`}
+            UV:{' '}
+            {!current ? (
+              '- -'
+            ) : (
+              <Text style={styles.boldData}> {`${current.uvi}`}</Text>
+            )}
           </Text>
         </View>
       </View>
@@ -85,6 +115,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#777575',
     marginLeft: 5,
+  },
+
+  boldData: {
+    fontWeight: '500',
+    color: '#273365',
   },
 
   moreInfo: {

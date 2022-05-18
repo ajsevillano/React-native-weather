@@ -1,20 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { API_KEY } from '@env';
-import Constants from 'expo-constants';
-import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 //Libs
 import { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
+import * as Location from 'expo-location';
+import { API_KEY } from '@env';
+import Constants from 'expo-constants';
 //Components
 import AdditionalInfoCard from './components/AdditionalInfoCard/';
 import WeatherCard from './components/WeatherCard';
 import HourlyWeather from './components/HourlyWeather';
-import * as Location from 'expo-location';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   //Location info
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
-  const [cityAndCountry, setCityAndCountry] = useState([]);
+  const [coordinates, setCoordinates] = useState({});
+  const [cityAndCountry, setCityAndCountry] = useState({});
 
   //Weather states
   const [current, setCurrent] = useState('');
@@ -23,13 +22,11 @@ export default function App() {
 
   //Other
   const [refreshing, setRefreshing] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     const fetchUserLocation = async () => {
       /* Asking for permission to access the user's location. */
       let { status } = await Location.requestForegroundPermissionsAsync();
-      console.log(status);
       if (status !== 'granted') {
         Alert.alert(
           'Permission denied',
@@ -51,8 +48,7 @@ export default function App() {
       );
 
       fetchCityAndCountry(latitude, longitude);
-      setLatitude(latitude);
-      setLongitude(longitude);
+      setCoordinates({ latitude, longitude });
     };
     fetchUserLocation();
   }, []);
@@ -63,7 +59,11 @@ export default function App() {
       `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=4b6e93d558237270549de87a4606266d`
     );
     const coordinatesData = await getCityandCountry.json();
-    setCityAndCountry(coordinatesData);
+
+    setCityAndCountry({
+      country: coordinatesData[0].country,
+      cityName: coordinatesData[0].name,
+    });
     fetchWeatherInfo(thelat, thelon);
   };
 
@@ -80,7 +80,7 @@ export default function App() {
   // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
-    fetchCityAndCountry(latitude, longitude);
+    fetchCityAndCountry(coordinates.latitude, coordinates.longitude);
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -96,8 +96,8 @@ export default function App() {
       <StatusBar backgroundColor="#f5f5f5" />
       <WeatherCard
         current={current}
-        cityName={cityAndCountry[0]?.name}
-        countryName={cityAndCountry[0]?.country}
+        cityName={cityAndCountry.cityName}
+        countryName={cityAndCountry.country}
       />
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
