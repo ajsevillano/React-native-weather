@@ -28,39 +28,41 @@ export default function App() {
   const [fetchError, setFetchError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
   const [locationInfo, setLocationInfo] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    const fetchUserLocation = async () => {
+      /* Asking for permission to access the user's location. */
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({
+      /* Getting the user's location. */
+      let userLocation = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
         maximumAge: 10000,
       });
-      setLocation(location);
-
       fetchData(
-        Number(location.coords.latitude.toString().slice(0, 7)),
-        Number(location.coords.longitude.toString().slice(0, 7))
+        Number(userLocation.coords.latitude.toString().slice(0, 7)),
+        Number(userLocation.coords.longitude.toString().slice(0, 7))
       );
-    })();
+      setLocation(userLocation);
+    };
+    fetchUserLocation();
   }, []);
 
   const fetchData = async (thelat, thelon) => {
     try {
       setCurrent('');
-      const cityCoordinates = await fetch(
+      const getCityandCountry = await fetch(
         `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=4b6e93d558237270549de87a4606266d`
       );
-      const coordinatesData = await cityCoordinates.json();
+      const coordinatesData = await getCityandCountry.json();
       setLocationInfo(coordinatesData);
 
       const res = await fetch(
