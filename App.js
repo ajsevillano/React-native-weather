@@ -19,19 +19,17 @@ import * as Location from 'expo-location';
 
 export default function App() {
   //Location info
+  const [userLocation, setUserLocation] = useState([]);
+  const [cityAndCountry, setCityAndCountry] = useState([]);
 
   //Weather states
   const [current, setCurrent] = useState('');
   const [weekly, setWeekly] = useState([]);
   const [hourly, setHourly] = useState('');
+
   //Other
-  const [fetchError, setFetchError] = useState('');
   const [refreshing, setRefreshing] = useState(false);
-
-  const [location, setLocation] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
-
-  const [locationInfo, setLocationInfo] = useState([]);
 
   useEffect(() => {
     const fetchUserLocation = async () => {
@@ -43,48 +41,47 @@ export default function App() {
       }
 
       /* Getting the user's location. */
-      let userLocation = await Location.getCurrentPositionAsync({
+      let location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
         maximumAge: 10000,
       });
-      fetchData(
-        Number(userLocation.coords.latitude.toString().slice(0, 7)),
-        Number(userLocation.coords.longitude.toString().slice(0, 7))
+      fetchCityAndCountry(
+        Number(location.coords.latitude.toString().slice(0, 7)),
+        Number(location.coords.longitude.toString().slice(0, 7))
       );
-      setLocation(userLocation);
+      setUserLocation(location);
     };
     fetchUserLocation();
   }, []);
 
-  const fetchData = async (thelat, thelon) => {
-    try {
-      setCurrent('');
-      const getCityandCountry = await fetch(
-        `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=4b6e93d558237270549de87a4606266d`
-      );
-      const coordinatesData = await getCityandCountry.json();
-      setLocationInfo(coordinatesData);
-
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
-      );
-      const Data = await res.json();
-      /* Cleaning the state of fetchError. */
-      setFetchError('');
-      setCurrent(Data.current);
-      setHourly(Data.hourly);
-      setWeekly(Data.daily.filter((data, index) => index !== 0));
-    } catch (error) {
-      setFetchError(`City doesn't exist`);
-    }
+  const fetchCityAndCountry = async (thelat, thelon) => {
+    setCurrent('');
+    const getCityandCountry = await fetch(
+      `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=4b6e93d558237270549de87a4606266d`
+    );
+    const coordinatesData = await getCityandCountry.json();
+    setCityAndCountry(coordinatesData);
+    fetchWeatherInfo(thelat, thelon);
   };
 
-  //Hay que pasar los datos de lon y lat a este onRefresh
+  console.log(userLocation);
+
+  const fetchWeatherInfo = async (thelat, thelon) => {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
+    );
+    const data = await res.json();
+    setCurrent(data.current);
+    setHourly(data.hourly);
+    setWeekly(data.daily.filter((data, index) => index !== 0));
+  };
+
+  // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
-    fetchData(
-      Number(location.coords.latitude.toString().slice(0, 7)),
-      Number(location.coords.longitude.toString().slice(0, 7))
+    fetchCityAndCountry(
+      Number(userLocation.coords.latitude.toString().slice(0, 7)),
+      Number(userLocation.coords.longitude.toString().slice(0, 7))
     );
     setTimeout(() => {
       setRefreshing(false);
@@ -101,8 +98,8 @@ export default function App() {
       <StatusBar backgroundColor="#f5f5f5" />
       <WeatherCard
         current={current}
-        cityName={locationInfo[0]?.name}
-        countryName={locationInfo[0]?.country}
+        cityName={cityAndCountry[0]?.name}
+        countryName={cityAndCountry[0]?.country}
       />
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
