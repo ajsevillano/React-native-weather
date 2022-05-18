@@ -31,6 +31,8 @@ export default function App() {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [lon, setLon] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -42,26 +44,30 @@ export default function App() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      const thelat = Number(location.coords.latitude.toString().slice(0, 7));
+      const thelon = Number(location.coords.longitude.toString().slice(0, 7));
+      (thelat || thelon) && fetchData(thelat, thelon);
     })();
   }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = async (thelat, thelon) => {
     try {
       setCurrent('');
-      const cityCoordinates = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`
-      );
-      const coordinatesData = await cityCoordinates.json();
-      const lon = coordinatesData.coord.lon;
-      const lat = coordinatesData.coord.lat;
-      setCountryName(coordinatesData.sys.country);
+      // const cityCoordinates = await fetch(
+      //   `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`
+      // );
+      // const coordinatesData = await cityCoordinates.json();
+      // const lon = coordinatesData.coord.lon;
+
+      // const lat = coordinatesData.coord.lat;
+      // console.log(lat);
+      // setCountryName(coordinatesData.sys.country);
 
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
+      );
+      console.log(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
       );
       const Data = await res.json();
       /* Cleaning the state of fetchError. */
@@ -74,6 +80,7 @@ export default function App() {
     }
   };
 
+  //Hay que pasar los datos de lon y lat a este onRefresh
   const onRefresh = () => {
     setRefreshing(true);
     fetchData();
@@ -98,9 +105,7 @@ export default function App() {
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
       <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          {location && location.coords.latitude}
-        </Text>
+        <Text style={styles.paragraph}>{location && lat}</Text>
       </View>
     </ScrollView>
   );
