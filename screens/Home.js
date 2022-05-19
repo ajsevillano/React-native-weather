@@ -93,7 +93,7 @@ const Home = () => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <StatusBar backgroundColor="#f5f5f5" />
+      <StatusBar hidden={false} backgroundColor="#f5f5f5" />
       <WeatherCard
         current={current}
         cityName={cityAndCountry.cityName}
