@@ -35,10 +35,16 @@ const WeatherCard = ({ current, cityName, countryName }) => {
 
 const styles = StyleSheet.create({
   weatherCard: {
+    flex: 1,
     alignItems: 'center',
-    margin: 20,
+    backgroundColor: '#f5f5f5',
+    marginTop: 0,
+    marginBottom: 10,
+    marginLeft: 0,
+    marginRight: 0,
     borderRadius: 10,
-    padding: 20,
+    paddingTop: 30,
+    paddingBottom: 40,
   },
 
   temperature: {

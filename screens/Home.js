@@ -107,11 +107,11 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     marginTop: Constants.statusBarHeight,
     color: 'white',
-    flexGrow: 0,
   },
 
   weatherCardLoading: {
