@@ -1,8 +1,49 @@
-import { StyleSheet, Text, Button, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import OnboardingImg from '../assets/onboardingImage.svg';
+import * as Location from 'expo-location';
 
 const Onboarding = ({ navigation }) => {
+  const defaultButtonState = <Text style={styles.buttonText}>Get started</Text>;
+  const [buttonMsg, setButtonMsg] = useState(defaultButtonState);
+  const fetchUserLocation = async () => {
+    setButtonMsg(
+      <>
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          size="small"
+          color="#273365"
+        />
+        <Text style={styles.buttonText}>Loading</Text>
+      </>
+    );
+    /* Asking for permission to access the user's location. */
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permission denied',
+        'This app needs access to your location to show the weather in your area',
+        [{ text: 'OK' }]
+      );
+    } else {
+      /* Getting the user's location. */
+      let location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+        maximumAge: 10000,
+      });
+      navigation.navigate('Home');
+      setButtonMsg(defaultButtonState);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
@@ -12,14 +53,11 @@ const Onboarding = ({ navigation }) => {
       <View style={styles.bottonContainer}>
         <Text style={styles.welcomeHeader}>Welcome to minimal weather</Text>
         <Text style={styles.welcomeText}>
-          Before start you need to grand permission to enable location on your
+          Before start you need to grant permission to enable location on your
           phone
         </Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>Get Started</Text>
+        <TouchableOpacity style={styles.button} onPress={fetchUserLocation}>
+          {buttonMsg}
         </TouchableOpacity>
       </View>
     </View>
@@ -64,6 +102,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
+    flexDirection: 'row',
     backgroundColor: '#ffbf00',
     marginTop: 20,
     paddingVertical: 20,
@@ -76,6 +115,10 @@ const styles = StyleSheet.create({
     color: '#273365',
     fontSize: 25,
     fontWeight: '700',
+  },
+
+  activityIndicator: {
+    marginRight: 10,
   },
 });
 
