@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import OnboardingImg from '../assets/onboardingImage.svg';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Onboarding = ({ navigation }) => {
   const defaultButtonState = <Text style={styles.buttonText}>Get started</Text>;
@@ -39,9 +40,20 @@ const Onboarding = ({ navigation }) => {
         accuracy: Location.Accuracy.Highest,
         maximumAge: 10000,
       });
+      setStringValue();
       navigation.navigate('Home');
       setButtonMsg(defaultButtonState);
     }
+  };
+
+  const setStringValue = async () => {
+    try {
+      await AsyncStorage.setItem('isFirstTime', 'no');
+    } catch (e) {
+      // save error
+    }
+
+    console.log('Done.');
   };
 
   return (
