@@ -34,6 +34,7 @@ const Onboarding = ({ navigation }) => {
         'This app needs access to your location to show the weather in your area',
         [{ text: 'OK' }]
       );
+      setButtonMsg(defaultButtonState);
     } else {
       /* Getting the user's location. */
       let location = await Location.getCurrentPositionAsync({
@@ -41,8 +42,8 @@ const Onboarding = ({ navigation }) => {
         maximumAge: 10000,
       });
       setStringValue();
-      navigation.navigate('Home');
       setButtonMsg(defaultButtonState);
+      navigation.navigate('Home');
     }
   };
 
@@ -52,8 +53,6 @@ const Onboarding = ({ navigation }) => {
     } catch (e) {
       // save error
     }
-
-    console.log('Done.');
   };
 
   return (
