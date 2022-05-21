@@ -1,3 +1,4 @@
+//Libs
 import {
   StyleSheet,
   Text,
@@ -6,11 +7,13 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import OnboardingImg from '../assets/onboardingImage.svg';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+
+//SVG
+import OnboardingImg from '../assets/onboardingImage.svg';
 
 const Onboarding = ({ navigation }) => {
   const defaultButtonState = <Text style={styles.buttonText}>Get started</Text>;
@@ -36,23 +39,14 @@ const Onboarding = ({ navigation }) => {
       );
       setButtonMsg(defaultButtonState);
     } else {
-      /* Getting the user's location. */
-      let location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Highest,
-        maximumAge: 10000,
-      });
-      setStringValue();
+      setAsyncStorage();
       setButtonMsg(defaultButtonState);
       navigation.navigate('Home');
     }
   };
 
-  const setStringValue = async () => {
-    try {
-      await AsyncStorage.setItem('isFirstTime', 'no');
-    } catch (e) {
-      // save error
-    }
+  const setAsyncStorage = async () => {
+    await AsyncStorage.setItem('isFirstTime', 'false');
   };
 
   return (

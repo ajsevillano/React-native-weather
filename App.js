@@ -1,8 +1,10 @@
+//Libs
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
+
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState, useEffect } from 'react';
 
 //Components
 import Home from './screens/Home';
@@ -13,25 +15,15 @@ export default function App() {
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
+    const checkFirstTimeUsingApp = async () => {
+      /* Getting the value of the key `isFirstTime` from the AsyncStorage. */
       const value = await AsyncStorage.getItem('isFirstTime');
 
-      if (value === null) {
-        setFirstLoad(true);
-        setLoaded(true);
-      }
-
-      if (value === 'no') {
-        setLoaded(true);
-        setFirstLoad(false);
-      }
-
-      if (value === 'si') {
-        setFirstLoad(true);
-        setLoaded(true);
-      }
+      value === null && setFirstLoad(true), setLoaded(true);
+      value === 'false' && setFirstLoad(false), setLoaded(true);
+      value === 'true' && setFirstLoad(true), setLoaded(true);
     };
-    getData();
+    checkFirstTimeUsingApp();
   }, []);
 
   if (!isLoaded) return null;
