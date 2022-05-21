@@ -16,37 +16,32 @@ import { StatusBar } from 'expo-status-bar';
 import OnboardingImg from '../assets/onboardingImage.svg';
 
 const Onboarding = ({ navigation }) => {
-  const defaultButtonState = <Text style={styles.buttonText}>Get started</Text>;
-  const [buttonMsg, setButtonMsg] = useState(defaultButtonState);
+  const [buttonState, setButtonState] = useState(false);
   const fetchUserLocation = async () => {
-    setButtonMsg(
-      <>
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          size="small"
-          color="#273365"
-        />
-        <Text style={styles.buttonText}>Loading</Text>
-      </>
-    );
+    setButtonState(true);
     /* Asking for permission to access the user's location. */
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert(
-        'Permission denied',
-        'This app needs access to your location to show the weather in your area',
-        [{ text: 'OK' }]
-      );
-      setButtonMsg(defaultButtonState);
-    } else {
+    if (status === 'denied') {
+      showAlert();
+      setButtonState(false);
+    }
+    if (status === 'granted') {
       setAsyncStorage();
-      setButtonMsg(defaultButtonState);
+      setButtonState(false);
       navigation.navigate('Home');
     }
   };
 
   const setAsyncStorage = async () => {
     await AsyncStorage.setItem('isFirstTime', 'false');
+  };
+
+  const showAlert = () => {
+    Alert.alert(
+      'Permission denied',
+      'This app needs access to your location to show the weather in your area',
+      [{ text: 'OK' }]
+    );
   };
 
   return (
@@ -62,7 +57,17 @@ const Onboarding = ({ navigation }) => {
           phone
         </Text>
         <TouchableOpacity style={styles.button} onPress={fetchUserLocation}>
-          {buttonMsg}
+          {buttonState && (
+            <>
+              <ActivityIndicator
+                style={styles.activityIndicator}
+                size="small"
+                color="#273365"
+              />
+              <Text style={styles.buttonText}>Loading</Text>
+            </>
+          )}
+          {!buttonState && <Text style={styles.buttonText}>Get started</Text>}
         </TouchableOpacity>
       </View>
     </View>
