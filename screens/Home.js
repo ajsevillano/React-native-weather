@@ -108,8 +108,8 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'white',
+    flexDirection: 'row',
+    backgroundColor: 'green',
     marginTop: Constants.statusBarHeight,
     color: 'white',
   },

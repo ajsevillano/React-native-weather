@@ -11,7 +11,7 @@ import UV from '../../assets/additionalInfo/uv.svg';
 
 const AdditionalInfoCard = ({ current }) => {
   return (
-    <View style={styles.additionalInfo}>
+    <View style={styles.additionalInfoContainer}>
       <Text style={styles.moreInfo}>Additional info</Text>
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
@@ -65,7 +65,7 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerLeft}>
           <Pressure />
           <Text style={styles.textWind}>
-            Press.:{' '}
+            Press.:
             {!current ? (
               '- -  mb'
             ) : (
@@ -76,7 +76,7 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerRight}>
           <UV />
           <Text style={styles.textWind}>
-            UV:{' '}
+            UV:
             {!current ? (
               '- -'
             ) : (
@@ -90,31 +90,44 @@ const AdditionalInfoCard = ({ current }) => {
 };
 
 const styles = StyleSheet.create({
-  additionalInfo: {
+  additionalInfoContainer: {
     flex: 1,
-    backgroundColor: 'white',
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingBottom: 30,
+    flexDirection: 'column',
+    backgroundColor: 'yellow',
+    // paddingLeft: 40,
+    // paddingRight: 40,
+    // paddingBottom: 30,
+  },
+
+  infoBlock: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'orange',
+    borderColor: 'black',
+    borderWidth: 3,
+    // marginTop: 10,
+    // alignItems: 'flex-end',
   },
 
   InfoContainerLeft: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
 
   InfoContainerRight: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'flex-start',
-    marginLeft: 35,
+    // marginLeft: 35,
   },
 
   textWind: {
     fontSize: 17,
     color: '#777575',
-    marginLeft: 5,
+    // marginLeft: 5,
   },
 
   boldData: {
@@ -124,9 +137,8 @@ const styles = StyleSheet.create({
 
   moreInfo: {
     fontSize: 20,
-    marginTop: 30,
-    marginBottom: 10,
-    borderRadius: 10,
+    // marginTop: 30,
+    // marginBottom: 10,
     fontWeight: 'bold',
     color: '#273365',
   },
@@ -134,13 +146,6 @@ const styles = StyleSheet.create({
   humidity: {
     fontSize: 17,
     color: '#777575',
-  },
-
-  infoBlock: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10,
-    alignItems: 'flex-end',
   },
 });
 

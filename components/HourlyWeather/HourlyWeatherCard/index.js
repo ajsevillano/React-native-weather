@@ -15,12 +15,12 @@ const HourlyWeatherCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   hourlyWeatherCard: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
     alignItems: 'center',
-    paddingLeft: 18,
-    paddingRight: 18,
-    paddingBottom: 16,
-    paddingTop: 16,
+    // paddingLeft: 18,
+    // paddingRight: 18,
+    // paddingBottom: 16,
+    // paddingTop: 16,
     borderRadius: 10,
     backgroundColor: '#f5f5f5',
     marginRight: 20,

@@ -21,6 +21,7 @@ const Onboarding = ({ navigation }) => {
     setButtonState(true);
     /* Asking for permission to access the user's location. */
     let { status } = await Location.requestForegroundPermissionsAsync();
+    /* Check permission status */
     if (status === 'denied') {
       showAlert();
       setButtonState(false);

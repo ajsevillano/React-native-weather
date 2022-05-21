@@ -15,28 +15,26 @@ const HourlyWeather = ({ hourly }) => {
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
   return (
-    <>
-      <View style={styles.hourlySectionContainer}>
-        <View>
-          <Text style={styles.titleHeader}>Hourly weather</Text>
-        </View>
-        {!hourly ? (
-          <>
-            <View style={styles.loadingIndicatorContainer}>
-              <Text style={styles.loadingText}>Loading</Text>
-              <ActivityIndicator size="large" color="#273365" />
-            </View>
-          </>
-        ) : (
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            data={filterHours}
-            renderItem={({ item }) => <HourlyWeatherCard item={item} />}
-          ></FlatList>
-        )}
+    <View style={styles.hourlySectionContainer}>
+      <View>
+        <Text style={styles.titleHeader}>Hourly weather</Text>
       </View>
-    </>
+      {!hourly ? (
+        <>
+          <View style={styles.loadingIndicatorContainer}>
+            <Text style={styles.loadingText}>Loading</Text>
+            <ActivityIndicator size="large" color="#273365" />
+          </View>
+        </>
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          data={filterHours}
+          renderItem={({ item }) => <HourlyWeatherCard item={item} />}
+        ></FlatList>
+      )}
+    </View>
   );
 };
 
@@ -44,17 +42,18 @@ const styles = StyleSheet.create({
   hourlySectionContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingBottom: 20,
+    // backgroundColor: 'white',
+    backgroundColor: 'beige',
+    // paddingLeft: 40,
+    // paddingRight: 40,
+    // paddingBottom: 20,
   },
 
   titleHeader: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#273365',
-    paddingBottom: 20,
+    // paddingBottom: 20,
   },
 
   loadingIndicatorContainer: {
