@@ -91,7 +91,7 @@ const AdditionalInfoCard = ({ current }) => {
 
 const styles = StyleSheet.create({
   additionalInfoContainer: {
-    flex: 1,
+    flex: 1.7,
     flexDirection: 'column',
     backgroundColor: 'white',
     justifyContent: 'center',

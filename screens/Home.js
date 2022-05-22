@@ -93,8 +93,9 @@ const Home = () => {
   };
 
   return (
-    <View
+    <ScrollView
       style={styles.container}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
@@ -107,15 +108,13 @@ const Home = () => {
       />
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'green',
     marginTop: Constants.statusBarHeight,
     color: 'white',
   },
