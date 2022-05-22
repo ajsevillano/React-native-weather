@@ -42,7 +42,7 @@ const HourlyWeather = ({ hourly }) => {
 
 const styles = StyleSheet.create({
   hourlySectionContainer: {
-    flex: 1,
+    flex: 1.5,
     flexDirection: 'column',
     backgroundColor: 'white',
     justifyContent: 'center',
