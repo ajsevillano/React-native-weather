@@ -114,6 +114,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'white',
     flexDirection: 'column',
     marginTop: Constants.statusBarHeight,
     color: 'white',

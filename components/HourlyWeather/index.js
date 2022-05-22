@@ -40,12 +40,12 @@ const HourlyWeather = ({ hourly }) => {
 
 const styles = StyleSheet.create({
   hourlySectionContainer: {
-    flex: 1.3,
+    flex: 1.4,
     flexDirection: 'column',
     backgroundColor: 'white',
     justifyContent: 'center',
     paddingLeft: 40,
-    paddingRight: 20,
+    paddingRight: 40,
     paddingVertical: 20,
   },
 

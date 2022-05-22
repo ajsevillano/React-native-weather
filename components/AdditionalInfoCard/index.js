@@ -91,7 +91,7 @@ const AdditionalInfoCard = ({ current }) => {
 
 const styles = StyleSheet.create({
   additionalInfoContainer: {
-    flex: 1.7,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
   moreInfo: {
     fontSize: 20,
     marginBottom: 10,
+    marginTop: 10,
     fontWeight: 'bold',
     color: '#273365',
   },
