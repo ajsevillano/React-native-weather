@@ -1,6 +1,12 @@
 //Libs
 import { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  Alert,
+  View,
+} from 'react-native';
 import * as Location from 'expo-location';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
@@ -87,7 +93,7 @@ const Home = () => {
   };
 
   return (
-    <ScrollView
+    <View
       style={styles.container}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -101,14 +107,14 @@ const Home = () => {
       />
       <AdditionalInfoCard current={current} />
       <HourlyWeather hourly={hourly} />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: 'green',
     marginTop: Constants.statusBarHeight,
     color: 'white',

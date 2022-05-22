@@ -65,7 +65,7 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerLeft}>
           <Pressure />
           <Text style={styles.textWind}>
-            Press.:
+            Press.:{' '}
             {!current ? (
               '- -  mb'
             ) : (
@@ -76,7 +76,7 @@ const AdditionalInfoCard = ({ current }) => {
         <View style={styles.InfoContainerRight}>
           <UV />
           <Text style={styles.textWind}>
-            UV:
+            UV:{' '}
             {!current ? (
               '- -'
             ) : (
@@ -110,24 +110,24 @@ const styles = StyleSheet.create({
   },
 
   InfoContainerLeft: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'red',
+    minWidth: '50%',
   },
 
   InfoContainerRight: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    minWidth: '50%',
+    // justifyContent: 'flex-start',
     // marginLeft: 35,
   },
 
   textWind: {
     fontSize: 17,
     color: '#777575',
-    // marginLeft: 5,
+    marginLeft: 5,
   },
 
   boldData: {
