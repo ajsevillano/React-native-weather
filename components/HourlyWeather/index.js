@@ -27,12 +27,14 @@ const HourlyWeather = ({ hourly }) => {
           </View>
         </>
       ) : (
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          data={filterHours}
-          renderItem={({ item }) => <HourlyWeatherCard item={item} />}
-        ></FlatList>
+        <View>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            data={filterHours}
+            renderItem={({ item }) => <HourlyWeatherCard item={item} />}
+          ></FlatList>
+        </View>
       )}
     </View>
   );
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 40,
     paddingRight: 40,
-    paddingVertical: 30,
   },
 
   titleHeader: {
