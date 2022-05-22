@@ -93,26 +93,20 @@ const styles = StyleSheet.create({
   additionalInfoContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'yellow',
-    // paddingLeft: 40,
-    // paddingRight: 40,
-    // paddingBottom: 30,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    paddingLeft: 40,
+    paddingRight: 20,
   },
 
   infoBlock: {
-    flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'orange',
-    borderColor: 'black',
-    borderWidth: 3,
-    // marginTop: 10,
-    // alignItems: 'flex-end',
+    marginTop: 10,
   },
 
   InfoContainerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'red',
     minWidth: '50%',
   },
 
@@ -120,8 +114,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     minWidth: '50%',
-    // justifyContent: 'flex-start',
-    // marginLeft: 35,
   },
 
   textWind: {
@@ -137,8 +129,7 @@ const styles = StyleSheet.create({
 
   moreInfo: {
     fontSize: 20,
-    // marginTop: 30,
-    // marginBottom: 10,
+    marginBottom: 10,
     fontWeight: 'bold',
     color: '#273365',
   },
