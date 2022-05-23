@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
+import useFetch from '../libs/useFetch';
 
 //Components
 import AdditionalInfoCard from '../components/AdditionalInfoCard';
@@ -15,6 +16,9 @@ const Home = () => {
   //Location info
   const [coordinates, setCoordinates] = useState({});
   const [cityAndCountry, setCityAndCountry] = useState({});
+  const { data, error, loading } = useFetch(
+    `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=${API_KEY}`
+  );
 
   //Weather states
   const [current, setCurrent] = useState('');
@@ -44,8 +48,8 @@ const Home = () => {
     const coordinatesData = await getCityandCountry.json();
 
     setCityAndCountry({
-      country: coordinatesData[0].country,
-      cityName: coordinatesData[0].name,
+      country: data[0].country,
+      cityName: data[0].name,
     });
     fetchWeatherInfo(thelat, thelon);
   };
