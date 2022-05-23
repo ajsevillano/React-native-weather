@@ -1,15 +1,10 @@
 //Libs
 import { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  RefreshControl,
-  Alert,
-  View,
-} from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
+
 //Components
 import AdditionalInfoCard from '../components/AdditionalInfoCard';
 import WeatherCard from '../components/WeatherCard';
@@ -26,43 +21,25 @@ const Home = () => {
   const [weekly, setWeekly] = useState([]);
   const [hourly, setHourly] = useState('');
 
-  //Other
+  //Refresh state
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    const fetchUserLocation = async () => {
-      /* Asking for permission to access the user's location. */
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permission denied',
-          'This app needs access to your location to show the weather in your area',
-          [{ text: 'OK' }]
-        );
-      }
-
-      /* Getting the user's location. */
-      let location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Highest,
-        maximumAge: 10000,
-      });
-
-      /* Slicing the latitude and longitude to 7 digits. */
-      const latitude = Number(location.coords.latitude.toString().slice(0, 7));
-      const longitude = Number(
-        location.coords.longitude.toString().slice(0, 7)
-      );
-
+    const loadHomeScreen = async () => {
+      askPermision();
+      const location = await getUserLocation();
+      const latitude = prepareLatAndLong(location.coords.latitude);
+      const longitude = prepareLatAndLong(location.coords.longitude);
       fetchCityAndCountry(latitude, longitude);
       setCoordinates({ latitude, longitude });
     };
-    fetchUserLocation();
+    loadHomeScreen();
   }, []);
 
   const fetchCityAndCountry = async (thelat, thelon) => {
     setCurrent('');
     const getCityandCountry = await fetch(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=4b6e93d558237270549de87a4606266d`
+      `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=${API_KEY}`
     );
     const coordinatesData = await getCityandCountry.json();
 
@@ -83,6 +60,27 @@ const Home = () => {
     setWeekly(data.daily.filter((data, index) => index !== 0));
   };
 
+  /* Asking for permission to access the user's location. */
+  const askPermision = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permission denied',
+        'This app needs access to your location to show the weather in your area',
+        [{ text: 'OK' }]
+      );
+    }
+  };
+
+  //It returns a promise that resolves to the user's current location.
+  const getUserLocation = async () => {
+    let location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Highest,
+      maximumAge: 10000,
+    });
+    return location;
+  };
+
   // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
@@ -90,6 +88,11 @@ const Home = () => {
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
+  };
+
+  /* Slicing the latitude and longitude to 7 digits. */
+  const prepareLatAndLong = (coord) => {
+    return Number(coord.toString().slice(0, 7));
   };
 
   return (
