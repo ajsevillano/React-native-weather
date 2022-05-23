@@ -119,14 +119,6 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     color: 'white',
   },
-
-  weatherCardLoading: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: 20,
-    borderRadius: 10,
-    padding: 20,
-  },
 });
 
 export default Home;
