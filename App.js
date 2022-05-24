@@ -1,32 +1,33 @@
 //Libs
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
-import useGetLocation from './libs/useGetLocation';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Location from 'expo-location';
 
 //Components
 import Home from './screens/Home';
 import Onboarding from './screens/Onboarding';
 
 export default function App() {
-  const { location } = useGetLocation();
-
   const [firstLoad, setFirstLoad] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
-  const [theLocation, setTheLocation] = useState('');
+  const [location, setLocation] = useState('');
 
   useEffect(() => {
     const checkFirstTimeUsingApp = async () => {
       /* Getting the value of the key `isFirstTime` from the AsyncStorage. */
       const value = await AsyncStorage.getItem('isFirstTime');
+      const userLocation = await getUserLocation();
+      setLocation(userLocation);
 
       value === null && setFirstLoad(true), setLoaded(true);
       value === 'false' && setFirstLoad(false), setLoaded(true);
       value === 'true' && setFirstLoad(true), setLoaded(true);
     };
+
     checkFirstTimeUsingApp();
   }, []);
 
@@ -50,14 +51,14 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={Home}
-              initialParams={{ location }}
+              initialParams={{ age: location }}
             />
           </>
         ) : (
           <Stack.Screen
             name="Home"
             component={Home}
-            initialParams={{ location }}
+            initialParams={{ age: location }}
           />
         )}
       </Stack.Navigator>

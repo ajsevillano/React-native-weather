@@ -13,15 +13,13 @@ import HourlyWeather from '../components/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
 
 const Home = ({ route }) => {
-  console.log(route.params);
-  //Location info
   const [coordinates, setCoordinates] = useState({});
   const [cityAndCountry, setCityAndCountry] = useState({});
+  // const { data, error, loading } = useFetch(
+  //   `https://api.openweathermap.org/geo/1.0/reverse?lat=${route.params.age.coords.latitude}&lon=${route.params.age.coords.longitude}&limit=5&appid=${API_KEY}`
+  // );
   const { data, error, loading } = useFetch(
-    `https://api.openweathermap.org/geo/1.0/reverse?lat=${coordinates?.latitude}&lon=${coordinates?.longitude}&limit=5&appid=${API_KEY}`
-  );
-  const { data2, error2, loading2 } = useFetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates?.latitude}&lon=${coordinates?.longitude}&units=metric&exclude=minutely&appid=${API_KEY}`
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${route.params.age.coords.latitude}&lon=${route.params.age.coords.longitude}&units=metric&exclude=minutely&appid=${API_KEY}`
   );
 
   //Weather states
@@ -32,55 +30,62 @@ const Home = ({ route }) => {
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
 
+  // useEffect(() => {
+  //   setCurrent(data?.current);
+  //   console.log(current);
+  // }, []);
+
   useEffect(() => {
     const loadHomeScreen = async () => {
-      askPermision();
-      const location = await getUserLocation();
-      const latitude = prepareLatAndLong(location.coords.latitude);
-      const longitude = prepareLatAndLong(location.coords.longitude);
-      fetchCityAndCountry(latitude, longitude);
-      setCoordinates({ latitude, longitude });
+      // askPermision();
+      setCurrent(data?.current);
+      console.log(current);
+      // fetchCityAndCountry(
+      //   route.params.age.coords.latitude,
+      //   route.params.age.coords.longitude
+      // );
     };
     loadHomeScreen();
-  }, []);
+  }, [data]);
 
-  const fetchCityAndCountry = async (thelat, thelon) => {
-    setCurrent('');
-    // setCityAndCountry({
-    //   country: data[0]?.country,
-    //   cityName: data[0]?.name,
-    // });
-    fetchWeatherInfo();
-  };
+  // const fetchCityAndCountry = async (thelat, thelon) => {
+  //   setCurrent('');
+  //   setCityAndCountry({
+  //     country: data[0]?.country,
+  //     cityName: data[0]?.name,
+  //   });
+  //   console.log(data[0]?.country);
+  // };
 
-  const fetchWeatherInfo = async () => {
-    setCurrent(data2?.current);
-    setHourly(data2?.hourly);
-    setWeekly(data2?.daily.filter((data, index) => index !== 0));
-  };
+  // const fetchWeatherInfo = async () => {
+  //   setCurrent(data2?.current);
+  //   setHourly(data2?.hourly);
+  //   setWeekly(data2?.daily.filter((data, index) => index !== 0));
+  //   console.log(data2);
+  // };
 
-  /* Asking for permission to access the user's location. */
-  const askPermision = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert(
-        'Permission denied',
-        'This app needs access to your location to show the weather in your area',
-        [{ text: 'OK' }]
-      );
-    }
-  };
+  // /* Asking for permission to access the user's location. */
+  // const askPermision = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status !== 'granted') {
+  //     Alert.alert(
+  //       'Permission denied',
+  //       'This app needs access to your location to show the weather in your area',
+  //       [{ text: 'OK' }]
+  //     );
+  //   }
+  // };
 
-  //It returns a promise that resolves to the user's current location.
-  const getUserLocation = async () => {
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
-      maximumAge: 10000,
-    });
-    return location;
-  };
+  // //It returns a promise that resolves to the user's current location.
+  // const getUserLocation = async () => {
+  //   let location = await Location.getCurrentPositionAsync({
+  //     accuracy: Location.Accuracy.Highest,
+  //     maximumAge: 10000,
+  //   });
+  //   return location;
+  // };
 
-  // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
+  // // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
     fetchCityAndCountry(coordinates.latitude, coordinates.longitude);
@@ -89,10 +94,10 @@ const Home = ({ route }) => {
     }, 1000);
   };
 
-  /* Slicing the latitude and longitude to 7 digits. */
-  const prepareLatAndLong = (coord) => {
-    return Number(coord.toString().slice(0, 7));
-  };
+  // /* Slicing the latitude and longitude to 7 digits. */
+  // const prepareLatAndLong = (coord) => {
+  //   return Number(coord.toString().slice(0, 7));
+  // };
 
   return (
     <ScrollView
