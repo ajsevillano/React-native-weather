@@ -9,9 +9,9 @@ export default function useFetch(url) {
     (async function () {
       try {
         setLoading(true);
+
         const response = await fetch(url);
         const data = await response.json();
-
         setData(data);
       } catch (err) {
         setError(err);
@@ -19,6 +19,7 @@ export default function useFetch(url) {
         setLoading(false);
       }
     })();
+    // console.log(data);
   }, [url]);
 
   return { data, error, loading };
