@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getWeatherIcon } from '../../libs/getIcons';
 import Svg, { Circle } from 'react-native-svg';
 
-const WeatherCard = ({ current, cityName, countryName }) => {
+const WeatherCard = ({ current, cityName, countryName, loading }) => {
   return (
     <View style={styles.weatherCard}>
       {!current ? (

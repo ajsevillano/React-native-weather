@@ -14,13 +14,14 @@ import { StatusBar } from 'expo-status-bar';
 
 const Home = ({ route }) => {
   const [cityAndCountry, setCityAndCountry] = useState({});
-  const { data, error, loading } = useFetch(
+  const { data, error, loading, fetchUrl } = useFetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${route.params.location.coords.latitude}&lon=${route.params.location.coords.longitude}&units=metric&exclude=minutely&appid=${API_KEY}`
   );
   const {
     data: coorData,
     error: coorError,
     loading: coordLoading,
+    fetchUrl: coordfetchUrl,
   } = useFetch(
     `https://api.openweathermap.org/geo/1.0/reverse?lat=${route.params.location.coords.latitude}&lon=${route.params.location.coords.longitude}&limit=5&appid=${API_KEY}`
   );
@@ -36,20 +37,20 @@ const Home = ({ route }) => {
   useEffect(() => {
     const loadHomeScreen = async () => {
       askPermision();
-      fetchCityAndCountry();
-      fetchWeatherInfo();
+      getCityAndCountry();
+      getWeatherInfo();
     };
     loadHomeScreen();
   }, [data, coorData, refreshing]);
 
-  const fetchCityAndCountry = async () => {
+  const getCityAndCountry = async () => {
     setCityAndCountry({
       country: coorData[0]?.country,
       cityName: coorData[0]?.name,
     });
   };
 
-  const fetchWeatherInfo = async () => {
+  const getWeatherInfo = async () => {
     setCurrent(data.current);
     setHourly(data.hourly);
     setWeekly(data.daily);
@@ -70,6 +71,8 @@ const Home = ({ route }) => {
   // // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
+    fetchUrl();
+    coordfetchUrl();
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -86,10 +89,11 @@ const Home = ({ route }) => {
       <StatusBar hidden={false} backgroundColor="#f5f5f5" />
       <WeatherCard
         current={current}
+        loading={loading}
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfoCard current={current} />
+      <AdditionalInfoCard current={current} loading={loading} />
       <HourlyWeather hourly={hourly} />
     </ScrollView>
   );

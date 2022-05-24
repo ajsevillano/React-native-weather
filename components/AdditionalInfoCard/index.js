@@ -9,7 +9,7 @@ import Pressure from '../../assets/additionalInfo/pressure.svg';
 import Humidity from '../../assets/additionalInfo/humidity.svg';
 import UV from '../../assets/additionalInfo/uv.svg';
 
-const AdditionalInfoCard = ({ current }) => {
+const AdditionalInfoCard = ({ current, loading }) => {
   return (
     <View style={styles.additionalInfoContainer}>
       <Text style={styles.moreInfo}>Additional info</Text>
@@ -18,7 +18,7 @@ const AdditionalInfoCard = ({ current }) => {
           <Windy />
           <Text style={styles.textWind}>
             Wind:{' '}
-            {!current ? (
+            {loading ? (
               '- - m/h'
             ) : (
               <Text style={styles.boldData}>{`${current.wind_speed}m/h`}</Text>
@@ -29,7 +29,7 @@ const AdditionalInfoCard = ({ current }) => {
           <Humidity />
           <Text style={styles.textWind}>
             Humidity:{' '}
-            {!current ? (
+            {loading ? (
               '- -%'
             ) : (
               <Text style={styles.boldData}>{`${current.humidity}%`}</Text>
@@ -42,7 +42,7 @@ const AdditionalInfoCard = ({ current }) => {
           <Sunrise />
           <Text style={styles.textWind}>
             Sunrise:{' '}
-            {!current ? (
+            {loading ? (
               '--:--'
             ) : (
               <Text style={styles.boldData}>{getTime(current.sunrise)}</Text>
@@ -53,7 +53,7 @@ const AdditionalInfoCard = ({ current }) => {
           <Sunset />
           <Text style={styles.textWind}>
             Sunset:{' '}
-            {!current ? (
+            {loading ? (
               '--:--'
             ) : (
               <Text style={styles.boldData}>{getTime(current.sunset)}</Text>
@@ -66,7 +66,7 @@ const AdditionalInfoCard = ({ current }) => {
           <Pressure />
           <Text style={styles.textWind}>
             Press.:{' '}
-            {!current ? (
+            {loading ? (
               '- -  mb'
             ) : (
               <Text style={styles.boldData}>{`${current.pressure} mb`}</Text>
@@ -77,7 +77,7 @@ const AdditionalInfoCard = ({ current }) => {
           <UV />
           <Text style={styles.textWind}>
             UV:{' '}
-            {!current ? (
+            {loading ? (
               '- -'
             ) : (
               <Text style={styles.boldData}> {`${current.uvi}`}</Text>
