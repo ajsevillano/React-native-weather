@@ -58,7 +58,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
-            initialParams={{ age: location }}
+            initialParams={{ location: location }}
           />
         )}
       </Stack.Navigator>
