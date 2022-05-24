@@ -12,12 +12,16 @@ import WeatherCard from '../components/WeatherCard';
 import HourlyWeather from '../components/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
 
-const Home = () => {
+const Home = ({ route }) => {
+  console.log(route.params);
   //Location info
   const [coordinates, setCoordinates] = useState({});
   const [cityAndCountry, setCityAndCountry] = useState({});
   const { data, error, loading } = useFetch(
-    `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=${API_KEY}`
+    `https://api.openweathermap.org/geo/1.0/reverse?lat=${coordinates?.latitude}&lon=${coordinates?.longitude}&limit=5&appid=${API_KEY}`
+  );
+  const { data2, error2, loading2 } = useFetch(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates?.latitude}&lon=${coordinates?.longitude}&units=metric&exclude=minutely&appid=${API_KEY}`
   );
 
   //Weather states
@@ -42,26 +46,17 @@ const Home = () => {
 
   const fetchCityAndCountry = async (thelat, thelon) => {
     setCurrent('');
-    const getCityandCountry = await fetch(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=${API_KEY}`
-    );
-    const coordinatesData = await getCityandCountry.json();
-
-    setCityAndCountry({
-      country: data[0].country,
-      cityName: data[0].name,
-    });
-    fetchWeatherInfo(thelat, thelon);
+    // setCityAndCountry({
+    //   country: data[0]?.country,
+    //   cityName: data[0]?.name,
+    // });
+    fetchWeatherInfo();
   };
 
-  const fetchWeatherInfo = async (thelat, thelon) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
-    );
-    const data = await res.json();
-    setCurrent(data.current);
-    setHourly(data.hourly);
-    setWeekly(data.daily.filter((data, index) => index !== 0));
+  const fetchWeatherInfo = async () => {
+    setCurrent(data2?.current);
+    setHourly(data2?.hourly);
+    setWeekly(data2?.daily.filter((data, index) => index !== 0));
   };
 
   /* Asking for permission to access the user's location. */

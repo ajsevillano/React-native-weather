@@ -1,6 +1,7 @@
 //Libs
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
+import useGetLocation from './libs/useGetLocation';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,8 +12,11 @@ import Home from './screens/Home';
 import Onboarding from './screens/Onboarding';
 
 export default function App() {
+  const { location } = useGetLocation();
+
   const [firstLoad, setFirstLoad] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
+  const [theLocation, setTheLocation] = useState('');
 
   useEffect(() => {
     const checkFirstTimeUsingApp = async () => {
@@ -26,6 +30,14 @@ export default function App() {
     checkFirstTimeUsingApp();
   }, []);
 
+  const getUserLocation = async () => {
+    let location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Highest,
+      maximumAge: 10000,
+    });
+    return location;
+  };
+
   if (!isLoaded) return null;
 
   const Stack = createNativeStackNavigator();
@@ -35,10 +47,18 @@ export default function App() {
         {firstLoad ? (
           <>
             <Stack.Screen name="Onboarding" component={Onboarding} />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              initialParams={{ location }}
+            />
           </>
         ) : (
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            initialParams={{ location }}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>
