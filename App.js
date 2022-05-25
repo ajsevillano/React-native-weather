@@ -22,12 +22,23 @@ export default function App() {
       const value = await AsyncStorage.getItem('isFirstTime');
 
       if (value === 'false') {
-        const userLocation = await getUserLocation();
-        setLocation(userLocation);
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert(
+            'Permission denied',
+            'This app needs access to your location to show the weather in your area',
+            [{ text: 'OK' }]
+          );
+        } else {
+          const userLocation = await getUserLocation();
+          // askPermision();
+          setFirstLoad(false);
+          setLocation(userLocation);
+          setLoaded(true);
+        }
       }
 
       value === null && setFirstLoad(true), setLoaded(true);
-      value === 'false' && setFirstLoad(false), setLoaded(true);
       value === 'true' && setFirstLoad(true), setLoaded(true);
     };
 
@@ -41,6 +52,18 @@ export default function App() {
     });
     return location;
   };
+
+  /* Asking for permission to access the user's location. */
+  // const askPermision = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status !== 'granted') {
+  //     Alert.alert(
+  //       'Permission denied',
+  //       'This app needs access to your location to show the weather in your area',
+  //       [{ text: 'OK' }]
+  //     );
+  //   }
+  // };
 
   if (!isLoaded) return null;
 
