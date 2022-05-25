@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
+import { Alert } from 'react-native';
 
 //Components
 import Home from './screens/Home';
@@ -21,25 +22,27 @@ export default function App() {
       /* Getting the value of the key `isFirstTime` from the AsyncStorage. */
       const value = await AsyncStorage.getItem('isFirstTime');
 
+      //First time running the app
+      if (value === null || value === true) {
+        setFirstLoad(true);
+        setLoaded(true);
+      }
+
+      //If is not the first time running the app:
       if (value === 'false') {
         let { status } = await Location.requestForegroundPermissionsAsync();
+        //if for any reason the user remove the location permisson, show an alert
         if (status !== 'granted') {
-          Alert.alert(
-            'Permission denied',
-            'This app needs access to your location to show the weather in your area',
-            [{ text: 'OK' }]
-          );
-        } else {
+          showAlert();
+        }
+        //Otherwise
+        if (status === 'granted') {
           const userLocation = await getUserLocation();
-          // askPermision();
-          setFirstLoad(false);
+          //Set firstLoad on false if this is the first time launching the app
           setLocation(userLocation);
           setLoaded(true);
         }
       }
-
-      value === null && setFirstLoad(true), setLoaded(true);
-      value === 'true' && setFirstLoad(true), setLoaded(true);
     };
 
     checkFirstTimeUsingApp();
@@ -53,17 +56,17 @@ export default function App() {
     return location;
   };
 
-  /* Asking for permission to access the user's location. */
-  // const askPermision = async () => {
-  //   let { status } = await Location.requestForegroundPermissionsAsync();
-  //   if (status !== 'granted') {
-  //     Alert.alert(
-  //       'Permission denied',
-  //       'This app needs access to your location to show the weather in your area',
-  //       [{ text: 'OK' }]
-  //     );
-  //   }
-  // };
+  const showAlert = () => {
+    Alert.alert(
+      'Permission denied',
+      'Go to settings and allow access to your location for this app to work',
+      [
+        {
+          text: 'Ok',
+        },
+      ]
+    );
+  };
 
   if (!isLoaded) return null;
 
