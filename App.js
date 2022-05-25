@@ -19,32 +19,30 @@ export default function App() {
 
   useEffect(() => {
     const checkFirstTimeUsingApp = async () => {
-      /* Getting the value of the key `isFirstTime` from the AsyncStorage. */
-      const value = await AsyncStorage.getItem('isFirstTime');
+      // Getting the firstTimeRunningApp of the key `isFirstTime` from the AsyncStorage.
+      const firstTimeRunningApp = await AsyncStorage.getItem('isFirstTime');
 
-      //First time running the app
-      if (value === null || value === true) {
+      //Check if is the first time running the app
+      if (!firstTimeRunningApp || firstTimeRunningApp === 'true') {
         setFirstLoad(true);
         setLoaded(true);
       }
 
       //If is not the first time running the app:
-      if (value === 'false') {
+      if (firstTimeRunningApp === 'false') {
+        //if the permissions has been remove, request them again.
         let { status } = await Location.requestForegroundPermissionsAsync();
-        //if for any reason the user remove the location permisson, show an alert
-        if (status !== 'granted') {
-          showAlert();
-        }
-        //Otherwise
+
+        //If they denied again, show an alert
+        status === 'denied' && showAlert();
+
+        //Otherwise, get user location
         if (status === 'granted') {
-          const userLocation = await getUserLocation();
-          //Set firstLoad on false if this is the first time launching the app
-          setLocation(userLocation);
+          setLocation(await getUserLocation());
           setLoaded(true);
         }
       }
     };
-
     checkFirstTimeUsingApp();
   }, []);
 
