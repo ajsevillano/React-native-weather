@@ -1,6 +1,7 @@
 //Libs
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
+import getLocation from './libs/getLocation';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,21 +39,13 @@ export default function App() {
 
         //Otherwise, get user location
         if (status === 'granted') {
-          setLocation(await getUserLocation());
+          setLocation(await getLocation());
           setLoaded(true);
         }
       }
     };
     checkFirstTimeUsingApp();
   }, []);
-
-  const getUserLocation = async () => {
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
-      maximumAge: 10000,
-    });
-    return location;
-  };
 
   const showAlert = () => {
     Alert.alert(

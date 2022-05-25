@@ -11,6 +11,7 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import getLocation from '../libs/getLocation';
 
 //SVG
 import OnboardingImg from '../assets/onboardingImage.svg';
@@ -27,7 +28,7 @@ const Onboarding = ({ navigation }) => {
       setButtonState(false);
     }
     if (status === 'granted') {
-      const userLocation = await getUserLocation();
+      const userLocation = await getLocation();
       setAsyncStorage();
       setButtonState(false);
       navigation.navigate('Home', {
@@ -46,14 +47,6 @@ const Onboarding = ({ navigation }) => {
       'This app needs access to your location to show the weather in your area',
       [{ text: 'OK' }]
     );
-  };
-
-  const getUserLocation = async () => {
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
-      maximumAge: 10000,
-    });
-    return location;
   };
 
   return (
