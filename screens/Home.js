@@ -27,7 +27,7 @@ const Home = ({ route }) => {
   );
 
   //Weather states
-  const [current, setCurrent] = useState('');
+  const [current, setCurrent] = useState(null);
   const [weekly, setWeekly] = useState([]);
   const [hourly, setHourly] = useState('');
 

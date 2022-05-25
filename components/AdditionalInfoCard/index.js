@@ -21,7 +21,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '- - m/h'
             ) : (
-              <Text style={styles.boldData}>{`${current.wind_speed}m/h`}</Text>
+              <Text style={styles.boldData}>{`${current?.wind_speed}m/h`}</Text>
             )}
           </Text>
         </View>
@@ -32,7 +32,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '- -%'
             ) : (
-              <Text style={styles.boldData}>{`${current.humidity}%`}</Text>
+              <Text style={styles.boldData}>{`${current?.humidity}%`}</Text>
             )}
           </Text>
         </View>
@@ -45,7 +45,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '--:--'
             ) : (
-              <Text style={styles.boldData}>{getTime(current.sunrise)}</Text>
+              <Text style={styles.boldData}>{getTime(current?.sunrise)}</Text>
             )}
           </Text>
         </View>
@@ -56,7 +56,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '--:--'
             ) : (
-              <Text style={styles.boldData}>{getTime(current.sunset)}</Text>
+              <Text style={styles.boldData}>{getTime(current?.sunset)}</Text>
             )}
           </Text>
         </View>
@@ -69,7 +69,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '- -  mb'
             ) : (
-              <Text style={styles.boldData}>{`${current.pressure} mb`}</Text>
+              <Text style={styles.boldData}>{`${current?.pressure} mb`}</Text>
             )}
           </Text>
         </View>
@@ -80,7 +80,7 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '- -'
             ) : (
-              <Text style={styles.boldData}> {`${current.uvi}`}</Text>
+              <Text style={styles.boldData}> {`${current?.uvi}`}</Text>
             )}
           </Text>
         </View>

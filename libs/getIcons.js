@@ -16,10 +16,10 @@ import RainMini from '../assets/weatherIcons/small/rain.svg';
  */
 export const getWeatherIcon = (weather, iconSize) => {
   switch (true) {
-    case weather[0].main === 'Clouds':
+    case weather?.main === 'Clouds':
       return iconSize === 'big' ? <Clouds /> : <CloudsMini />;
 
-    case weather[0].main === 'Rain':
+    case weather?.main === 'Rain':
       return iconSize === 'big' ? <Rain /> : <RainMini />;
 
     default:
