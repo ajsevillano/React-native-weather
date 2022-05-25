@@ -27,9 +27,12 @@ const Onboarding = ({ navigation }) => {
       setButtonState(false);
     }
     if (status === 'granted') {
+      const userLocation = await getUserLocation();
       setAsyncStorage();
       setButtonState(false);
-      navigation.navigate('Home');
+      navigation.navigate('Home', {
+        location: userLocation,
+      });
     }
   };
 
@@ -43,6 +46,14 @@ const Onboarding = ({ navigation }) => {
       'This app needs access to your location to show the weather in your area',
       [{ text: 'OK' }]
     );
+  };
+
+  const getUserLocation = async () => {
+    let location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Highest,
+      maximumAge: 10000,
+    });
+    return location;
   };
 
   return (
