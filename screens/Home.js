@@ -29,7 +29,7 @@ const Home = ({ route }) => {
   //Weather states
   const [current, setCurrent] = useState(null);
   const [weekly, setWeekly] = useState([]);
-  const [hourly, setHourly] = useState('');
+  const [hourly, setHourly] = useState(null);
 
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
@@ -94,7 +94,7 @@ const Home = ({ route }) => {
         countryName={cityAndCountry.country}
       />
       <AdditionalInfoCard current={current} loading={loading} />
-      <HourlyWeather hourly={hourly} />
+      <HourlyWeather hourly={hourly} loading={loading} />
     </ScrollView>
   );
 };

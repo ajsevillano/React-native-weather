@@ -9,7 +9,7 @@ import {
 //Components
 import HourlyWeatherCard from './HourlyWeatherCard';
 
-const HourlyWeather = ({ hourly }) => {
+const HourlyWeather = ({ hourly, loading }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
   const filterHours =
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
@@ -19,7 +19,7 @@ const HourlyWeather = ({ hourly }) => {
       <View>
         <Text style={styles.titleHeader}>Hourly weather</Text>
       </View>
-      {!hourly ? (
+      {loading ? (
         <>
           <View style={styles.loadingIndicatorContainer}>
             <Text style={styles.loadingText}>Loading</Text>
@@ -60,13 +60,14 @@ const styles = StyleSheet.create({
   loadingIndicatorContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 20,
-    paddingTop: 20,
+    justifyContent: 'flex-start',
+    paddingVertical: 28,
   },
 
   loadingText: {
-    marginBottom: 20,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    color: '#273365',
   },
 });
 
