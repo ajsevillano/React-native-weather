@@ -20,8 +20,11 @@ export default function App() {
     const checkFirstTimeUsingApp = async () => {
       /* Getting the value of the key `isFirstTime` from the AsyncStorage. */
       const value = await AsyncStorage.getItem('isFirstTime');
-      const userLocation = await getUserLocation();
-      setLocation(userLocation);
+
+      if (value === 'false') {
+        const userLocation = await getUserLocation();
+        setLocation(userLocation);
+      }
 
       value === null && setFirstLoad(true), setLoaded(true);
       value === 'false' && setFirstLoad(false), setLoaded(true);
@@ -48,11 +51,7 @@ export default function App() {
         {firstLoad ? (
           <>
             <Stack.Screen name="Onboarding" component={Onboarding} />
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              initialParams={{ age: location }}
-            />
+            <Stack.Screen name="Home" component={Home} />
           </>
         ) : (
           <Stack.Screen
