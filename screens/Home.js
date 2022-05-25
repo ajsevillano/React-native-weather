@@ -1,9 +1,10 @@
 //Libs
 import { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
-import * as Location from 'expo-location';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
+import useFetch from '../libs/useFetch';
+import * as Location from 'expo-location';
 
 //Components
 import AdditionalInfoCard from '../components/AdditionalInfoCard';
@@ -11,15 +12,24 @@ import WeatherCard from '../components/WeatherCard';
 import HourlyWeather from '../components/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
 
-const Home = () => {
-  //Location info
-  const [coordinates, setCoordinates] = useState({});
+const Home = ({ route }) => {
   const [cityAndCountry, setCityAndCountry] = useState({});
+  const { data, error, loading, fetchUrl } = useFetch(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${route.params.location.coords.latitude}&lon=${route.params.location.coords.longitude}&units=metric&exclude=minutely&appid=${API_KEY}`
+  );
+  const {
+    data: coorData,
+    error: coorError,
+    loading: coordLoading,
+    fetchUrl: coordfetchUrl,
+  } = useFetch(
+    `https://api.openweathermap.org/geo/1.0/reverse?lat=${route.params.location.coords.latitude}&lon=${route.params.location.coords.longitude}&limit=5&appid=${API_KEY}`
+  );
 
   //Weather states
-  const [current, setCurrent] = useState('');
+  const [current, setCurrent] = useState(null);
   const [weekly, setWeekly] = useState([]);
-  const [hourly, setHourly] = useState('');
+  const [hourly, setHourly] = useState(null);
 
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
@@ -27,37 +37,23 @@ const Home = () => {
   useEffect(() => {
     const loadHomeScreen = async () => {
       askPermision();
-      const location = await getUserLocation();
-      const latitude = prepareLatAndLong(location.coords.latitude);
-      const longitude = prepareLatAndLong(location.coords.longitude);
-      fetchCityAndCountry(latitude, longitude);
-      setCoordinates({ latitude, longitude });
+      getCityAndCountry();
+      getWeatherInfo();
     };
     loadHomeScreen();
-  }, []);
+  }, [data, coorData, refreshing]);
 
-  const fetchCityAndCountry = async (thelat, thelon) => {
-    setCurrent('');
-    const getCityandCountry = await fetch(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${thelat}&lon=${thelon}&limit=5&appid=${API_KEY}`
-    );
-    const coordinatesData = await getCityandCountry.json();
-
+  const getCityAndCountry = async () => {
     setCityAndCountry({
-      country: coordinatesData[0].country,
-      cityName: coordinatesData[0].name,
+      country: coorData[0]?.country,
+      cityName: coorData[0]?.name,
     });
-    fetchWeatherInfo(thelat, thelon);
   };
 
-  const fetchWeatherInfo = async (thelat, thelon) => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${thelat}&lon=${thelon}&units=metric&exclude=minutely&appid=${API_KEY}`
-    );
-    const data = await res.json();
+  const getWeatherInfo = async () => {
     setCurrent(data.current);
     setHourly(data.hourly);
-    setWeekly(data.daily.filter((data, index) => index !== 0));
+    setWeekly(data.daily);
   };
 
   /* Asking for permission to access the user's location. */
@@ -72,27 +68,14 @@ const Home = () => {
     }
   };
 
-  //It returns a promise that resolves to the user's current location.
-  const getUserLocation = async () => {
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
-      maximumAge: 10000,
-    });
-    return location;
-  };
-
-  // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
+  // // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {
     setRefreshing(true);
-    fetchCityAndCountry(coordinates.latitude, coordinates.longitude);
+    fetchUrl();
+    coordfetchUrl();
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
-  };
-
-  /* Slicing the latitude and longitude to 7 digits. */
-  const prepareLatAndLong = (coord) => {
-    return Number(coord.toString().slice(0, 7));
   };
 
   return (
@@ -106,11 +89,12 @@ const Home = () => {
       <StatusBar hidden={false} backgroundColor="#f5f5f5" />
       <WeatherCard
         current={current}
+        loading={loading}
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfoCard current={current} />
-      <HourlyWeather hourly={hourly} />
+      <AdditionalInfoCard current={current} loading={loading} />
+      <HourlyWeather hourly={hourly} loading={loading} />
     </ScrollView>
   );
 };
