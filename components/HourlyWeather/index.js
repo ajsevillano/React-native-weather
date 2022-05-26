@@ -12,7 +12,7 @@ import HourlyWeatherCard from './HourlyWeatherCard';
 const HourlyWeather = ({ hourly, loading }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
   const filterHours =
-    hourly && hourly.filter((hour, index) => index > 0 && index < 8);
+    hourly && hourly.filter((hour, index) => index > -1 && index < 8);
 
   return (
     <View style={styles.hourlySectionContainer}>
@@ -32,7 +32,9 @@ const HourlyWeather = ({ hourly, loading }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={filterHours}
-            renderItem={({ item }) => <HourlyWeatherCard item={item} />}
+            renderItem={({ item, index }) => (
+              <HourlyWeatherCard item={item} index={index} />
+            )}
           ></FlatList>
         </View>
       )}
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingVertical: 28,
+    paddingVertical: 33,
   },
 
   loadingText: {
