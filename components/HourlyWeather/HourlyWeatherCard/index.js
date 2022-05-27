@@ -1,6 +1,6 @@
 //Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { getTime } from '../../../libs/time';
+import { getTime } from '../../../libs/getTime';
 import { getWeatherIcon } from '../../../libs/getIcons';
 
 const HourlyWeatherCard = ({ item, index }) => {

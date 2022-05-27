@@ -1,6 +1,6 @@
 //Libs
 import { StyleSheet, Text, View } from 'react-native';
-import { getTime } from '../../libs/time';
+import { getTime } from '../../libs/getTime';
 //SVG Icons
 import Windy from '../../assets/additionalInfo/wind.svg';
 import Sunrise from '../../assets/additionalInfo/sunrise.svg';
