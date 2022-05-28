@@ -1,22 +1,22 @@
 import Svg, { Path } from 'react-native-svg';
 
-const Windy = (props) => (
+const Sunrise = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    className="icon icon-tabler icon-tabler-wind"
+    className="icon icon-tabler icon-tabler-sunrise"
     width={20}
     height={20}
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="#000"
+    stroke="#ffbf00"
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
   >
     <Path d="M0 0h24v24H0z" stroke="none" />
-    <Path d="M5 8h8.5a2.5 2.5 0 1 0-2.34-3.24M3 12h15.5a2.5 2.5 0 1 1-2.34 3.24M4 16h5.5a2.5 2.5 0 1 1-2.34 3.24" />
+    <Path d="M3 17h1m16 0h1M5.6 10.6l.7.7m12.1-.7-.7.7M8 17a4 4 0 0 1 8 0M3 21h18M12 9V3l3 3M9 6l3-3" />
   </Svg>
 );
 
-export default Windy;
+export default Sunrise;

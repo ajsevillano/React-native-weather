@@ -1,22 +1,22 @@
 import Svg, { Path } from 'react-native-svg';
 
-const Windy = (props) => (
+const Humidity = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    className="icon icon-tabler icon-tabler-wind"
+    className="icon icon-tabler icon-tabler-droplet"
     width={20}
     height={20}
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="#000"
+    stroke="#273365"
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
   >
     <Path d="M0 0h24v24H0z" stroke="none" />
-    <Path d="M5 8h8.5a2.5 2.5 0 1 0-2.34-3.24M3 12h15.5a2.5 2.5 0 1 1-2.34 3.24M4 16h5.5a2.5 2.5 0 1 1-2.34 3.24" />
+    <Path d="M6.8 11a6 6 0 1 0 10.396 0l-5.197-8-5.2 8z" />
   </Svg>
 );
 
-export default Windy;
+export default Humidity;
