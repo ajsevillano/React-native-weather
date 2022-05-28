@@ -14,7 +14,7 @@ import RainMini from '../assets/weatherIcons/small/rain.svg';
  * @param iconSize - 'big' or 'small'
  * @returns A function that returns a component.
  */
-export const getWeatherIcon = (weather, iconSize) => {
+const getIcons = (weather, iconSize) => {
   switch (true) {
     case weather?.main === 'Clouds':
       return iconSize === 'big' ? <Clouds /> : <CloudsMini />;
@@ -22,7 +22,12 @@ export const getWeatherIcon = (weather, iconSize) => {
     case weather?.main === 'Rain':
       return iconSize === 'big' ? <Rain /> : <RainMini />;
 
-    default:
+    case weather?.main === 'Clear':
       return iconSize === 'big' ? <Sunny /> : <SunnyMini />;
+
+    default:
+      null;
   }
 };
+
+export default getIcons;

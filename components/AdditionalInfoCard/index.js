@@ -2,12 +2,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 //SVG Icons
-import Windy from '../../assets/additionalInfo/wind.svg';
 import Sunrise from '../../assets/additionalInfo/sunrise.svg';
 import Sunset from '../../assets/additionalInfo/sunset.svg';
 import Pressure from '../../assets/additionalInfo/pressure.svg';
 import Humidity from '../../assets/additionalInfo/humidity.svg';
 import UV from '../../assets/additionalInfo/uv.svg';
+import Windy from '../Svgs/Windy';
 
 const AdditionalInfoCard = ({ current, loading }) => {
   return (

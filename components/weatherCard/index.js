@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { getWeatherIcon } from '../../libs/getIcons';
+import getIcons from '../../libs/getIcons';
 import Svg, { Circle } from 'react-native-svg';
 
 const WeatherCard = ({ current, cityName, countryName, loading }) => {
@@ -19,7 +19,7 @@ const WeatherCard = ({ current, cityName, countryName, loading }) => {
       ) : (
         current && (
           <>
-            {getWeatherIcon(current.weather[0], 'big')}
+            {getIcons(current.weather[0], 'big')}
             <Text>{current.weather[0].description}</Text>
             <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
             <Text style={styles.currentWeather}>

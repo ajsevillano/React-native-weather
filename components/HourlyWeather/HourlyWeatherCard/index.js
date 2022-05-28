@@ -1,15 +1,15 @@
 //Libs
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../../libs/getTime';
-import { getWeatherIcon } from '../../../libs/getIcons';
+import getIcons from '../../../libs/getIcons';
 
 const HourlyWeatherCard = ({ item, index }) => {
   return (
     <View style={styles.hourlyWeatherCard}>
-      <Text style={styles.temperatureText}>{item.temp.toFixed(0)}°</Text>
-      {getWeatherIcon(item.weather[0], 'small')}
+      <Text style={styles.temperatureText}>{item?.temp.toFixed(0)}°</Text>
+      {getIcons(item?.weather[0], 'small')}
       <Text style={styles.hour}>
-        {index === 0 ? <Text style={styles.now}>NOW</Text> : getTime(item.dt)}
+        {index === 0 ? <Text style={styles.now}>NOW</Text> : getTime(item?.dt)}
       </Text>
     </View>
   );
