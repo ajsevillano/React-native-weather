@@ -1,4 +1,5 @@
 //SVG Icons (Big)
+import Snow from '../assets/weatherIcons/big/snow.svg';
 import Clouds from '../assets/weatherIcons/big/clouds.svg';
 import Sunny from '../assets/weatherIcons/big/clear.svg';
 import Rain from '../assets/weatherIcons/big/rain.svg';
@@ -9,6 +10,7 @@ import SunClouds from '../assets/weatherIcons/big/sun-clouds.svg';
 import SunCloudsNight from '../assets/weatherIcons/big/sun-clouds-night.svg';
 
 //SVG Icons (small)
+import SnowMini from '../assets/weatherIcons/small/snow.svg';
 import CloudsMini from '../assets/weatherIcons/small/clouds.svg';
 import SunnyMini from '../assets/weatherIcons/small/clear.svg';
 import RainMini from '../assets/weatherIcons/small/rain.svg';
@@ -26,6 +28,9 @@ import SunCloudsNightMini from '../assets/weatherIcons/small/sun-clouds-night.sv
  */
 const getIcons = (weather, iconSize) => {
   switch (true) {
+    case weather?.icon === '13d' || weather?.icon === '13n':
+      return iconSize === 'big' ? <Snow /> : <SnowMini />;
+
     case weather?.icon === '11d':
       return iconSize === 'big' ? <Storm /> : <StormMini />;
 
