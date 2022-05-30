@@ -7,7 +7,8 @@ const HourlyWeatherCard = ({ item, index }) => {
   return (
     <View style={styles.hourlyWeatherCard}>
       <Text style={styles.temperatureText}>{item?.temp.toFixed(0)}°</Text>
-      {getIcons(item?.weather[0], 'small')}
+      {console.log(item?.weather[0].icon)}
+      {getIcons(item?.weather[0].icon, 'small')}
       <Text style={styles.hour}>
         {index === 0 ? <Text style={styles.now}>NOW</Text> : getTime(item?.dt)}
       </Text>

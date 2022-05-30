@@ -18,7 +18,8 @@ import NightMoonRain from '../assets/weatherIcons/night-moon-rain.svg';
  * @returns A function that returns a component.
  */
 
-const getIcons = (weather, iconSize) => {
+const getIcons = (icon, iconSize) => {
+  console.log(icon);
   const WeatherIcons = {
     '13d': Snow,
     '13n': Snow,
@@ -35,7 +36,7 @@ const getIcons = (weather, iconSize) => {
     '01d': Sunny,
     '01n': ClearNight,
   };
-  const WeatherIconComponent = WeatherIcons[weather.icon];
+  const WeatherIconComponent = WeatherIcons[icon];
 
   return iconSize === 'big' ? (
     <WeatherIconComponent width={88} height={88} />
