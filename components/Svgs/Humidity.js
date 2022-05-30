@@ -1,6 +1,6 @@
 import Svg, { Path } from 'react-native-svg';
 
-const Humidity = (props) => (
+const Humidity = ({ props, theme }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-droplet"
@@ -8,7 +8,7 @@ const Humidity = (props) => (
     height={20}
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="#273365"
+    stroke={theme === 'light' ? '#273365' : '#d3d9ff'}
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"

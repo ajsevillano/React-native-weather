@@ -94,7 +94,11 @@ const Home = ({ route }) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <StatusBar hidden={false} backgroundColor="#f5f5f5" />
+      <StatusBar
+        hidden={false}
+        style="auto"
+        backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
+      />
       <WeatherCard
         theme={theme}
         current={current}
@@ -102,7 +106,7 @@ const Home = ({ route }) => {
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfoCard current={current} loading={loading} />
+      <AdditionalInfoCard current={current} loading={loading} theme={theme} />
       <HourlyWeather hourly={hourly} loading={loading} />
     </ScrollView>
   );
