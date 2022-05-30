@@ -11,89 +11,37 @@ import SunCloudsNight from '../assets/weatherIcons/sun-clouds-night.svg';
 import NightMoonRain from '../assets/weatherIcons/night-moon-rain.svg';
 
 /**
- * It returns an icon based on the weather icon code.
- * @param weather - {id: 803, main: "Clouds", description: "broken clouds", icon: "04d"}
+ * It takes in a weather object and an iconSize string, and returns a component based on the weather
+ * object's icon property.
+ * @param weather - {
  * @param iconSize - 'big' or 'small'
- * @returns A React component.
+ * @returns A function that returns a component.
  */
+
 const getIcons = (weather, iconSize) => {
-  switch (true) {
-    case weather?.icon === '13d' || weather?.icon === '13n':
-      return iconSize === 'big' ? (
-        <Snow width={88} height={88} />
-      ) : (
-        <Snow width={35} height={35} />
-      );
+  const WeatherIcons = {
+    '13d': Snow,
+    '13n': Snow,
+    '11d': Storm,
+    '03d': Clouds,
+    '03n': Clouds,
+    '04d': Clouds,
+    '04n': Clouds,
+    '02d': SunClouds,
+    '02n': SunCloudsNight,
+    '10d': SunRain,
+    '10n': NightMoonRain,
+    '09d': Rain,
+    '01d': Sunny,
+    '01n': ClearNight,
+  };
+  const DynamicComponent = WeatherIcons[weather.icon];
 
-    case weather?.icon === '11d':
-      return iconSize === 'big' ? (
-        <Storm width={88} height={88} />
-      ) : (
-        <Storm width={35} height={35} />
-      );
-
-    case weather?.icon === '03d' ||
-      weather?.icon === '03n' ||
-      weather?.icon === '04d' ||
-      weather?.icon === '04n':
-      return iconSize === 'big' ? (
-        <Clouds width={88} height={88} />
-      ) : (
-        <Clouds width={35} height={35} />
-      );
-
-    case weather?.icon === '02d':
-      return iconSize === 'big' ? (
-        <SunClouds width={88} height={88} />
-      ) : (
-        <SunClouds width={35} height={35} />
-      );
-
-    case weather?.icon === '02n':
-      return iconSize === 'big' ? (
-        <SunCloudsNight width={88} height={88} />
-      ) : (
-        <SunCloudsNight width={35} height={35} />
-      );
-
-    case weather?.icon === '10d':
-      return iconSize === 'big' ? (
-        <SunRain width={100} height={88} />
-      ) : (
-        <SunRain width={35} height={35} />
-      );
-
-    case weather?.icon === '09d':
-      return iconSize === 'big' ? (
-        <Rain width={88} height={88} />
-      ) : (
-        <Rain width={35} height={35} />
-      );
-
-    case weather?.icon === '01d':
-      return iconSize === 'big' ? (
-        <Sunny width={88} height={88} />
-      ) : (
-        <Sunny width={35} height={35} />
-      );
-
-    case weather?.icon === '01n':
-      return iconSize === 'big' ? (
-        <ClearNight width={88} height={88} />
-      ) : (
-        <ClearNight width={88} height={88} />
-      );
-
-    case weather?.icon === '10n':
-      return iconSize === 'big' ? (
-        <NightMoonRain width={88} height={88} />
-      ) : (
-        <NightMoonRain width={35} height={35} />
-      );
-
-    default:
-      null;
-  }
+  return iconSize === 'big' ? (
+    <DynamicComponent width={88} height={88} />
+  ) : (
+    <DynamicComponent width={35} height={35} />
+  );
 };
 
 export default getIcons;
