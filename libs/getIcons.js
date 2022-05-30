@@ -19,7 +19,6 @@ import NightMoonRain from '../assets/weatherIcons/night-moon-rain.svg';
  */
 
 const getIcons = (icon, iconSize) => {
-  console.log(icon);
   const WeatherIcons = {
     '13d': Snow,
     '13n': Snow,
