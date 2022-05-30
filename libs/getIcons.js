@@ -13,7 +13,7 @@ import NightMoonRain from '../assets/weatherIcons/night-moon-rain.svg';
 /**
  * It takes in a weather object and an iconSize string, and returns a component based on the weather
  * object's icon property.
- * @param weather - {
+ * @param weather - {id: 803, main: "Clouds", description: "broken clouds", icon: "04d"}
  * @param iconSize - 'big' or 'small'
  * @returns A function that returns a component.
  */
@@ -35,12 +35,12 @@ const getIcons = (weather, iconSize) => {
     '01d': Sunny,
     '01n': ClearNight,
   };
-  const DynamicComponent = WeatherIcons[weather.icon];
+  const WeatherIconComponent = WeatherIcons[weather.icon];
 
   return iconSize === 'big' ? (
-    <DynamicComponent width={88} height={88} />
+    <WeatherIconComponent width={88} height={88} />
   ) : (
-    <DynamicComponent width={35} height={35} />
+    <WeatherIconComponent width={35} height={35} />
   );
 };
 
