@@ -7,7 +7,7 @@ import getLocation from './libs/getLocation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
-import { Alert } from 'react-native';
+import { Alert, useColorScheme } from 'react-native';
 
 //Components
 import Home from './screens/Home';
@@ -17,6 +17,9 @@ export default function App() {
   const [firstLoad, setFirstLoad] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
   const [location, setLocation] = useState('');
+
+  //Default OS theme
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     const checkFirstTimeUsingApp = async () => {
@@ -74,7 +77,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
-            initialParams={{ location: location }}
+            initialParams={{ location: location, theme: colorScheme }}
           />
         )}
       </Stack.Navigator>

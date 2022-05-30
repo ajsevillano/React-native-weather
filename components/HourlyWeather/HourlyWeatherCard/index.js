@@ -3,15 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../../libs/getTime';
 import getIcons from '../../../libs/getIcons';
 
-const HourlyWeatherCard = ({ item, index }) => {
+const HourlyWeatherCard = ({ item }) => {
   return (
     <View style={styles.hourlyWeatherCard}>
       <Text style={styles.temperatureText}>{item?.temp.toFixed(0)}°</Text>
-      {console.log(getIcons(item?.weather[0].icon, 'small'))}
       {getIcons(item?.weather[0].icon, 'small')}
-      <Text style={styles.hour}>
-        {index === 0 ? <Text style={styles.now}>NOW</Text> : getTime(item?.dt)}
-      </Text>
+      <Text style={styles.hour}>{getTime(item?.dt)}</Text>
     </View>
   );
 };
