@@ -19,6 +19,7 @@ const WeatherCard = ({ current, cityName, countryName, loading }) => {
       ) : (
         current && (
           <>
+            {console.log(current.weather[0].icon)}
             {getIcons(current.weather[0], 'big')}
             <Text>{current.weather[0].description}</Text>
             <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>

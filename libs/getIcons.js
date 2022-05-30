@@ -8,6 +8,7 @@ import SunRain from '../assets/weatherIcons/big/sun-rain.svg';
 import ClearNight from '../assets/weatherIcons/big/clear-night.svg';
 import SunClouds from '../assets/weatherIcons/big/sun-clouds.svg';
 import SunCloudsNight from '../assets/weatherIcons/big/sun-clouds-night.svg';
+import NightMoonRain from '../assets/weatherIcons/big/night-moon-rain.svg';
 
 //SVG Icons (small)
 import SnowMini from '../assets/weatherIcons/small/snow.svg';
@@ -19,6 +20,7 @@ import SunRainMini from '../assets/weatherIcons/small/sun-rain.svg';
 import ClearNightMini from '../assets/weatherIcons/small/clear-night.svg';
 import SunCloudsMini from '../assets/weatherIcons/small/sun-clouds.svg';
 import SunCloudsNightMini from '../assets/weatherIcons/small/sun-clouds-night.svg';
+import NightMoonRainMini from '../assets/weatherIcons/small/night-moon-rain.svg';
 
 /**
  * If the weather is cloudy, return the big cloud icon, otherwise return the big sun icon.
@@ -57,6 +59,9 @@ const getIcons = (weather, iconSize) => {
 
     case weather?.icon === '01n':
       return iconSize === 'big' ? <ClearNight /> : <ClearNightMini />;
+
+    case weather?.icon === '10n':
+      return iconSize === 'big' ? <NightMoonRain /> : <NightMoonRainMini />;
 
     default:
       null;
