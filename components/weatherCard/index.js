@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
-import Svg, { Circle } from 'react-native-svg';
+import LoadingScreen from './loadingScreen';
 
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   const screenTheme = {
@@ -23,22 +23,7 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   return (
     <View style={[styles.container, getTheme('background')]}>
       {loading ? (
-        <>
-          <Svg height="88" width="88">
-            <Circle
-              cx="40"
-              cy="40"
-              r="40"
-              fill={theme === 'light' ? '#eaeaea' : '#414141'}
-            />
-          </Svg>
-          <Text style={getTheme('text')}>Loading</Text>
-          <Text style={[styles.temperature_number, getTheme('text')]}>--°</Text>
-          <Text style={[styles.location, getTheme('text')]}>Loading</Text>
-          <Text style={[styles.feels_like, getTheme('text')]}>
-            Feels like: Loading
-          </Text>
-        </>
+        <LoadingScreen theme={theme} getTheme={getTheme} />
       ) : (
         current && (
           <>
