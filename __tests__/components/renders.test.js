@@ -2,7 +2,7 @@
 import renderer from 'react-test-renderer';
 
 //Components
-import AdditionalInfoCard from '../../components/AdditionalInfoCard';
+import AdditionalInfoCard from '../../components/AdditionalInfo';
 import HourlyWeather from '../../components/HourlyWeather';
 import HourlyWeatherCard from '../../components/HourlyWeather/HourlyWeatherCard';
 import WeatherCard from '../../components/WeatherCard';

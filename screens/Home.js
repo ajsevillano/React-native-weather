@@ -7,7 +7,7 @@ import useFetch from '../libs/useFetch';
 import * as Location from 'expo-location';
 
 //Components
-import AdditionalInfoCard from '../components/AdditionalInfoCard';
+import AdditionalInfo from '../components/AdditionalInfo';
 import WeatherCard from '../components/WeatherCard';
 import HourlyWeather from '../components/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
@@ -106,7 +106,7 @@ const Home = ({ route }) => {
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfoCard current={current} loading={loading} theme={theme} />
+      <AdditionalInfo current={current} loading={loading} theme={theme} />
       <HourlyWeather hourly={hourly} loading={loading} theme={theme} />
     </ScrollView>
   );
