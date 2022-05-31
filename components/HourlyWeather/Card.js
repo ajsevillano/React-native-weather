@@ -1,9 +1,9 @@
 //Libs
 import { StyleSheet, Text, View } from 'react-native';
-import { getTime } from '../../../libs/getTime';
-import getIcons from '../../../libs/getIcons';
+import { getTime } from '../../libs/getTime';
+import getIcons from '../../libs/getIcons';
 
-const HourlyWeatherCard = ({ item, theme }) => {
+const Card = ({ item, theme }) => {
   const themeHourlyWeatherCard =
     theme === 'light' ? styles.lightCard : styles.darkCard;
 
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HourlyWeatherCard;
+export default Card;

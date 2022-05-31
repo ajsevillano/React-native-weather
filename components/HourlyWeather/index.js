@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 //Components
-import HourlyWeatherCard from './HourlyWeatherCard';
+import Card from './Card';
 
 const HourlyWeather = ({ hourly, loading, theme }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
@@ -39,9 +39,7 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={filterHours}
-            renderItem={({ item }) => (
-              <HourlyWeatherCard theme={theme} item={item} />
-            )}
+            renderItem={({ item }) => <Card theme={theme} item={item} />}
           ></FlatList>
         </View>
       )}

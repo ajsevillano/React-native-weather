@@ -3,14 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 import Card from './Card';
 
-//SVG Icons
-import Pressure from '../Svgs/Pressure';
-import Humidity from '../Svgs/Humidity';
-import UV from '../Svgs/UV';
-import Wind from '../Svgs/Windy';
-import Sunrise from '../Svgs/Sunrise';
-import Sunset from '../Svgs/Sunset';
-
 const AdditionalInfo = ({ current, loading, theme }) => {
   const screenTheme = {
     light: {
