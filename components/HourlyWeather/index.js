@@ -9,13 +9,16 @@ import {
 //Components
 import HourlyWeatherCard from './HourlyWeatherCard';
 
-const HourlyWeather = ({ hourly, loading }) => {
+const HourlyWeather = ({ hourly, loading, theme }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
   const filterHours =
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
+  const themeHourlyContainer =
+    theme === 'light' ? styles.lightContainer : styles.darkContainer;
+
   return (
-    <View style={styles.hourlySectionContainer}>
+    <View style={[styles.hourlySectionContainer, themeHourlyContainer]}>
       <View>
         <Text style={styles.titleHeader}>Hourly weather</Text>
       </View>
@@ -32,7 +35,9 @@ const HourlyWeather = ({ hourly, loading }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={filterHours}
-            renderItem={({ item }) => <HourlyWeatherCard item={item} />}
+            renderItem={({ item }) => (
+              <HourlyWeatherCard theme={theme} item={item} />
+            )}
           ></FlatList>
         </View>
       )}
@@ -44,10 +49,16 @@ const styles = StyleSheet.create({
   hourlySectionContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
     justifyContent: 'flex-start',
     paddingLeft: 40,
     paddingRight: 40,
+  },
+
+  lightContainer: {
+    backgroundColor: 'white',
+  },
+  darkContainer: {
+    backgroundColor: '#1b1b1b',
   },
 
   titleHeader: {

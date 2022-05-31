@@ -107,7 +107,7 @@ const Home = ({ route }) => {
         countryName={cityAndCountry.country}
       />
       <AdditionalInfoCard current={current} loading={loading} theme={theme} />
-      <HourlyWeather hourly={hourly} loading={loading} />
+      <HourlyWeather hourly={hourly} loading={loading} theme={theme} />
     </ScrollView>
   );
 };
