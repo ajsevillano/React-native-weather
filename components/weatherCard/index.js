@@ -6,23 +6,22 @@ import Svg, { Circle } from 'react-native-svg';
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   const screenTheme = {
     light: {
-      container: styles.lighteWeatherCard,
-      text: styles.lightTemperatureText,
+      background: styles.light_background,
+      text: styles.light_text,
     },
     dark: {
-      container: styles.darkeWeatherCard,
-      text: styles.darkTemperatureText,
+      background: styles.dark_background,
+      text: styles.dark_text,
     },
   };
 
-  const getTheme = (component) => {
-    return theme === 'light'
+  const getTheme = (component) =>
+    theme === 'light'
       ? screenTheme.light[component]
       : screenTheme.dark[component];
-  };
 
   return (
-    <View style={[styles.weatherCard, getTheme('container')]}>
+    <View style={[styles.container, getTheme('background')]}>
       {loading ? (
         <>
           <Svg height="88" width="88">
@@ -34,9 +33,9 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
             />
           </Svg>
           <Text style={getTheme('text')}>Loading</Text>
-          <Text style={[styles.temperature, getTheme('text')]}>--°</Text>
-          <Text style={[styles.currentWeather, getTheme('text')]}>Loading</Text>
-          <Text style={[styles.feelsLike, getTheme('text')]}>
+          <Text style={[styles.temperature_number, getTheme('text')]}>--°</Text>
+          <Text style={[styles.location, getTheme('text')]}>Loading</Text>
+          <Text style={[styles.feels_like, getTheme('text')]}>
             Feels like: Loading
           </Text>
         </>
@@ -47,13 +46,13 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
             <Text style={getTheme('text')}>
               {current.weather[0].description}
             </Text>
-            <Text style={[styles.temperature, getTheme('text')]}>
+            <Text style={[styles.temperature_number, getTheme('text')]}>
               {current.temp.toFixed(0)}°
             </Text>
-            <Text style={styles.currentWeather}>
+            <Text style={styles.location}>
               {cityName}, {countryName}
             </Text>
-            <Text style={styles.feelsLike}>
+            <Text style={styles.feels_like}>
               Feels like: {current.feels_like.toFixed(0)}°C
             </Text>
           </>
@@ -64,43 +63,43 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
 };
 
 const styles = StyleSheet.create({
-  weatherCard: {
+  container: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  lighteWeatherCard: {
-    backgroundColor: '#f5f5f5',
-  },
-  darkeWeatherCard: {
-    backgroundColor: '#222222',
-  },
-  temperature: {
+  temperature_number: {
     fontSize: 90,
     fontWeight: 'bold',
     marginLeft: 10,
   },
 
-  lightTemperatureText: {
-    color: '#273365',
-  },
-
-  darkTemperatureText: {
-    color: 'white',
-  },
-
-  currentWeather: {
+  location: {
     fontSize: 26,
     color: '#818181',
     margin: 0,
     padding: 0,
   },
 
-  feelsLike: {
+  feels_like: {
     marginTop: 5,
     fontSize: 16,
     color: '#aaaaaa',
+  },
+
+  //Theme
+  light_background: {
+    backgroundColor: '#f5f5f5',
+  },
+  dark_background: {
+    backgroundColor: '#222222',
+  },
+  light_text: {
+    color: '#273365',
+  },
+  dark_text: {
+    color: 'white',
   },
 });
 
