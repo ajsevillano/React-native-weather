@@ -17,12 +17,19 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
       {loading ? (
         <>
           <Svg height="88" width="88">
-            <Circle cx="40" cy="40" r="40" fill="#eaeaea" />
+            <Circle
+              cx="40"
+              cy="40"
+              r="40"
+              fill={theme === 'light' ? '#eaeaea' : '#414141'}
+            />
           </Svg>
-          <Text>Loading</Text>
-          <Text style={styles.temperature}>--°</Text>
-          <Text style={styles.currentWeather}>Loading</Text>
-          <Text style={styles.feelsLike}>Feels like: Loading</Text>
+          <Text style={temperatureText}>Loading</Text>
+          <Text style={[styles.temperature, temperatureText]}>--°</Text>
+          <Text style={[styles.currentWeather, temperatureText]}>Loading</Text>
+          <Text style={[styles.feelsLike, temperatureText]}>
+            Feels like: Loading
+          </Text>
         </>
       ) : (
         current && (
