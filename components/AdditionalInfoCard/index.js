@@ -31,7 +31,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
     <View style={[styles.container, getTheme('background')]}>
       <Text style={[styles.header, getTheme('text')]}>Additional info</Text>
       <View style={styles.conditions_container}>
-        <View style={styles.conditions_left_block}>
+        <View style={styles.conditions_card}>
           <Windy theme={theme} />
           <Text style={styles.condition_title}>
             Wind:{' '}
@@ -44,7 +44,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
             )}
           </Text>
         </View>
-        <View style={styles.conditions_right_block}>
+        <View style={styles.conditions_card}>
           <Humidity theme={theme} />
           <Text style={styles.condition_title}>
             Humidity:{' '}
@@ -57,9 +57,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
             )}
           </Text>
         </View>
-      </View>
-      <View style={styles.conditions_container}>
-        <View style={styles.conditions_left_block}>
+        <View style={styles.conditions_card}>
           <Sunrise />
           <Text style={styles.condition_title}>
             Sunrise:{' '}
@@ -72,7 +70,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
             )}
           </Text>
         </View>
-        <View style={styles.conditions_right_block}>
+        <View style={styles.conditions_card}>
           <Sunset />
           <Text style={styles.condition_title}>
             Sunset:{' '}
@@ -85,9 +83,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
             )}
           </Text>
         </View>
-      </View>
-      <View style={styles.conditions_container}>
-        <View style={styles.conditions_left_block}>
+        <View style={styles.conditions_card}>
           <Pressure theme={theme} />
           <Text style={styles.condition_title}>
             Press.:{' '}
@@ -100,7 +96,7 @@ const AdditionalInfoCard = ({ current, loading, theme }) => {
             )}
           </Text>
         </View>
-        <View style={styles.conditions_right_block}>
+        <View style={styles.conditions_card}>
           <UV theme={theme} />
           <Text style={styles.condition_title}>
             UV:
@@ -122,7 +118,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1.5,
     flexDirection: 'column',
-
     justifyContent: 'center',
     paddingLeft: 40,
     paddingRight: 20,
@@ -139,6 +134,15 @@ const styles = StyleSheet.create({
   conditions_container: {
     flexDirection: 'row',
     marginTop: 10,
+
+    flexWrap: 'wrap',
+  },
+
+  conditions_card: {
+    flexDirection: 'row',
+
+    width: '50%',
+    paddingVertical: 8,
   },
 
   condition_title: {
@@ -147,17 +151,17 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 
-  conditions_left_block: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minWidth: '50%',
-  },
+  // conditions_left_block: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   minWidth: '50%',
+  // },
 
-  conditions_right_block: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minWidth: '50%',
-  },
+  // conditions_right_block: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   minWidth: '50%',
+  // },
 
   bold: {
     fontWeight: '500',
