@@ -4,16 +4,25 @@ import getIcons from '../../libs/getIcons';
 import Svg, { Circle } from 'react-native-svg';
 
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
-  const themeWeatherCard =
-    theme === 'light' ? styles.lighteWeatherCard : styles.darkeWeatherCard;
+  const screenTheme = {
+    light: {
+      container: styles.lighteWeatherCard,
+      text: styles.lightTemperatureText,
+    },
+    dark: {
+      container: styles.darkeWeatherCard,
+      text: styles.darkTemperatureText,
+    },
+  };
 
-  const temperatureText =
-    theme === 'light'
-      ? styles.lightTemperatureText
-      : styles.darkTemperatureText;
+  const getTheme = (component) => {
+    return theme === 'light'
+      ? screenTheme.light[component]
+      : screenTheme.dark[component];
+  };
 
   return (
-    <View style={[styles.weatherCard, themeWeatherCard]}>
+    <View style={[styles.weatherCard, getTheme('container')]}>
       {loading ? (
         <>
           <Svg height="88" width="88">
@@ -24,10 +33,10 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
               fill={theme === 'light' ? '#eaeaea' : '#414141'}
             />
           </Svg>
-          <Text style={temperatureText}>Loading</Text>
-          <Text style={[styles.temperature, temperatureText]}>--°</Text>
-          <Text style={[styles.currentWeather, temperatureText]}>Loading</Text>
-          <Text style={[styles.feelsLike, temperatureText]}>
+          <Text style={getTheme('text')}>Loading</Text>
+          <Text style={[styles.temperature, getTheme('text')]}>--°</Text>
+          <Text style={[styles.currentWeather, getTheme('text')]}>Loading</Text>
+          <Text style={[styles.feelsLike, getTheme('text')]}>
             Feels like: Loading
           </Text>
         </>
@@ -35,10 +44,10 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
         current && (
           <>
             {getIcons(current.weather[0].icon, 'big')}
-            <Text style={temperatureText}>
+            <Text style={getTheme('text')}>
               {current.weather[0].description}
             </Text>
-            <Text style={[styles.temperature, temperatureText]}>
+            <Text style={[styles.temperature, getTheme('text')]}>
               {current.temp.toFixed(0)}°
             </Text>
             <Text style={styles.currentWeather}>
