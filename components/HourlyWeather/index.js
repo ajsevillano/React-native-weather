@@ -16,17 +16,21 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
 
   const themeHourlyContainer =
     theme === 'light' ? styles.lightContainer : styles.darkContainer;
+  const themeText = theme === 'light' ? styles.lightText : styles.darkText;
 
   return (
     <View style={[styles.hourlySectionContainer, themeHourlyContainer]}>
       <View>
-        <Text style={styles.titleHeader}>Hourly weather</Text>
+        <Text style={[styles.titleHeader, themeText]}>Hourly weather</Text>
       </View>
       {loading ? (
         <>
           <View style={styles.loadingIndicatorContainer}>
-            <Text style={styles.loadingText}>Loading</Text>
-            <ActivityIndicator size="large" color="#273365" />
+            <Text style={[styles.loadingText, themeText]}>Loading</Text>
+            <ActivityIndicator
+              size="large"
+              color={theme === 'light' ? '#273365' : 'white'}
+            />
           </View>
         </>
       ) : (
@@ -68,6 +72,14 @@ const styles = StyleSheet.create({
     color: '#273365',
   },
 
+  lightText: {
+    color: '#273365',
+  },
+
+  darkText: {
+    color: 'white',
+  },
+
   loadingIndicatorContainer: {
     flex: 1,
     alignItems: 'center',
@@ -78,7 +90,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginBottom: 10,
     fontWeight: 'bold',
-    color: '#273365',
   },
 });
 
