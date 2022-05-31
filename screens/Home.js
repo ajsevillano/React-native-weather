@@ -34,6 +34,9 @@ const Home = ({ route }) => {
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
 
+  //Theme
+  const theme = route.params.theme;
+
   useEffect(() => {
     const loadHomeScreen = async () => {
       askPermision();
@@ -78,33 +81,48 @@ const Home = ({ route }) => {
     }, 1000);
   };
 
+  const themeTextStyle =
+    theme === 'light' ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    theme === 'light' ? styles.lightContainer : styles.darkContainer;
+
   return (
     <ScrollView
-      style={styles.container}
+      style={[styles.container, themeContainerStyle]}
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <StatusBar hidden={false} backgroundColor="#f5f5f5" />
+      <StatusBar
+        hidden={false}
+        style="auto"
+        backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
+      />
       <WeatherCard
+        theme={theme}
         current={current}
         loading={loading}
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfoCard current={current} loading={loading} />
-      <HourlyWeather hourly={hourly} loading={loading} />
+      <AdditionalInfoCard current={current} loading={loading} theme={theme} />
+      <HourlyWeather hourly={hourly} loading={loading} theme={theme} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flexDirection: 'column',
     marginTop: Constants.statusBarHeight,
     color: 'white',
+  },
+  lightContainer: {
+    backgroundColor: 'white',
+  },
+  darkContainer: {
+    backgroundColor: 'black',
   },
 });
 

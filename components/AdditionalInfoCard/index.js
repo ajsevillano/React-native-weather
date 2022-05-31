@@ -10,30 +10,38 @@ import Windy from '../Svgs/Windy';
 import Sunrise from '../Svgs/Sunrise';
 import Sunset from '../Svgs/Sunset';
 
-const AdditionalInfoCard = ({ current, loading }) => {
+const AdditionalInfoCard = ({ current, loading, theme }) => {
+  const themeMoreInfoContainer =
+    theme === 'light' ? styles.lightContainer : styles.darkContainer;
+  const themeMoreInfoText =
+    theme === 'light' ? styles.lightText : styles.darkText;
   return (
-    <View style={styles.additionalInfoContainer}>
-      <Text style={styles.moreInfo}>Additional info</Text>
+    <View style={[styles.additionalInfoContainer, themeMoreInfoContainer]}>
+      <Text style={[styles.moreInfo, themeMoreInfoText]}>Additional info</Text>
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
-          <Windy />
+          <Windy theme={theme} />
           <Text style={styles.textWind}>
             Wind:{' '}
             {loading ? (
               '- - m/h'
             ) : (
-              <Text style={styles.boldData}>{`${current?.wind_speed}m/h`}</Text>
+              <Text
+                style={[styles.boldData, themeMoreInfoText]}
+              >{`${current?.wind_speed}m/h`}</Text>
             )}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
-          <Humidity />
+          <Humidity theme={theme} />
           <Text style={styles.textWind}>
             Humidity:{' '}
             {loading ? (
               '- -%'
             ) : (
-              <Text style={styles.boldData}>{`${current?.humidity}%`}</Text>
+              <Text
+                style={[styles.boldData, themeMoreInfoText]}
+              >{`${current?.humidity}%`}</Text>
             )}
           </Text>
         </View>
@@ -46,7 +54,9 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '--:--'
             ) : (
-              <Text style={styles.boldData}>{getTime(current?.sunrise)}</Text>
+              <Text style={[styles.boldData, themeMoreInfoText]}>
+                {getTime(current?.sunrise)}
+              </Text>
             )}
           </Text>
         </View>
@@ -57,31 +67,38 @@ const AdditionalInfoCard = ({ current, loading }) => {
             {loading ? (
               '--:--'
             ) : (
-              <Text style={styles.boldData}>{getTime(current?.sunset)}</Text>
+              <Text style={[styles.boldData, themeMoreInfoText]}>
+                {getTime(current?.sunset)}
+              </Text>
             )}
           </Text>
         </View>
       </View>
       <View style={styles.infoBlock}>
         <View style={styles.InfoContainerLeft}>
-          <Pressure />
+          <Pressure theme={theme} />
           <Text style={styles.textWind}>
             Press.:{' '}
             {loading ? (
               '- -  mb'
             ) : (
-              <Text style={styles.boldData}>{`${current?.pressure} mb`}</Text>
+              <Text
+                style={[styles.boldData, themeMoreInfoText]}
+              >{`${current?.pressure} mb`}</Text>
             )}
           </Text>
         </View>
         <View style={styles.InfoContainerRight}>
-          <UV />
+          <UV theme={theme} />
           <Text style={styles.textWind}>
             UV:{' '}
             {loading ? (
               '- -'
             ) : (
-              <Text style={styles.boldData}> {`${current?.uvi}`}</Text>
+              <Text style={[styles.boldData, themeMoreInfoText]}>
+                {' '}
+                {`${current?.uvi}`}
+              </Text>
             )}
           </Text>
         </View>
@@ -94,10 +111,18 @@ const styles = StyleSheet.create({
   additionalInfoContainer: {
     flex: 1.5,
     flexDirection: 'column',
-    backgroundColor: 'white',
+
     justifyContent: 'center',
     paddingLeft: 40,
     paddingRight: 20,
+  },
+
+  lightContainer: {
+    backgroundColor: 'white',
+  },
+
+  darkContainer: {
+    backgroundColor: '#1b1b1b',
   },
 
   infoBlock: {
@@ -125,15 +150,20 @@ const styles = StyleSheet.create({
 
   boldData: {
     fontWeight: '500',
-    color: '#273365',
   },
 
   moreInfo: {
     fontSize: 20,
     marginBottom: 10,
-
     fontWeight: 'bold',
+  },
+
+  lightText: {
     color: '#273365',
+  },
+
+  darkText: {
+    color: 'white',
   },
 
   humidity: {

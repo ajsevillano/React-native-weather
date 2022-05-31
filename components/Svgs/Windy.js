@@ -1,6 +1,6 @@
 import Svg, { Path } from 'react-native-svg';
 
-const Windy = (props) => (
+const Windy = ({ props, theme }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-wind"
@@ -8,7 +8,7 @@ const Windy = (props) => (
     height={20}
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="#000"
+    stroke={theme === 'light' ? '#273365' : '#d3d9ff'}
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"

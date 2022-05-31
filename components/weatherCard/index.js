@@ -3,25 +3,44 @@ import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
 import Svg, { Circle } from 'react-native-svg';
 
-const WeatherCard = ({ current, cityName, countryName, loading }) => {
+const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
+  const themeWeatherCard =
+    theme === 'light' ? styles.lighteWeatherCard : styles.darkeWeatherCard;
+
+  const temperatureText =
+    theme === 'light'
+      ? styles.lightTemperatureText
+      : styles.darkTemperatureText;
+
   return (
-    <View style={styles.weatherCard}>
+    <View style={[styles.weatherCard, themeWeatherCard]}>
       {loading ? (
         <>
           <Svg height="88" width="88">
-            <Circle cx="40" cy="40" r="40" fill="#eaeaea" />
+            <Circle
+              cx="40"
+              cy="40"
+              r="40"
+              fill={theme === 'light' ? '#eaeaea' : '#414141'}
+            />
           </Svg>
-          <Text>Loading</Text>
-          <Text style={styles.temperature}>--°</Text>
-          <Text style={styles.currentWeather}>Loading</Text>
-          <Text style={styles.feelsLike}>Feels like: Loading</Text>
+          <Text style={temperatureText}>Loading</Text>
+          <Text style={[styles.temperature, temperatureText]}>--°</Text>
+          <Text style={[styles.currentWeather, temperatureText]}>Loading</Text>
+          <Text style={[styles.feelsLike, temperatureText]}>
+            Feels like: Loading
+          </Text>
         </>
       ) : (
         current && (
           <>
-            {getIcons(current.weather[0], 'big')}
-            <Text>{current.weather[0].description}</Text>
-            <Text style={styles.temperature}>{current.temp.toFixed(0)}°</Text>
+            {getIcons(current.weather[0].icon, 'big')}
+            <Text style={temperatureText}>
+              {current.weather[0].description}
+            </Text>
+            <Text style={[styles.temperature, temperatureText]}>
+              {current.temp.toFixed(0)}°
+            </Text>
             <Text style={styles.currentWeather}>
               {cityName}, {countryName}
             </Text>
@@ -40,14 +59,26 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5',
   },
 
+  lighteWeatherCard: {
+    backgroundColor: '#f5f5f5',
+  },
+  darkeWeatherCard: {
+    backgroundColor: '#222222',
+  },
   temperature: {
     fontSize: 90,
     fontWeight: 'bold',
     marginLeft: 10,
+  },
+
+  lightTemperatureText: {
     color: '#273365',
+  },
+
+  darkTemperatureText: {
+    color: 'white',
   },
 
   currentWeather: {
