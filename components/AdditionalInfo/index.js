@@ -21,57 +21,35 @@ const AdditionalInfo = ({ current, loading, theme }) => {
       ? styles[screenTheme.light[component]]
       : styles[screenTheme.dark[component]];
 
+  const conditionObject = [
+    { Wind: { value: current?.wind_speed, unit: 'm/h' } },
+    { Humidity: { value: current?.humidity, unit: '%' } },
+    { Sunrise: { value: getTime(current?.sunrise) } },
+    { Sunset: { value: getTime(current?.sunset) } },
+    { Press: { value: current?.pressure, unit: 'Mb' } },
+    { UV: { value: current?.uvi } },
+  ];
+
+  const cardData = conditionObject?.map((element) => {
+    const condition = Object.keys(element);
+    const { value, unit } = element[condition];
+
+    return (
+      <Card
+        title={condition}
+        theme={theme}
+        loading={loading}
+        getTheme={getTheme}
+        condition={value}
+        unit={unit}
+      />
+    );
+  });
+
   return (
     <View style={[styles.container, getTheme('background')]}>
       <Text style={[styles.header, getTheme('text')]}>Additional info</Text>
-      <View style={styles.conditions_container}>
-        <Card
-          title="Wind"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={current?.wind_speed}
-          unit="m/h"
-        />
-        <Card
-          title="Humidity"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={current?.humidity}
-          unit="%"
-        />
-        <Card
-          title="Sunrise"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={getTime(current?.sunrise)}
-        />
-        <Card
-          title="Sunset"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={getTime(current?.sunset)}
-        />
-
-        <Card
-          title="Press"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={current?.pressure}
-          unit="mb"
-        />
-        <Card
-          title="UV"
-          theme={theme}
-          loading={loading}
-          getTheme={getTheme}
-          condition={current?.uvi}
-        />
-      </View>
+      <View style={styles.conditions_container}>{cardData}</View>
     </View>
   );
 };
