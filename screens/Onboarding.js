@@ -5,6 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import getLocation from '../libs/getLocation';
+import getTheme from '../libs/getTheme';
+
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../context/theme';
 
 //Components
 import Button from '../components/Button';
@@ -13,7 +18,10 @@ import Button from '../components/Button';
 import OnboardingImg from '../assets/onboardingImage.svg';
 import OnboardingImgDark from '../assets/onboardingImageDark.svg';
 
-const Onboarding = ({ navigation, route }) => {
+const Onboarding = ({ navigation }) => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
+  console.log(theme);
   const [buttonIsLoading, setButtonIsLoading] = useState(false);
   const fetchUserLocation = async () => {
     setButtonIsLoading(true);
@@ -45,24 +53,6 @@ const Onboarding = ({ navigation, route }) => {
       [{ text: 'OK' }]
     );
   };
-
-  const theme = route.params.theme;
-
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-      text: 'light_text',
-    },
-    dark: {
-      background: 'dark_background',
-      text: 'dark_text',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
 
   return (
     <View style={[styles.container, styles[getTheme('background')]]}>

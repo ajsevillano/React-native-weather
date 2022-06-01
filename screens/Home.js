@@ -1,10 +1,12 @@
 //Libs
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import ThemeContext from '../context/theme';
 import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
 import useFetch from '../libs/useFetch';
 import * as Location from 'expo-location';
+import getTheme from '../libs/getTheme';
 
 //Components
 import AdditionalInfo from '../components/AdditionalInfo';
@@ -26,6 +28,9 @@ const Home = ({ route }) => {
     `https://api.openweathermap.org/geo/1.0/reverse?lat=${route.params.location.coords.latitude}&lon=${route.params.location.coords.longitude}&limit=5&appid=${API_KEY}`
   );
 
+  //Theme from Context
+  const theme = useContext(ThemeContext);
+
   //Weather states
   const [current, setCurrent] = useState(null);
   const [weekly, setWeekly] = useState([]);
@@ -33,9 +38,6 @@ const Home = ({ route }) => {
 
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
-
-  //Theme
-  const theme = route.params.theme;
 
   useEffect(() => {
     const loadHomeScreen = async () => {
@@ -81,23 +83,9 @@ const Home = ({ route }) => {
     }, 1000);
   };
 
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-    },
-    dark: {
-      background: 'dark_background',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
-
   return (
     <ScrollView
-      style={[styles.container, styles[getTheme('background')]]}
+      style={[styles.container, styles[getTheme('background', theme)]]}
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -109,14 +97,13 @@ const Home = ({ route }) => {
         backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
       />
       <WeatherCard
-        theme={theme}
         current={current}
         loading={loading}
         cityName={cityAndCountry.cityName}
         countryName={cityAndCountry.country}
       />
-      <AdditionalInfo current={current} loading={loading} theme={theme} />
-      <HourlyWeather hourly={hourly} loading={loading} theme={theme} />
+      <AdditionalInfo current={current} loading={loading} />
+      <HourlyWeather hourly={hourly} loading={loading} />
     </ScrollView>
   );
 };

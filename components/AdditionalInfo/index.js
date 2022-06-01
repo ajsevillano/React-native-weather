@@ -3,10 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 import getTheme from '../../libs/getTheme';
 
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
+
 //Components
 import Card from './Card';
 
-const AdditionalInfo = ({ current, loading, theme }) => {
+const AdditionalInfo = ({ current, loading }) => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
   const conditionObject = [
     { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
     { Humidity: { id: 2, value: current?.humidity, unit: '%' } },

@@ -3,8 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 import getIcons from '../../libs/getIcons';
 import getTheme from '../../libs/getTheme';
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
 
-const Card = ({ item, theme }) => {
+const Card = ({ item }) => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
   return (
     <View
       style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}

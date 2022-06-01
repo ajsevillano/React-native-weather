@@ -2,7 +2,14 @@
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import getTheme from '../../libs/getTheme';
 
-const Loading = ({ theme }) => {
+//Context
+
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
+
+const Loading = () => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
   return (
     <>
       <View style={styles.Container}>

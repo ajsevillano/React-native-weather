@@ -1,11 +1,16 @@
 //Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import getTheme from '../../libs/getTheme';
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
 //Components
 import Card from './Card';
 import Loading from './Loading';
 
-const HourlyWeather = ({ hourly, loading, theme }) => {
+const HourlyWeather = ({ hourly, loading }) => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
   /* Filtering the hourly array to only show the next 8 hours. */
   const filterHours =
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
@@ -25,7 +30,7 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={filterHours}
-            renderItem={({ item }) => <Card theme={theme} item={item} />}
+            renderItem={({ item }) => <Card item={item} />}
           ></FlatList>
         </View>
       )}
