@@ -81,14 +81,25 @@ const Home = ({ route }) => {
     }, 1000);
   };
 
-  const themeTextStyle =
-    theme === 'light' ? styles.lightThemeText : styles.darkThemeText;
-  const themeContainerStyle =
-    theme === 'light' ? styles.lightContainer : styles.darkContainer;
+  const screenTheme = {
+    light: {
+      background: 'light_background',
+      text: 'light_text',
+    },
+    dark: {
+      background: 'dark_background',
+      text: 'dark_text',
+    },
+  };
+
+  const getTheme = (component) =>
+    theme === 'light'
+      ? styles[screenTheme.light[component]]
+      : styles[screenTheme.dark[component]];
 
   return (
     <ScrollView
-      style={[styles.container, themeContainerStyle]}
+      style={[styles.container, getTheme('background')]}
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -118,10 +129,10 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     color: 'white',
   },
-  lightContainer: {
+  light_background: {
     backgroundColor: '#f5f5f5',
   },
-  darkContainer: {
+  dark_background: {
     backgroundColor: '#222222',
   },
 });

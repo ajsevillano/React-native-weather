@@ -1,11 +1,5 @@
 //Libs
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 //Components
 import Card from './Card';
 import Loading from './Loading';
@@ -15,14 +9,28 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
   const filterHours =
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
-  const themeHourlyContainer =
-    theme === 'light' ? styles.lightContainer : styles.darkContainer;
-  const themeText = theme === 'light' ? styles.lightText : styles.darkText;
+  const screenTheme = {
+    light: {
+      background: 'light_background',
+      text: 'light_text',
+    },
+    dark: {
+      background: 'dark_background',
+      text: 'dark_text',
+    },
+  };
+
+  const getTheme = (component) =>
+    theme === 'light'
+      ? styles[screenTheme.light[component]]
+      : styles[screenTheme.dark[component]];
 
   return (
-    <View style={[styles.hourlySectionContainer, themeHourlyContainer]}>
+    <View style={[styles.Container, getTheme('background')]}>
       <View>
-        <Text style={[styles.titleHeader, themeText]}>Hourly weather</Text>
+        <Text style={[styles.titleHeader, getTheme('text')]}>
+          Hourly weather
+        </Text>
       </View>
       {loading ? (
         <Loading theme={theme} />
@@ -41,19 +49,12 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
 };
 
 const styles = StyleSheet.create({
-  hourlySectionContainer: {
+  Container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingLeft: 40,
     paddingRight: 40,
-  },
-
-  lightContainer: {
-    backgroundColor: 'white',
-  },
-  darkContainer: {
-    backgroundColor: '#1b1b1b',
   },
 
   titleHeader: {
@@ -63,11 +64,18 @@ const styles = StyleSheet.create({
     color: '#273365',
   },
 
-  lightText: {
-    color: '#273365',
+  //Theme
+  light_background: {
+    backgroundColor: 'white',
+  },
+  dark_background: {
+    backgroundColor: '#1b1b1b',
   },
 
-  darkText: {
+  light_text: {
+    color: '#273365',
+  },
+  dark_text: {
     color: 'white',
   },
 });

@@ -15,8 +15,9 @@ import getLocation from '../libs/getLocation';
 
 //SVG
 import OnboardingImg from '../assets/onboardingImage.svg';
+import OnboardingImgDark from '../assets/onboardingImageDark.svg';
 
-const Onboarding = ({ navigation }) => {
+const Onboarding = ({ navigation, route }) => {
   const [buttonState, setButtonState] = useState(false);
   const fetchUserLocation = async () => {
     setButtonState(true);
@@ -49,14 +50,34 @@ const Onboarding = ({ navigation }) => {
     );
   };
 
+  const theme = route.params.theme;
+
+  const screenTheme = {
+    light: {
+      background: 'light_background',
+      text: 'light_text',
+    },
+    dark: {
+      background: 'dark_background',
+      text: 'dark_text',
+    },
+  };
+
+  const getTheme = (component) =>
+    theme === 'light'
+      ? styles[screenTheme.light[component]]
+      : styles[screenTheme.dark[component]];
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, getTheme('background')]}>
       <StatusBar hidden={true} />
       <View style={styles.imgContainer}>
-        <OnboardingImg />
+        {theme === 'light' ? <OnboardingImg /> : <OnboardingImgDark />}
       </View>
       <View style={styles.bottonContainer}>
-        <Text style={styles.welcomeHeader}>Welcome to minimal weather</Text>
+        <Text style={[styles.welcomeHeader, getTheme('text')]}>
+          Welcome to minimal weather
+        </Text>
         <Text style={styles.welcomeText}>
           Before start you need to grant permission to enable location on your
           phone
@@ -86,22 +107,36 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
+  //Theme
+  light_background: {
+    backgroundColor: 'white',
+  },
+
+  dark_background: {
+    backgroundColor: '#222222',
+  },
+
+  light_text: {
+    color: '#273365',
+  },
+
+  dark_text: {
+    color: 'white',
+  },
+
   imgContainer: {
     flex: 1.5,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   bottonContainer: {
     flex: 1,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   welcomeHeader: {
-    color: '#273365',
     fontWeight: '700',
     fontSize: 30,
     marginBottom: 5,

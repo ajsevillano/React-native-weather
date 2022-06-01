@@ -70,7 +70,11 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {firstLoad ? (
           <>
-            <Stack.Screen name="Onboarding" component={Onboarding} />
+            <Stack.Screen
+              name="Onboarding"
+              component={Onboarding}
+              initialParams={{ theme: colorScheme }}
+            />
             <Stack.Screen name="Home" component={Home} />
           </>
         ) : (

@@ -6,19 +6,19 @@ import Loading from './Loading';
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   const screenTheme = {
     light: {
-      background: styles.light_background,
-      text: styles.light_text,
+      background: 'light_background',
+      text: 'light_text',
     },
     dark: {
-      background: styles.dark_background,
-      text: styles.dark_text,
+      background: 'dark_background',
+      text: 'dark_text',
     },
   };
 
   const getTheme = (component) =>
     theme === 'light'
-      ? screenTheme.light[component]
-      : screenTheme.dark[component];
+      ? styles[screenTheme.light[component]]
+      : styles[screenTheme.dark[component]];
 
   return (
     <View style={[styles.container, getTheme('background')]}>
