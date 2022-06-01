@@ -18,8 +18,8 @@ const AdditionalInfo = ({ current, loading, theme }) => {
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
 
   const conditionObject = [
     { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
@@ -49,8 +49,10 @@ const AdditionalInfo = ({ current, loading, theme }) => {
   });
 
   return (
-    <View style={[styles.container, getTheme('background')]}>
-      <Text style={[styles.header, getTheme('text')]}>Additional info</Text>
+    <View style={[styles.container, styles[getTheme('background')]]}>
+      <Text style={[styles.header, styles[getTheme('text')]]}>
+        Additional info
+      </Text>
       <View style={styles.conditions_container}>{cardData}</View>
     </View>
   );

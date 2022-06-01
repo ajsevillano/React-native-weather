@@ -22,13 +22,13 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
 
   return (
-    <View style={[styles.Container, getTheme('background')]}>
+    <View style={[styles.Container, styles[getTheme('background')]]}>
       <View>
-        <Text style={[styles.titleHeader, getTheme('text')]}>
+        <Text style={[styles.titleHeader, styles[getTheme('text')]]}>
           Hourly weather
         </Text>
       </View>

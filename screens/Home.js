@@ -84,22 +84,20 @@ const Home = ({ route }) => {
   const screenTheme = {
     light: {
       background: 'light_background',
-      text: 'light_text',
     },
     dark: {
       background: 'dark_background',
-      text: 'dark_text',
     },
   };
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
 
   return (
     <ScrollView
-      style={[styles.container, getTheme('background')]}
+      style={[styles.container, styles[getTheme('background')]]}
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

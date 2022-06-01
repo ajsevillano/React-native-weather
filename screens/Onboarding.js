@@ -61,17 +61,17 @@ const Onboarding = ({ navigation, route }) => {
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
 
   return (
-    <View style={[styles.container, getTheme('background')]}>
+    <View style={[styles.container, styles[getTheme('background')]]}>
       <StatusBar hidden={true} />
       <View style={styles.imgContainer}>
         {theme === 'light' ? <OnboardingImg /> : <OnboardingImgDark />}
       </View>
       <View style={styles.bottonContainer}>
-        <Text style={[styles.welcomeHeader, getTheme('text')]}>
+        <Text style={[styles.welcomeHeader, styles[getTheme('text')]]}>
           Welcome to minimal weather
         </Text>
         <Text style={styles.welcomeText}>

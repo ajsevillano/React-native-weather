@@ -15,12 +15,14 @@ const Loading = ({ theme }) => {
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
   return (
     <>
       <View style={styles.Container}>
-        <Text style={[styles.loadingText, getTheme('text')]}>Loading</Text>
+        <Text style={[styles.loadingText, styles[getTheme('text')]]}>
+          Loading
+        </Text>
         <ActivityIndicator
           size="large"
           color={theme === 'light' ? '#273365' : 'white'}

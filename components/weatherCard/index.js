@@ -17,21 +17,21 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
 
   const getTheme = (component) =>
     theme === 'light'
-      ? styles[screenTheme.light[component]]
-      : styles[screenTheme.dark[component]];
+      ? [screenTheme.light[component]]
+      : [screenTheme.dark[component]];
 
   return (
-    <View style={[styles.container, getTheme('background')]}>
+    <View style={[styles.container, styles[getTheme('background')]]}>
       {loading ? (
         <Loading theme={theme} getTheme={getTheme} />
       ) : (
         current && (
           <>
             {getIcons(current.weather[0].icon, 'big')}
-            <Text style={getTheme('text')}>
+            <Text style={styles[getTheme('text')]}>
               {current.weather[0].description}
             </Text>
-            <Text style={[styles.temperature_number, getTheme('text')]}>
+            <Text style={[styles.temperature_number, styles[getTheme('text')]]}>
               {current.temp.toFixed(0)}°
             </Text>
             <Text style={styles.location}>

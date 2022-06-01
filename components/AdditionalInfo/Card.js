@@ -27,9 +27,9 @@ const Card = ({ title, theme, loading, getTheme, condition, unit }) => {
         {loading ? (
           `- - ${unit ? unit : ''}`
         ) : (
-          <Text style={[styles.bold, getTheme('text')]}>{`${condition} ${
-            unit ? unit : ''
-          }`}</Text>
+          <Text
+            style={[styles.bold, styles[getTheme('text')]]}
+          >{`${condition} ${unit ? unit : ''}`}</Text>
         )}
       </Text>
     </View>

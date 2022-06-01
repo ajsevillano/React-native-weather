@@ -12,10 +12,12 @@ const Loading = ({ theme, getTheme }) => {
           fill={theme === 'light' ? '#eaeaea' : '#414141'}
         />
       </Svg>
-      <Text style={getTheme('text')}>Loading</Text>
-      <Text style={[styles.temperature_number, getTheme('text')]}>--°</Text>
-      <Text style={[styles.location, getTheme('text')]}>Loading</Text>
-      <Text style={[styles.feels_like, getTheme('text')]}>
+      <Text style={styles[getTheme('text')]}>Loading</Text>
+      <Text style={[styles.temperature_number, styles[getTheme('text')]]}>
+        --°
+      </Text>
+      <Text style={[styles.location, styles[getTheme('text')]]}>Loading</Text>
+      <Text style={[styles.feels_like, styles[getTheme('text')]]}>
         Feels like: Loading
       </Text>
     </>
@@ -40,6 +42,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 16,
     color: '#aaaaaa',
+  },
+
+  light_text: {
+    color: '#273365',
+  },
+  dark_text: {
+    color: 'white',
   },
 });
 
