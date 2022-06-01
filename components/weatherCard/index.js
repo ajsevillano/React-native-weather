@@ -1,9 +1,12 @@
 //Libs
-import { useContext } from 'react';
-import ThemeContext from '../../context/theme';
 import getTheme from '../../libs/getTheme';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
+
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
+
 //Components
 import Loading from './Loading';
 

@@ -21,7 +21,6 @@ import OnboardingImgDark from '../assets/onboardingImageDark.svg';
 const Onboarding = ({ navigation }) => {
   //Theme from Context
   const theme = useContext(ThemeContext);
-  console.log(theme);
   const [buttonIsLoading, setButtonIsLoading] = useState(false);
   const fetchUserLocation = async () => {
     setButtonIsLoading(true);
@@ -55,13 +54,13 @@ const Onboarding = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, styles[getTheme('background')]]}>
+    <View style={[styles.container, styles[getTheme('background', theme)]]}>
       <StatusBar hidden={true} />
       <View style={styles.imgContainer}>
         {theme === 'light' ? <OnboardingImg /> : <OnboardingImgDark />}
       </View>
       <View style={styles.bottonContainer}>
-        <Text style={[styles.welcomeHeader, styles[getTheme('text')]]}>
+        <Text style={[styles.welcomeHeader, styles[getTheme('text', theme)]]}>
           Welcome to minimal weather
         </Text>
         <Text style={styles.welcomeText}>

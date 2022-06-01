@@ -1,8 +1,8 @@
+//Libs
 import { StyleSheet, Text, View } from 'react-native';
 import getTheme from '../../libs/getTheme';
 
 //Context
-
 import { useContext } from 'react';
 import ThemeContext from '../../context/theme';
 

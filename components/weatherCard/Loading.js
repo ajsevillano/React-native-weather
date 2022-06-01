@@ -1,6 +1,9 @@
+//Libs
 import Svg, { Circle } from 'react-native-svg';
 import { StyleSheet, Text } from 'react-native';
 import getTheme from '../../libs/getTheme';
+
+//Context
 import { useContext } from 'react';
 import ThemeContext from '../../context/theme';
 

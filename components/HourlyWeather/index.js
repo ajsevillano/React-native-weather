@@ -1,9 +1,11 @@
 //Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import getTheme from '../../libs/getTheme';
+
 //Context
 import { useContext } from 'react';
 import ThemeContext from '../../context/theme';
+
 //Components
 import Card from './Card';
 import Loading from './Loading';
