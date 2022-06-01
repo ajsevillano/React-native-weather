@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 //Components
 import Card from './Card';
+import Loading from './Loading';
 
 const HourlyWeather = ({ hourly, loading, theme }) => {
   /* Filtering the hourly array to only show the next 8 hours. */
@@ -24,15 +25,7 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
         <Text style={[styles.titleHeader, themeText]}>Hourly weather</Text>
       </View>
       {loading ? (
-        <>
-          <View style={styles.loadingIndicatorContainer}>
-            <Text style={[styles.loadingText, themeText]}>Loading</Text>
-            <ActivityIndicator
-              size="large"
-              color={theme === 'light' ? '#273365' : 'white'}
-            />
-          </View>
-        </>
+        <Loading theme={theme} />
       ) : (
         <View>
           <FlatList
@@ -76,18 +69,6 @@ const styles = StyleSheet.create({
 
   darkText: {
     color: 'white',
-  },
-
-  loadingIndicatorContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingVertical: 33,
-  },
-
-  loadingText: {
-    marginBottom: 10,
-    fontWeight: 'bold',
   },
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
-import LoadingScreen from './loadingScreen';
+import Loading from './Loading';
 
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   const screenTheme = {
@@ -23,7 +23,7 @@ const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
   return (
     <View style={[styles.container, getTheme('background')]}>
       {loading ? (
-        <LoadingScreen theme={theme} getTheme={getTheme} />
+        <Loading theme={theme} getTheme={getTheme} />
       ) : (
         current && (
           <>

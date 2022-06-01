@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '50%',
     paddingVertical: 8,
+    alignItems: 'center',
   },
 
   condition_title: {

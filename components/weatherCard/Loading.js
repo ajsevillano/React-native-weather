@@ -1,7 +1,7 @@
 import Svg, { Circle } from 'react-native-svg';
 import { StyleSheet, Text } from 'react-native';
 
-const LoadingScreen = ({ theme, getTheme }) => {
+const Loading = ({ theme, getTheme }) => {
   return (
     <>
       <Svg height="88" width="88">
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingScreen;
+export default Loading;
