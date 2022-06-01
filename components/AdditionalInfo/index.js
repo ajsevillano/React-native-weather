@@ -22,20 +22,22 @@ const AdditionalInfo = ({ current, loading, theme }) => {
       : styles[screenTheme.dark[component]];
 
   const conditionObject = [
-    { Wind: { value: current?.wind_speed, unit: 'm/h' } },
-    { Humidity: { value: current?.humidity, unit: '%' } },
-    { Sunrise: { value: getTime(current?.sunrise) } },
-    { Sunset: { value: getTime(current?.sunset) } },
-    { Press: { value: current?.pressure, unit: 'Mb' } },
-    { UV: { value: current?.uvi } },
+    { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
+    { Humidity: { id: 2, value: current?.humidity, unit: '%' } },
+    { Sunrise: { id: 3, value: getTime(current?.sunrise) } },
+    { Sunset: { id: 4, value: getTime(current?.sunset) } },
+    { Press: { id: 5, value: current?.pressure, unit: 'Mb' } },
+    { UV: { id: 6, value: current?.uvi } },
   ];
 
+  /* Mapping through the array of objects and returning a card component for each object. */
   const cardData = conditionObject?.map((element) => {
     const condition = Object.keys(element);
-    const { value, unit } = element[condition];
+    const { id, value, unit } = element[condition];
 
     return (
       <Card
+        key={id}
         title={condition}
         theme={theme}
         loading={loading}
