@@ -1,37 +1,28 @@
-import React from 'react';
+//Libs
+import getTheme from '../../libs/getTheme';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
+//Components
 import Loading from './Loading';
 
 const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-      text: 'light_text',
-    },
-    dark: {
-      background: 'dark_background',
-      text: 'dark_text',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
-
   return (
-    <View style={[styles.container, styles[getTheme('background')]]}>
+    <View style={[styles.container, styles[getTheme('background', theme)]]}>
       {loading ? (
         <Loading theme={theme} getTheme={getTheme} />
       ) : (
         current && (
           <>
             {getIcons(current.weather[0].icon, 'big')}
-            <Text style={styles[getTheme('text')]}>
+            <Text style={styles[getTheme('text', theme)]}>
               {current.weather[0].description}
             </Text>
-            <Text style={[styles.temperature_number, styles[getTheme('text')]]}>
+            <Text
+              style={[
+                styles.temperature_number,
+                styles[getTheme('text', theme)],
+              ]}
+            >
               {current.temp.toFixed(0)}°
             </Text>
             <Text style={styles.location}>

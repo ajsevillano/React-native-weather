@@ -1,26 +1,12 @@
 //Libs
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import getTheme from '../../libs/getTheme';
 
 const Loading = ({ theme }) => {
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-      text: 'light_text',
-    },
-    dark: {
-      background: 'dark_background',
-      text: 'dark_text',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
   return (
     <>
       <View style={styles.Container}>
-        <Text style={[styles.loadingText, styles[getTheme('text')]]}>
+        <Text style={[styles.loadingText, styles[getTheme('text', theme)]]}>
           Loading
         </Text>
         <ActivityIndicator

@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import getTheme from '../../libs/getTheme';
 
 //SVG Icons
 import Pressure from '../Svgs/Pressure';
@@ -8,7 +9,7 @@ import Wind from '../Svgs/Windy';
 import Sunrise from '../Svgs/Sunrise';
 import Sunset from '../Svgs/Sunset';
 
-const Card = ({ title, theme, loading, getTheme, condition, unit }) => {
+const Card = ({ title, theme, loading, condition, unit }) => {
   const ConditionsIcons = {
     Wind: Wind,
     Press: Pressure,
@@ -28,7 +29,7 @@ const Card = ({ title, theme, loading, getTheme, condition, unit }) => {
           `- - ${unit ? unit : ''}`
         ) : (
           <Text
-            style={[styles.bold, styles[getTheme('text')]]}
+            style={[styles.bold, styles[getTheme('text', theme)]]}
           >{`${condition} ${unit ? unit : ''}`}</Text>
         )}
       </Text>
@@ -52,6 +53,13 @@ const styles = StyleSheet.create({
 
   bold: {
     fontWeight: '500',
+  },
+  //Theme
+  light_text: {
+    color: '#273365',
+  },
+  dark_text: {
+    color: 'white',
   },
 });
 

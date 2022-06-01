@@ -1,5 +1,6 @@
 //Libs
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import getTheme from '../../libs/getTheme';
 //Components
 import Card from './Card';
 import Loading from './Loading';
@@ -9,24 +10,8 @@ const HourlyWeather = ({ hourly, loading, theme }) => {
   const filterHours =
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-      text: 'light_text',
-    },
-    dark: {
-      background: 'dark_background',
-      text: 'dark_text',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
-
   return (
-    <View style={[styles.Container, styles[getTheme('background')]]}>
+    <View style={[styles.Container, styles[getTheme('background', theme)]]}>
       <View>
         <Text style={[styles.titleHeader, styles[getTheme('text')]]}>
           Hourly weather

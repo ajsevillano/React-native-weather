@@ -1,7 +1,8 @@
 import Svg, { Circle } from 'react-native-svg';
 import { StyleSheet, Text } from 'react-native';
+import getTheme from '../../libs/getTheme';
 
-const Loading = ({ theme, getTheme }) => {
+const Loading = ({ theme }) => {
   return (
     <>
       <Svg height="88" width="88">
@@ -13,13 +14,13 @@ const Loading = ({ theme, getTheme }) => {
         />
       </Svg>
       <Text style={styles[getTheme('text')]}>Loading</Text>
-      <Text style={[styles.temperature_number, styles[getTheme('text')]]}>
+      <Text
+        style={[styles.temperature_number, styles[getTheme('text', theme)]]}
+      >
         --°
       </Text>
-      <Text style={[styles.location, styles[getTheme('text')]]}>Loading</Text>
-      <Text style={[styles.feels_like, styles[getTheme('text')]]}>
-        Feels like: Loading
-      </Text>
+      <Text style={styles.location}>Loading</Text>
+      <Text style={styles.feels_like}>Feels like: Loading</Text>
     </>
   );
 };

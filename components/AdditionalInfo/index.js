@@ -1,26 +1,12 @@
 //Libs
 import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
+import getTheme from '../../libs/getTheme';
+
 //Components
 import Card from './Card';
 
 const AdditionalInfo = ({ current, loading, theme }) => {
-  const screenTheme = {
-    light: {
-      background: 'light_background',
-      text: 'light_text',
-    },
-    dark: {
-      background: 'dark_background',
-      text: 'dark_text',
-    },
-  };
-
-  const getTheme = (component) =>
-    theme === 'light'
-      ? [screenTheme.light[component]]
-      : [screenTheme.dark[component]];
-
   const conditionObject = [
     { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
     { Humidity: { id: 2, value: current?.humidity, unit: '%' } },
@@ -49,8 +35,8 @@ const AdditionalInfo = ({ current, loading, theme }) => {
   });
 
   return (
-    <View style={[styles.container, styles[getTheme('background')]]}>
-      <Text style={[styles.header, styles[getTheme('text')]]}>
+    <View style={[styles.container, styles[getTheme('background', theme)]]}>
+      <Text style={[styles.header, styles[getTheme('text', theme)]]}>
         Additional info
       </Text>
       <View style={styles.conditions_container}>{cardData}</View>

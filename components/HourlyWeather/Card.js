@@ -2,21 +2,20 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 import getIcons from '../../libs/getIcons';
+import getTheme from '../../libs/getTheme';
 
 const Card = ({ item, theme }) => {
-  const themeHourlyWeatherCard =
-    theme === 'light' ? styles.lightCard : styles.darkCard;
-
-  const temperatureText =
-    theme === 'light' ? styles.lightText : styles.darkText;
-
   return (
-    <View style={[styles.hourlyWeatherCard, themeHourlyWeatherCard]}>
-      <Text style={[styles.temperatureText, temperatureText]}>
+    <View
+      style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}
+    >
+      <Text style={[styles.temperatureText, styles[getTheme('text', theme)]]}>
         {item?.temp.toFixed(0)}°
       </Text>
       {getIcons(item?.weather[0].icon, 'small')}
-      <Text style={[styles.hour, temperatureText]}>{getTime(item?.dt)}</Text>
+      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>
+        {getTime(item?.dt)}
+      </Text>
     </View>
   );
 };
@@ -33,11 +32,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
 
-  lightCard: {
+  light_background: {
     backgroundColor: '#f5f5f5',
   },
 
-  darkCard: {
+  dark_background: {
     backgroundColor: '#222222',
   },
 
@@ -47,11 +46,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
-  lightText: {
+  light_text: {
     color: '#273365',
   },
 
-  darkText: {
+  dark_text: {
     color: 'white',
   },
 
