@@ -1,37 +1,33 @@
 //Libs
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import getLocation from '../libs/getLocation';
 
+//Components
+import Button from '../components/Button';
+
 //SVG
 import OnboardingImg from '../assets/onboardingImage.svg';
 import OnboardingImgDark from '../assets/onboardingImageDark.svg';
 
 const Onboarding = ({ navigation, route }) => {
-  const [buttonState, setButtonState] = useState(false);
+  const [buttonIsLoading, setButtonIsLoading] = useState(false);
   const fetchUserLocation = async () => {
-    setButtonState(true);
+    setButtonIsLoading(true);
     /* Asking for permission to access the user's location. */
     let { status } = await Location.requestForegroundPermissionsAsync();
     /* Check permission status */
     if (status === 'denied') {
       showAlert();
-      setButtonState(false);
+      setButtonIsLoading(false);
     }
     if (status === 'granted') {
       const userLocation = await getLocation();
       setAsyncStorage();
-      setButtonState(false);
+      setButtonIsLoading(false);
       navigation.navigate('Home', {
         location: userLocation,
       });
@@ -82,19 +78,11 @@ const Onboarding = ({ navigation, route }) => {
           Before start you need to grant permission to enable location on your
           phone
         </Text>
-        <TouchableOpacity style={styles.button} onPress={fetchUserLocation}>
-          {buttonState && (
-            <>
-              <ActivityIndicator
-                style={styles.activityIndicator}
-                size="small"
-                color="#273365"
-              />
-              <Text style={styles.buttonText}>Loading</Text>
-            </>
-          )}
-          {!buttonState && <Text style={styles.buttonText}>Get started</Text>}
-        </TouchableOpacity>
+        <Button
+          handleOnPress={fetchUserLocation}
+          loading={buttonIsLoading}
+          buttonText="Get started"
+        />
       </View>
     </View>
   );
@@ -104,23 +92,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    color: 'white',
-  },
-
-  //Theme
-  light_background: {
-    backgroundColor: 'white',
-  },
-
-  dark_background: {
-    backgroundColor: '#222222',
-  },
-
-  light_text: {
-    color: '#273365',
-  },
-
-  dark_text: {
     color: 'white',
   },
 
@@ -151,24 +122,21 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  button: {
-    flexDirection: 'row',
-    backgroundColor: '#ffbf00',
-    marginTop: 20,
-    paddingVertical: 20,
-    paddingHorizontal: 70,
-    alignItems: 'center',
-    borderRadius: 10,
+  //Theme
+  light_background: {
+    backgroundColor: 'white',
   },
 
-  buttonText: {
+  dark_background: {
+    backgroundColor: '#222222',
+  },
+
+  light_text: {
     color: '#273365',
-    fontSize: 25,
-    fontWeight: '700',
   },
 
-  activityIndicator: {
-    marginRight: 10,
+  dark_text: {
+    color: 'white',
   },
 });
 
