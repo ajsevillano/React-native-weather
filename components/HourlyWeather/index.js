@@ -20,7 +20,7 @@ const HourlyWeather = ({ hourly, loading }) => {
   return (
     <View style={[styles.Container, styles[getTheme('background', theme)]]}>
       <View>
-        <Text style={[styles.titleHeader, styles[getTheme('text')]]}>
+        <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
           Hourly weather
         </Text>
       </View>
