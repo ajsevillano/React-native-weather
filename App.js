@@ -2,6 +2,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import getLocation from './libs/getLocation';
+import ThemeContext from './context/theme';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -66,25 +67,23 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {firstLoad ? (
-          <>
+    <ThemeContext.Provider value={colorScheme}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {firstLoad ? (
+            <>
+              <Stack.Screen name="Onboarding" component={Onboarding} />
+              <Stack.Screen name="Home" component={Home} />
+            </>
+          ) : (
             <Stack.Screen
-              name="Onboarding"
-              component={Onboarding}
-              initialParams={{ theme: colorScheme }}
+              name="Home"
+              component={Home}
+              initialParams={{ location: location }}
             />
-            <Stack.Screen name="Home" component={Home} />
-          </>
-        ) : (
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            initialParams={{ location: location, theme: colorScheme }}
-          />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeContext.Provider>
   );
 }

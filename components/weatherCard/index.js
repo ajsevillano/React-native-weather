@@ -2,14 +2,22 @@
 import getTheme from '../../libs/getTheme';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
+
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
+
 //Components
 import Loading from './Loading';
 
-const WeatherCard = ({ current, cityName, countryName, loading, theme }) => {
+const WeatherCard = ({ current, cityName, countryName, loading }) => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
+
   return (
     <View style={[styles.container, styles[getTheme('background', theme)]]}>
       {loading ? (
-        <Loading theme={theme} getTheme={getTheme} />
+        <Loading />
       ) : (
         current && (
           <>

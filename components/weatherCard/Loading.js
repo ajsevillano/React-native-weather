@@ -1,8 +1,15 @@
+//Libs
 import Svg, { Circle } from 'react-native-svg';
 import { StyleSheet, Text } from 'react-native';
 import getTheme from '../../libs/getTheme';
 
-const Loading = ({ theme }) => {
+//Context
+import { useContext } from 'react';
+import ThemeContext from '../../context/theme';
+
+const Loading = () => {
+  //Theme from Context
+  const theme = useContext(ThemeContext);
   return (
     <>
       <Svg height="88" width="88">
