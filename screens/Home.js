@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   lightContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
   },
   darkContainer: {
-    backgroundColor: 'black',
+    backgroundColor: '#222222',
   },
 });
 
