@@ -13,10 +13,7 @@ describe('Test all components render properly', () => {
     const tree = renderer.create(<AdditionalInfo />);
     expect(tree).toMatchSnapshot();
   });
-  it(`Additional info card renders correctly`, () => {
-    const tree = renderer.create(<AdditionalInfoCard />);
-    expect(tree).toMatchSnapshot();
-  });
+
   it(`Hourly Weather component renders correctly`, () => {
     const tree = renderer.create(<HourlyWeather />);
     expect(tree).toMatchSnapshot();
