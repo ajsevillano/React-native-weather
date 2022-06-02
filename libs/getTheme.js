@@ -7,8 +7,6 @@ const getTheme = (component, theme) =>
     ? [screenTheme.light[component]]
     : [screenTheme.dark[component]];
 
-/* Creating a variable called screenTheme that is an object with two properties, light and dark. Each
-of those properties is an object with two properties, background and text. */
 const screenTheme = {
   light: {
     background: 'light_background',
