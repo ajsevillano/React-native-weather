@@ -11,7 +11,7 @@ import * as Location from 'expo-location';
 import { Alert, useColorScheme } from 'react-native';
 
 //Components
-import Home from './screens/Home';
+import Home from './screens/Home/Home';
 import Onboarding from './screens/Onboarding';
 
 export default function App() {

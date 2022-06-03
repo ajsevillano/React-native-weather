@@ -2,18 +2,18 @@
 import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
-import useFetch from '../libs/useFetch';
+import useFetch from '../../libs/useFetch';
 import * as Location from 'expo-location';
-import getTheme from '../libs/getTheme';
+import getTheme from '../../libs/getTheme';
 
 //Context
 import { useState, useEffect, useContext } from 'react';
-import ThemeContext from '../context/theme';
+import ThemeContext from '../../context/theme';
 
 //Components
-import AdditionalInfo from '../components/AdditionalInfo';
-import WeatherCard from '../components/WeatherCard';
-import HourlyWeather from '../components/HourlyWeather';
+import AdditionalInfo from '../../components/AdditionalInfo';
+import WeatherCard from '../../components/WeatherCard';
+import HourlyWeather from '../../components/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
 
 const Home = ({ route }) => {
