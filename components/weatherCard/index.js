@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   temperature_number: {
     fontSize: 90,
     fontWeight: 'bold',
+    marginLeft: 20,
   },
 
   location_container: {
@@ -73,11 +74,9 @@ const styles = StyleSheet.create({
 
   location: {
     flexDirection: 'column',
-
     fontSize: 26,
     color: '#818181',
     marginVertical: 0,
-    // marginRight: 10,
     marginLeft: 7,
     marginRight: 10,
     padding: 0,
