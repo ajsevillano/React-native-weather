@@ -10,6 +10,9 @@ import ThemeContext from '../../context/theme';
 //Components
 import Loading from './Loading';
 
+//SVG icons
+import Location from '../Svgs/Location';
+
 const WeatherCard = ({ current, cityName, countryName, loading }) => {
   //Theme from Context
   const theme = useContext(ThemeContext);
@@ -33,9 +36,13 @@ const WeatherCard = ({ current, cityName, countryName, loading }) => {
             >
               {current.temp.toFixed(0)}°
             </Text>
-            <Text style={styles.location}>
-              {cityName}, {countryName}
-            </Text>
+
+            <View style={styles.location_container}>
+              <Location />
+              <Text style={styles.location}>
+                {cityName}, {countryName}
+              </Text>
+            </View>
             <Text style={styles.feels_like}>
               Feels like: {current.feels_like.toFixed(0)}°C
             </Text>
@@ -56,13 +63,23 @@ const styles = StyleSheet.create({
   temperature_number: {
     fontSize: 90,
     fontWeight: 'bold',
-    marginLeft: 10,
+  },
+
+  location_container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   location: {
+    flexDirection: 'column',
+
     fontSize: 26,
     color: '#818181',
-    margin: 0,
+    marginVertical: 0,
+    // marginRight: 10,
+    marginLeft: 7,
+    marginRight: 10,
     padding: 0,
   },
 
