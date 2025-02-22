@@ -56,9 +56,9 @@ const Onboarding = ({ navigation }) => {
   return (
     <View style={[styles.container, styles[getTheme('background', theme)]]}>
       <StatusBar hidden={true} />
-      <View style={styles.imgContainer}>
+      {/* <View style={styles.imgContainer}>
         {theme === 'light' ? <OnboardingImg /> : <OnboardingImgDark />}
-      </View>
+      </View> */}
       <View style={styles.bottonContainer}>
         <Text style={[styles.welcomeHeader, styles[getTheme('text', theme)]]}>
           Welcome to minimal weather
