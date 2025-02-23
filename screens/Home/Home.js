@@ -1,5 +1,5 @@
 //Libs
-import { StyleSheet, ScrollView, RefreshControl, Alert } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl, Alert,Text } from 'react-native';
 import { API_KEY } from '@env';
 import Constants from 'expo-constants';
 import useFetch from '../../libs/useFetch';
@@ -84,29 +84,50 @@ const Home = ({ route }) => {
       setRefreshing(false);
     }, 1000);
   };
-
   return (
-    <ScrollView
-      style={[styles.container, styles[getTheme('background', theme)]]}
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <StatusBar
-        hidden={false}
-        style="auto"
-        backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
-      />
-      <WeatherCard
-        current={current}
-        loading={loading}
-        cityName={cityAndCountry.cityName}
-        countryName={cityAndCountry.country}
-      />
-      <AdditionalInfo current={current} loading={loading} />
-      <HourlyWeather hourly={hourly} loading={loading} />
-    </ScrollView>
+    <>
+      {!data && error?.status === 401 && (
+        <ScrollView
+          style={[styles.container, styles[getTheme('background', theme)]]}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+            <StatusBar
+            hidden={false}
+            style="auto"
+            backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
+          />
+          <Text style={styles.light_text}>Ups! Something went wrong</Text>
+          <Text style={styles.error_text}>{error.message}</Text>
+        </ScrollView>
+      )}
+
+      {data && (
+        <ScrollView
+          style={[styles.container, styles[getTheme('background', theme)]]}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <StatusBar
+            hidden={false}
+            style="auto"
+            backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
+          />
+          <WeatherCard
+            current={current}
+            loading={loading}
+            cityName={cityAndCountry.cityName}
+            countryName={cityAndCountry.country}
+          />
+          <AdditionalInfo current={current} loading={loading} />
+          <HourlyWeather hourly={hourly} loading={loading} />
+        </ScrollView>
+      )}
+    </>
   );
 };
 
@@ -121,6 +142,18 @@ const styles = StyleSheet.create({
   },
   dark_background: {
     backgroundColor: '#222222',
+  },
+  light_text: {
+    color: '#273365',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  error_text: {
+    color:'#eb4d4b',
+    fontSize: 18,
+    fontWeight: 'bold',
+   
   },
 });
 
