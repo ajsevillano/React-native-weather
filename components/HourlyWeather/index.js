@@ -11,6 +11,7 @@ import Card from './Card';
 import Loading from './Loading';
 
 const HourlyWeather = ({ hourly, loading }) => {
+
   //Theme from Context
   const theme = useContext(ThemeContext);
   /* Filtering the hourly array to only show the next 8 hours. */
@@ -18,25 +19,41 @@ const HourlyWeather = ({ hourly, loading }) => {
     hourly && hourly.filter((hour, index) => index > 0 && index < 8);
 
   return (
+    // <View style={[styles.Container, styles[getTheme('background', theme)]]}>
+    //   <View>
+    //     <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
+    //       Hourly weather
+    //     </Text>
+    //   </View>
+    //   {loading ? (
+    //     <Loading theme={theme} />
+    //   ) : (
+    //     <View>
+    //       <FlatList
+    //         showsHorizontalScrollIndicator={false}
+    //         horizontal={true}
+    //         data={hourly}
+    //         renderItem={({ item }) => <Card item={item} />}
+    //       ></FlatList>
+    //     </View>
+    //   )}
+    // </View>
     <View style={[styles.Container, styles[getTheme('background', theme)]]}>
-      <View>
-        <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
-          Hourly weather
-        </Text>
-      </View>
-      {loading ? (
-        <Loading theme={theme} />
-      ) : (
-        <View>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            data={filterHours}
-            renderItem={({ item }) => <Card item={item} />}
-          ></FlatList>
-        </View>
-      )}
+    <View>
+      <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
+        Hourly weather
+      </Text>
     </View>
+      <View>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          data={hourly}
+          renderItem={({ item }) => <Card item={item} />}
+        ></FlatList>
+      </View>
+  
+  </View>
   );
 };
 

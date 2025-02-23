@@ -10,16 +10,17 @@ import ThemeContext from '../../context/theme';
 //Components
 import Card from './Card';
 
-const AdditionalInfo = ({ current, loading }) => {
+const AdditionalInfo = ({ current, forecast, loading }) => {
+  console.log(forecast.forecastday[0].astro.sunrise);
   //Theme from Context
   const theme = useContext(ThemeContext);
   const conditionObject = [
-    { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
+    { Wind: { id: 1, value: current?.wind_kph, unit: 'km/h' } },
     { Humidity: { id: 2, value: current?.humidity, unit: '%' } },
-    { Sunrise: { id: 3, value: getTime(current?.sunrise) } },
-    { Sunset: { id: 4, value: getTime(current?.sunset) } },
-    { Press: { id: 5, value: current?.pressure, unit: 'Mb' } },
-    { UV: { id: 6, value: current?.uvi } },
+    { Sunrise: { id: 3, value: forecast.forecastday[0].astro.sunrise } },
+    { Sunset: { id: 4, value: forecast.forecastday[0].astro.sunset } },
+    { Press: { id: 5, value: current?.pressure_mb, unit: 'Mb' } },
+    { UV: { id: 6, value: current?.uv } },
   ];
 
   /* Mapping through the array of objects and returning a card component for each object. */

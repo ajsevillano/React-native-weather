@@ -13,43 +13,76 @@ import Loading from './Loading';
 //SVG icons
 import Location from '../Svgs/Location';
 
-const WeatherCard = ({ current, cityName, countryName, loading }) => {
+// const WeatherCard = ({ current, cityName, countryName, loading }) => {
+  const WeatherCard = ({ current, cityName, countryName }) => {
   //Theme from Context
   const theme = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, styles[getTheme('background', theme)]]}>
-      {loading ? (
-        <Loading />
-      ) : (
-        current && (
-          <>
-            {getIcons(current.weather[0].icon, 'big')}
-            <Text style={styles[getTheme('text', theme)]}>
-              {current.weather[0].description}
-            </Text>
-            <Text
-              style={[
-                styles.temperature_number,
-                styles[getTheme('text', theme)],
-              ]}
-            >
-              {current.temp.toFixed(0)}°
-            </Text>
+    // <View style={[styles.container, styles[getTheme('background', theme)]]}>
+    //   {loading ? (
+    //     <Loading />
+    //   ) : (
+    //     current && (
+    //       <>
+    //         {getIcons(current.weather[0].icon, 'big')}
+    //         <Text style={styles[getTheme('text', theme)]}>
+    //           {current.weather[0].description}
+    //         </Text>
+    //         <Text
+    //           style={[
+    //             styles.temperature_number,
+    //             styles[getTheme('text', theme)],
+    //           ]}
+    //         >
+    //           {current.temp.toFixed(0)}°
+    //         </Text>
 
-            <View style={styles.location_container}>
-              <Location />
-              <Text style={styles.location}>
-                {cityName}, {countryName}
-              </Text>
-            </View>
-            <Text style={styles.feels_like}>
-              Feels like: {current.feels_like.toFixed(0)}°C
+    //         <View style={styles.location_container}>
+    //           <Location />
+    //           <Text style={styles.location}>
+    //             {cityName}, {countryName}
+    //           </Text>
+    //         </View>
+    //         <Text style={styles.feels_like}>
+    //           Feels like: {current.feels_like.toFixed(0)}°C
+    //         </Text>
+    //       </>
+    //     )
+    //   )}
+    // </View>
+    <View style={[styles.container, styles[getTheme('background', theme)]]}>
+   
+      {current && (
+        <>
+          {/* {getIcons(current.condition.code, 'big')} */}
+          {/* {getIcons('04d', 'big')} */}
+          <Text style={styles[getTheme('text', theme)]}>
+            {current.condition.text}
+          </Text>
+          <Text
+            style={[
+              styles.temperature_number,
+              styles[getTheme('text', theme)],
+            ]}
+          >
+            {/* {current.temp.toFixed(0)}° */}
+            {current.temp_c.toFixed(0)}°
+          </Text>
+
+          <View style={styles.location_container}>
+            <Location />
+            <Text style={styles.location}>
+              {cityName}, {countryName}
             </Text>
-          </>
-        )
+          </View>
+          <Text style={styles.feels_like}>
+            Feels like: {current.feelslike_c.toFixed(0)}°C
+          </Text>
+        </>
       )}
-    </View>
+    
+  </View>
   );
 };
 
