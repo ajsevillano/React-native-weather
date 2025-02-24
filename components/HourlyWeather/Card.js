@@ -14,17 +14,13 @@ const Card = ({ item }) => {
   const time = item?.time.split(' ')[1];
   const theme = useContext(ThemeContext);
   return (
-    <View
-      style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}
-    >
+    <View style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}>
       <Text style={[styles.temperatureText, styles[getTheme('text', theme)]]}>
-        {item?.temp_c.toFixed(0)}°
+        {item?.temperature.toFixed(0)}°
       </Text>
       <Location width={35} height={35} />
       {/* {getIcons('13d', 'small')} */}
-      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>
-        {time}
-      </Text>
+      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>{time}</Text>
     </View>
   );
 };
