@@ -12,6 +12,7 @@ import Loading from './Loading';
 
 //SVG icons
 import Location from '../Svgs/Location';
+import CloudyNight from '../Svgs/Weather/CloudyNight';
 
 const WeatherCard = ({ current, loading }) => {
   const { weather, temperature, city, country, feelsLike } = current;
@@ -26,6 +27,7 @@ const WeatherCard = ({ current, loading }) => {
           <>
             {/* {getIcons(current.condition.code, 'big')} */}
             {/* {getIcons('04d', 'big')} */}
+            <CloudyNight />
             <Text style={styles[getTheme('text', theme)]}>{weather}</Text>
             <Text style={[styles.temperature_number, styles[getTheme('text', theme)]]}>
               {/* {current.temp.toFixed(0)}° */}
