@@ -1,6 +1,6 @@
 import Svg, { Path, Circle } from 'react-native-svg';
 
-const LightImage = ({ width, height, theme }) => (
+const LightImage = ({}) => (
   <Svg
     xmlns='http://www.w3.org/2000/svg'
     width='877'

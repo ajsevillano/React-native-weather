@@ -1,5 +1,5 @@
 //Libs
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import getTheme from '../../libs/getTheme';
 
 //Context
@@ -13,6 +13,9 @@ import UV from '../Svgs/UV';
 import Wind from '../Svgs/Windy';
 import Sunrise from '../Svgs/Sunrise';
 import Sunset from '../Svgs/Sunset';
+
+// Styles
+import styles from './Card.styles';
 
 const Card = ({ title, loading, condition, unit }) => {
   //Theme from Context
@@ -43,31 +46,5 @@ const Card = ({ title, loading, condition, unit }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  conditions_card: {
-    flexDirection: 'row',
-    width: '50%',
-    paddingVertical: 8,
-    alignItems: 'center',
-  },
-
-  condition_title: {
-    fontSize: 17,
-    color: '#777575',
-    marginLeft: 5,
-  },
-
-  bold: {
-    fontWeight: '500',
-  },
-  //Theme
-  light_text: {
-    color: '#273365',
-  },
-  dark_text: {
-    color: 'white',
-  },
-});
 
 export default Card;

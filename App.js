@@ -12,7 +12,7 @@ import { Alert, useColorScheme } from 'react-native';
 
 //Components
 import Home from './screens/Home/Home';
-import Onboarding from './screens/Onboarding';
+import Onboarding from './screens/Onboarding/Onboarding';
 
 export default function App() {
   const [firstLoad, setFirstLoad] = useState(null);
@@ -59,7 +59,7 @@ export default function App() {
         {
           text: 'Ok',
         },
-      ]
+      ],
     );
   };
 
@@ -72,12 +72,12 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {firstLoad ? (
             <>
-              <Stack.Screen name="Onboarding" component={Onboarding} />
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name='Onboarding' component={Onboarding} />
+              <Stack.Screen name='Home' component={Home} />
             </>
           ) : (
             <Stack.Screen
-              name="Home"
+              name='Home'
               component={Home}
               initialParams={{ location: location }}
             />

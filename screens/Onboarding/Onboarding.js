@@ -4,19 +4,22 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import getLocation from '../libs/getLocation';
-import getTheme from '../libs/getTheme';
+import getLocation from '../../libs/getLocation';
+import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
-import ThemeContext from '../context/theme';
+import ThemeContext from '../../context/theme';
 
 //Components
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 //SVG
-import LightImage from '../components/Svgs/Onboarding/LightImage';
-import DarkImage from '../components/Svgs/Onboarding/DarkImage';
+import LightImage from '../../components/Svgs/Onboarding/LightImage';
+import DarkImage from '../../components/Svgs/Onboarding/DarkImage';
+
+// Styles
+import styles from './Onboarding.styles';
 
 const Onboarding = ({ navigation }) => {
   //Theme from Context
@@ -75,57 +78,5 @@ const Onboarding = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    color: 'white',
-  },
-
-  imgContainer: {
-    flex: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  bottonContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  welcomeHeader: {
-    fontWeight: '700',
-    fontSize: 30,
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-
-  welcomeText: {
-    color: '#818181',
-    paddingHorizontal: 60,
-    textAlign: 'center',
-    marginBottom: 10,
-    lineHeight: 20,
-  },
-
-  //Theme
-  light_background: {
-    backgroundColor: 'white',
-  },
-
-  dark_background: {
-    backgroundColor: '#222222',
-  },
-
-  light_text: {
-    color: '#273365',
-  },
-
-  dark_text: {
-    color: 'white',
-  },
-});
 
 export default Onboarding;
