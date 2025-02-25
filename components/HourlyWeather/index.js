@@ -1,6 +1,5 @@
 //Libs
 import { Text, View, FlatList } from 'react-native';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -26,11 +25,9 @@ const HourlyWeather = ({ hourly, loading }) => {
   });
 
   return (
-    <View style={[styles.Container, styles[getTheme('background', theme)]]}>
+    <View style={[styles.Container, { backgroundColor: theme.background }]}>
       <View>
-        <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
-          Hourly weather
-        </Text>
+        <Text style={[styles.titleHeader, { color: theme.text }]}>Hourly weather</Text>
       </View>
       {loading ? (
         <Loading theme={theme} />

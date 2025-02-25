@@ -1,7 +1,6 @@
 //Libs
 import { Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -14,12 +13,12 @@ const Card = ({ item }) => {
   const time = item?.time.split(' ')[1];
   const theme = useContext(ThemeContext);
   return (
-    <View style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}>
-      <Text style={[styles.temperatureText, styles[getTheme('text', theme)]]}>
+    <View style={[styles.hourlyWeatherCard, { backgroundColor: theme.background }]}>
+      <Text style={[styles.temperatureText, { color: theme.text }]}>
         {item?.temperature.toFixed(0)}°
       </Text>
       {getIcons(item?.iconCode, item?.isDay, 'small')}
-      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>{time}</Text>
+      <Text style={[styles.hour, { color: theme.text }]}>{time}</Text>
     </View>
   );
 };

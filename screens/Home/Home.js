@@ -1,12 +1,11 @@
 //Libs
 import { ScrollView, RefreshControl, Alert, Text } from 'react-native';
 import * as Location from 'expo-location';
-import getTheme from '../../libs/getTheme';
 import useWeather from '../../hooks/useWeather';
 
 //Context
 import { useState, useEffect, useContext } from 'react';
-import ThemeContext from '../../context/theme';
+import ThemeContext, { ThemeProvider } from '../../context/theme';
 
 //Components
 import AdditionalInfo from '../../components/AdditionalInfo';
@@ -57,7 +56,7 @@ const Home = ({ route }) => {
     <>
       {!weather && error?.status === 401 && (
         <ScrollView
-          style={[styles.container, styles[getTheme('background', theme)]]}
+          style={[styles.container, { backgroundColor: theme.background }]}
           contentContainerStyle={{
             flexGrow: 1,
             justifyContent: 'center',
@@ -79,7 +78,7 @@ const Home = ({ route }) => {
 
       {weather && (
         <ScrollView
-          style={[styles.container, styles[getTheme('background', theme)]]}
+          style={[styles.container, { backgroundColor: theme.background }]}
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

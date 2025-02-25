@@ -1,15 +1,14 @@
 //Libs
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import getLocation from '../../libs/getLocation';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
-import ThemeContext from '../../context/theme';
+import ThemeContext, { ThemeProvider } from '../../context/theme';
 
 //Components
 import Button from '../../components/Button';
@@ -57,13 +56,13 @@ const Onboarding = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, styles[getTheme('background', theme)]]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <StatusBar hidden={true} />
       <View style={styles.imgContainer}>
         {theme === 'light' ? <LightImage /> : <DarkImage />}
       </View>
       <View style={styles.bottonContainer}>
-        <Text style={[styles.welcomeHeader, styles[getTheme('text', theme)]]}>
+        <Text style={[styles.welcomeHeader, { color: theme.text }]}>
           Welcome to minimal weather
         </Text>
         <Text style={styles.welcomeText}>

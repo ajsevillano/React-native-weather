@@ -1,6 +1,5 @@
 //Libs
 import { Text, View } from 'react-native';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -31,23 +30,13 @@ const AdditionalInfo = ({ InfoObject, loading }) => {
     const { id, value, unit } = element[condition];
 
     return (
-      <Card
-        key={id}
-        title={condition}
-        theme={theme}
-        loading={loading}
-        getTheme={getTheme}
-        condition={value}
-        unit={unit}
-      />
+      <Card key={id} title={condition} loading={loading} condition={value} unit={unit} />
     );
   });
 
   return (
-    <View style={[styles.container, styles[getTheme('background', theme)]]}>
-      <Text style={[styles.header, styles[getTheme('text', theme)]]}>
-        Additional info
-      </Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <Text style={[styles.header, { color: theme.text }]}>Additional info</Text>
       <View style={styles.conditions_container}>{cardData}</View>
     </View>
   );

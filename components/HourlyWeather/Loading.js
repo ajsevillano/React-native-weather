@@ -1,6 +1,5 @@
 //Libs
 import { Text, View, ActivityIndicator } from 'react-native';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -15,7 +14,7 @@ const Loading = () => {
   return (
     <>
       <View style={styles.Container}>
-        <Text style={[styles.loadingText, styles[getTheme('text', theme)]]}>Loading</Text>
+        <Text style={[styles.loadingText, { color: theme.text }]}>Loading</Text>
         <ActivityIndicator size='large' color={theme === 'light' ? '#273365' : 'white'} />
       </View>
     </>
