@@ -1,41 +1,42 @@
-//SVG Icons
-import Snow from '../assets/weatherIcons/snow.svg';
-import Clouds from '../assets/weatherIcons/clouds.svg';
-import Sunny from '../assets/weatherIcons/clear.svg';
-import Rain from '../assets/weatherIcons/rain.svg';
-import Storm from '../assets/weatherIcons/storm.svg';
-import SunRain from '../assets/weatherIcons/sun-rain.svg';
-import ClearNight from '../assets/weatherIcons/clear-night.svg';
-import SunClouds from '../assets/weatherIcons/sun-clouds.svg';
-import SunCloudsNight from '../assets/weatherIcons/sun-clouds-night.svg';
-import NightMoonRain from '../assets/weatherIcons/night-moon-rain.svg';
+// SVG Icons
+import ClearDay from '../components/Svgs/Weather/ClearDay';
+import ClearNight from '../components/Svgs/Weather/ClearNight';
+import Cloudy from '../components/Svgs/Weather/Cloudy';
+import CloudyDay from '../components/Svgs/Weather/CloudyDay';
+import CloudyNight from '../components/Svgs/Weather/CloudyNight';
+import Rainy from '../components/Svgs/Weather/Rainy';
+import RainySunDay from '../components/Svgs/Weather/RainySunDay';
+import RainySunNight from '../components/Svgs/Weather/RainySunNight';
+import Snowy from '../components/Svgs/Weather/Snowy';
+import Stormy from '../components/Svgs/Weather/Stormy';
 
-/**
- * It takes in a weather object and an iconSize string, and returns a component based on the weather
- * object's icon property.
- * @param weather - {id: 803, main: "Clouds", description: "broken clouds", icon: "04d"}
- * @param iconSize - 'big' or 'small'
- * @returns A function that returns a component.
- */
-
-const getIcons = (icon, iconSize) => {
-  const WeatherIcons = {
-    '13d': Snow,
-    '13n': Snow,
-    '11d': Storm,
-    '03d': Clouds,
-    '03n': Clouds,
-    '04d': Clouds,
-    '04n': Clouds,
-    '02d': SunClouds,
-    '02n': SunCloudsNight,
-    '10d': SunRain,
-    '10n': NightMoonRain,
-    '09d': Rain,
-    '01d': Sunny,
-    '01n': ClearNight,
-  };
-  const WeatherIconComponent = WeatherIcons[icon];
+const weatherIconMap = {
+  1000: { day: ClearDay, night: ClearNight },
+  1003: { day: CloudyDay, night: CloudyNight },
+  1006: { day: Cloudy, night: Cloudy },
+  1009: { day: Cloudy, night: Cloudy },
+  1030: { day: Cloudy, night: Cloudy },
+  1063: { day: RainySunDay, night: RainySunNight },
+  1087: { day: Stormy, night: Stormy },
+  1114: { day: Snowy, night: Snowy },
+  1117: { day: Snowy, night: Snowy },
+  1135: { day: Cloudy, night: Cloudy },
+  1147: { day: Cloudy, night: Cloudy },
+  1183: { day: Rainy, night: Rainy },
+  1189: { day: Rainy, night: Rainy },
+  1195: { day: Rainy, night: Rainy },
+  1198: { day: Rainy, night: Rainy },
+  1201: { day: Rainy, night: Rainy },
+  1216: { day: Snowy, night: Snowy },
+  1225: { day: Snowy, night: Snowy },
+  1237: { day: Snowy, night: Snowy },
+  1273: { day: Stormy, night: Stormy },
+  1276: { day: Stormy, night: Stormy },
+  1282: { day: Snowy, night: Snowy },
+};
+const getIcons = (iconCode, isDay, iconSize) => {
+  const timeOfDay = isDay ? 'day' : 'night';
+  const WeatherIconComponent = weatherIconMap[iconCode]?.[timeOfDay] || Cloudy;
 
   return iconSize === 'big' ? (
     <WeatherIconComponent width={88} height={88} />

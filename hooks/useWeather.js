@@ -34,6 +34,8 @@ const useWeather = city => {
       city: data.location.name,
       country: data.location.country,
       feelsLike: data.current.feelslike_c,
+      isDay: data.current.is_day,
+      iconCode: data.current.condition.code,
     },
     ADDITIONAL_INFO: {
       wind: data.current.wind_kph,
@@ -47,6 +49,8 @@ const useWeather = city => {
       day.hour.map(hour => ({
         time: hour.time,
         temperature: hour.temp_c,
+        isDay: hour.is_day,
+        iconCode: hour.condition.code,
       })),
     ),
   };
