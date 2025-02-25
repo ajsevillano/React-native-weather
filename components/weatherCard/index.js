@@ -2,20 +2,16 @@
 import getTheme from '../../libs/getTheme';
 import { StyleSheet, Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
-
 //Context
 import { useContext } from 'react';
 import ThemeContext from '../../context/theme';
-
 //Components
 import Loading from './Loading';
-
 //SVG icons
 import Location from '../Svgs/Location';
-import CloudyNight from '../Svgs/Weather/CloudyNight';
 
 const WeatherCard = ({ current, loading }) => {
-  const { weather, temperature, city, country, feelsLike } = current;
+  const { weather, temperature, city, country, feelsLike, isDay, iconCode } = current;
   const theme = useContext(ThemeContext);
 
   return (
@@ -25,9 +21,7 @@ const WeatherCard = ({ current, loading }) => {
       ) : (
         current && (
           <>
-            {/* {getIcons(current.condition.code, 'big')} */}
-            {/* {getIcons('04d', 'big')} */}
-            <CloudyNight />
+            {getIcons(iconCode, isDay, 'big')}
             <Text style={styles[getTheme('text', theme)]}>{weather}</Text>
             <Text style={[styles.temperature_number, styles[getTheme('text', theme)]]}>
               {/* {current.temp.toFixed(0)}° */}
