@@ -1,5 +1,5 @@
 //Libs
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import getTheme from '../../libs/getTheme';
 
 //Context
@@ -8,6 +8,9 @@ import ThemeContext from '../../context/theme';
 
 //Components
 import Card from './Card';
+
+// Styles
+import styles from './AdditionalInfo.styles';
 
 const AdditionalInfo = ({ InfoObject, loading }) => {
   const { wind, humidity, sunrise, sunset, pressure, uv } = InfoObject || {};
@@ -49,46 +52,5 @@ const AdditionalInfo = ({ InfoObject, loading }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1.5,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingLeft: 40,
-    paddingRight: 20,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-  },
-
-  header: {
-    fontSize: 20,
-    marginBottom: 5,
-    fontWeight: 'bold',
-  },
-
-  // Info blocks
-  conditions_container: {
-    flexDirection: 'row',
-    marginTop: 10,
-    flexWrap: 'wrap',
-  },
-
-  //Theme
-  light_background: {
-    backgroundColor: 'white',
-  },
-  dark_background: {
-    backgroundColor: '#1b1b1b',
-  },
-
-  light_text: {
-    color: '#273365',
-  },
-
-  dark_text: {
-    color: 'white',
-  },
-});
 
 export default AdditionalInfo;
