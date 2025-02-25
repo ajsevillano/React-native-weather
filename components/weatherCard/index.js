@@ -12,9 +12,10 @@ import Loading from './Loading';
 
 //SVG icons
 import Location from '../Svgs/Location';
+import CloudyNight from '../Svgs/Weather/CloudyNight';
 
-const WeatherCard = ({ current, cityName, countryName, loading }) => {
-  //Theme from Context
+const WeatherCard = ({ current, loading }) => {
+  const { weather, temperature, city, country, feelsLike } = current;
   const theme = useContext(ThemeContext);
 
   return (
@@ -24,28 +25,22 @@ const WeatherCard = ({ current, cityName, countryName, loading }) => {
       ) : (
         current && (
           <>
-            {getIcons(current.weather[0].icon, 'big')}
-            <Text style={styles[getTheme('text', theme)]}>
-              {current.weather[0].description}
-            </Text>
-            <Text
-              style={[
-                styles.temperature_number,
-                styles[getTheme('text', theme)],
-              ]}
-            >
-              {current.temp.toFixed(0)}°
+            {/* {getIcons(current.condition.code, 'big')} */}
+            {/* {getIcons('04d', 'big')} */}
+            <CloudyNight />
+            <Text style={styles[getTheme('text', theme)]}>{weather}</Text>
+            <Text style={[styles.temperature_number, styles[getTheme('text', theme)]]}>
+              {/* {current.temp.toFixed(0)}° */}
+              {temperature?.toFixed(0)}°
             </Text>
 
             <View style={styles.location_container}>
               <Location />
               <Text style={styles.location}>
-                {cityName}, {countryName}
+                {city}, {country}
               </Text>
             </View>
-            <Text style={styles.feels_like}>
-              Feels like: {current.feels_like.toFixed(0)}°C
-            </Text>
+            <Text style={styles.feels_like}>Feels like: {feelsLike?.toFixed(0)}°C</Text>
           </>
         )
       )}

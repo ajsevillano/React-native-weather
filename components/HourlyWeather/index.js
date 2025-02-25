@@ -11,11 +11,16 @@ import Card from './Card';
 import Loading from './Loading';
 
 const HourlyWeather = ({ hourly, loading }) => {
-  //Theme from Context
+  const HOURS_TO_SHOW = 12;
   const theme = useContext(ThemeContext);
-  /* Filtering the hourly array to only show the next 8 hours. */
-  const filterHours =
-    hourly && hourly.filter((hour, index) => index > 0 && index < 8);
+
+  // Filter the hourly array to only show the next 12 hours.
+  const now = new Date();
+  const next12Hours = hourly?.filter(hour => {
+    const forecastTime = new Date(hour.time);
+    const hourDifference = (forecastTime - now) / (1000 * 60 * 60);
+    return hourDifference >= 0 && hourDifference < HOURS_TO_SHOW;
+  });
 
   return (
     <View style={[styles.Container, styles[getTheme('background', theme)]]}>
@@ -31,9 +36,9 @@ const HourlyWeather = ({ hourly, loading }) => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={filterHours}
+            data={next12Hours}
             renderItem={({ item }) => <Card item={item} />}
-          ></FlatList>
+          />
         </View>
       )}
     </View>

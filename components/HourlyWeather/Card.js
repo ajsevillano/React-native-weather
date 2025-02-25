@@ -3,25 +3,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import { getTime } from '../../libs/getTime';
 import getIcons from '../../libs/getIcons';
 import getTheme from '../../libs/getTheme';
+import Snow from '../../assets/weatherIcons/snow.svg';
 
 //Context
 import { useContext } from 'react';
 import ThemeContext from '../../context/theme';
+import Location from '../Svgs/Location';
 
 const Card = ({ item }) => {
-  //Theme from Context
+  const time = item?.time.split(' ')[1];
   const theme = useContext(ThemeContext);
   return (
-    <View
-      style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}
-    >
+    <View style={[styles.hourlyWeatherCard, styles[getTheme('background', theme)]]}>
       <Text style={[styles.temperatureText, styles[getTheme('text', theme)]]}>
-        {item?.temp.toFixed(0)}°
+        {item?.temperature.toFixed(0)}°
       </Text>
-      {getIcons(item?.weather[0].icon, 'small')}
-      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>
-        {getTime(item?.dt)}
-      </Text>
+      <Location width={35} height={35} />
+      {/* {getIcons('13d', 'small')} */}
+      <Text style={[styles.hour, styles[getTheme('text', theme)]]}>{time}</Text>
     </View>
   );
 };

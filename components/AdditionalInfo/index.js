@@ -1,6 +1,5 @@
 //Libs
 import { StyleSheet, Text, View } from 'react-native';
-import { getTime } from '../../libs/getTime';
 import getTheme from '../../libs/getTheme';
 
 //Context
@@ -10,20 +9,21 @@ import ThemeContext from '../../context/theme';
 //Components
 import Card from './Card';
 
-const AdditionalInfo = ({ current, loading }) => {
+const AdditionalInfo = ({ InfoObject, loading }) => {
+  const { wind, humidity, sunrise, sunset, pressure, uv } = InfoObject || {};
   //Theme from Context
   const theme = useContext(ThemeContext);
   const conditionObject = [
-    { Wind: { id: 1, value: current?.wind_speed, unit: 'm/h' } },
-    { Humidity: { id: 2, value: current?.humidity, unit: '%' } },
-    { Sunrise: { id: 3, value: getTime(current?.sunrise) } },
-    { Sunset: { id: 4, value: getTime(current?.sunset) } },
-    { Press: { id: 5, value: current?.pressure, unit: 'Mb' } },
-    { UV: { id: 6, value: current?.uvi } },
+    { Wind: { id: 1, value: wind, unit: 'km/h' } },
+    { Humidity: { id: 2, value: humidity, unit: '%' } },
+    { Sunrise: { id: 3, value: sunrise } },
+    { Sunset: { id: 4, value: sunset } },
+    { Press: { id: 5, value: pressure, unit: 'Mb' } },
+    { UV: { id: 6, value: uv } },
   ];
 
   /* Mapping through the array of objects and returning a card component for each object. */
-  const cardData = conditionObject?.map((element) => {
+  const cardData = conditionObject?.map(element => {
     const condition = Object.keys(element);
     const { id, value, unit } = element[condition];
 

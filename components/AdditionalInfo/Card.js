@@ -35,9 +35,9 @@ const Card = ({ title, loading, condition, unit }) => {
         {loading ? (
           `- - ${unit ? unit : ''}`
         ) : (
-          <Text
-            style={[styles.bold, styles[getTheme('text', theme)]]}
-          >{`${condition} ${unit ? unit : ''}`}</Text>
+          <Text style={[styles.bold, styles[getTheme('text', theme)]]}>{`${condition} ${
+            unit ? unit : ''
+          }`}</Text>
         )}
       </Text>
     </View>
