@@ -15,8 +15,8 @@ import ThemeContext from '../context/theme';
 import Button from '../components/Button';
 
 //SVG
-import OnboardingImg from '../assets/onboardingImage.svg';
-import OnboardingImgDark from '../assets/onboardingImageDark.svg';
+import LightImage from '../components/Svgs/Onboarding/LightImage';
+import DarkImage from '../components/Svgs/Onboarding/DarkImage';
 
 const Onboarding = ({ navigation }) => {
   //Theme from Context
@@ -49,28 +49,27 @@ const Onboarding = ({ navigation }) => {
     Alert.alert(
       'Permission denied',
       'This app needs access to your location to show the weather in your area',
-      [{ text: 'OK' }]
+      [{ text: 'OK' }],
     );
   };
 
   return (
     <View style={[styles.container, styles[getTheme('background', theme)]]}>
       <StatusBar hidden={true} />
-      {/* <View style={styles.imgContainer}>
-        {theme === 'light' ? <OnboardingImg /> : <OnboardingImgDark />}
-      </View> */}
+      <View style={styles.imgContainer}>
+        {theme === 'light' ? <LightImage /> : <DarkImage />}
+      </View>
       <View style={styles.bottonContainer}>
         <Text style={[styles.welcomeHeader, styles[getTheme('text', theme)]]}>
           Welcome to minimal weather
         </Text>
         <Text style={styles.welcomeText}>
-          Before start you need to grant permission to enable location on your
-          phone
+          Before start you need to grant permission to enable location on your phone
         </Text>
         <Button
           handleOnPress={fetchUserLocation}
           loading={buttonIsLoading}
-          buttonText="Get started"
+          buttonText='Get started'
         />
       </View>
     </View>
