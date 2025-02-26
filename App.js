@@ -8,7 +8,7 @@ import { ThemeProvider } from './context/theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
-import { Alert, useColorScheme } from 'react-native';
+import { Alert, useColorScheme, View, Text } from 'react-native';
 
 //Components
 import Home from './screens/Home/Home';
@@ -37,7 +37,6 @@ export default function App() {
       if (firstTimeRunningApp === 'false') {
         //if the permissions has been remove, request them again.
         let { status } = await Location.requestForegroundPermissionsAsync();
-
         //If they denied again, show an alert
         status === 'denied' && showAlert();
 
@@ -63,7 +62,12 @@ export default function App() {
     );
   };
 
-  if (!isLoaded) return null;
+  if (!isLoaded)
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
 
   const Stack = createNativeStackNavigator();
   return (

@@ -13,7 +13,9 @@ const Card = ({ item }) => {
   const time = item?.time.split(' ')[1];
   const { theme } = useContext(ThemeContext);
   return (
-    <View style={[styles.hourlyWeatherCard, { backgroundColor: '#f5f5f5' }]}>
+    <View
+      style={[styles.hourlyWeatherCard, { backgroundColor: theme.background.secondary }]}
+    >
       <Text style={[styles.temperatureText, { color: theme.text }]}>
         {item?.temperature.toFixed(0)}°
       </Text>

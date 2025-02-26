@@ -2,10 +2,11 @@
 import { ScrollView, RefreshControl, Alert, Text } from 'react-native';
 import * as Location from 'expo-location';
 import useWeather from '../../hooks/useWeather';
+import * as NavigationBar from 'expo-navigation-bar';
 
 //Context
 import { useState, useEffect, useContext } from 'react';
-import ThemeContext, { ThemeProvider } from '../../context/theme';
+import ThemeContext from '../../context/theme';
 
 //Components
 import AdditionalInfo from '../../components/AdditionalInfo';
@@ -28,6 +29,7 @@ const Home = ({ route }) => {
   useEffect(() => {
     const loadHomeScreen = async () => {
       askPermision();
+      NavigationBar.setBackgroundColorAsync(theme.background.primary);
     };
     loadHomeScreen();
   }, [refreshing]);
@@ -52,11 +54,12 @@ const Home = ({ route }) => {
       setRefreshing(false);
     }, 1000);
   };
+
   return (
     <>
       {!weather && error?.status === 401 && (
         <ScrollView
-          style={[styles.container, { backgroundColor: '#f5f5f5' }]}
+          style={[styles.container, { backgroundColor: theme.background.secondary }]}
           contentContainerStyle={{
             flexGrow: 1,
             justifyContent: 'center',
@@ -69,7 +72,7 @@ const Home = ({ route }) => {
           <StatusBar
             hidden={false}
             style='auto'
-            backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
+            backgroundColor={theme === 'light' ? theme.background.secondary : '#222222'}
           />
           <Text style={styles.light_text}>Ups! Something went wrong</Text>
           <Text style={styles.error_text}>{error.message}</Text>
@@ -78,13 +81,17 @@ const Home = ({ route }) => {
 
       {weather && (
         <ScrollView
-          style={[styles.container, { backgroundColor: '#f5f5f5' }]}
+          style={[styles.container, { backgroundColor: theme.background.secondary }]}
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          <StatusBar hidden={false} style='auto' backgroundColor={'#f5f5f5'} />
+          <StatusBar
+            hidden={false}
+            style='auto'
+            backgroundColor={theme.background.secondary}
+          />
           <WeatherCard current={weather?.BASIC_INFO || {}} loading={loading} />
           <AdditionalInfo InfoObject={weather?.ADDITIONAL_INFO} loading={loading} />
           <HourlyWeather hourly={weather?.HOURLY_WEATHER} loading={loading} />

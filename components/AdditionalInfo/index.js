@@ -24,8 +24,6 @@ const AdditionalInfo = ({ InfoObject, loading }) => {
     { UV: { id: 6, value: uv } },
   ];
 
-  console.log(theme.background);
-
   /* Mapping through the array of objects and returning a card component for each object. */
   const cardData = conditionObject?.map(element => {
     const condition = Object.keys(element);
@@ -37,7 +35,7 @@ const AdditionalInfo = ({ InfoObject, loading }) => {
   });
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background.primary }]}>
       <Text style={[styles.header, { color: theme.text }]}>Additional info</Text>
       <View style={styles.conditions_container}>{cardData}</View>
     </View>

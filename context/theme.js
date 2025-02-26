@@ -3,11 +3,11 @@ import { useState, createContext } from 'react';
 // Dark mode y light mode
 const themes = {
   light: {
-    background: 'white',
+    background: { primary: 'white', secondary: '#f5f5f5' },
     text: '#273365',
   },
   dark: {
-    background: '#222222',
+    background: { primary: '#1B1B1B', secondary: '#222222' },
     text: 'white',
   },
 };
@@ -19,8 +19,8 @@ const ThemeContext = createContext({
 });
 
 // Provider
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(themes.light);
+export const ThemeProvider = ({ children, initialTheme }) => {
+  const [theme, setTheme] = useState(themes[initialTheme] || themes.light);
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === themes.light ? themes.dark : themes.light));
