@@ -11,9 +11,9 @@ import styles from './Card.styles';
 
 const Card = ({ item }) => {
   const time = item?.time.split(' ')[1];
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
-    <View style={[styles.hourlyWeatherCard, { backgroundColor: theme.background }]}>
+    <View style={[styles.hourlyWeatherCard, { backgroundColor: '#f5f5f5' }]}>
       <Text style={[styles.temperatureText, { color: theme.text }]}>
         {item?.temperature.toFixed(0)}°
       </Text>

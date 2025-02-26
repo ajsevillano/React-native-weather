@@ -20,7 +20,7 @@ const Home = ({ route }) => {
   const location = `${route.params.location.coords.latitude},${route.params.location.coords.longitude}`;
   const { weather, loading, error } = useWeather(location);
 
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   //Refresh state
   const [refreshing, setRefreshing] = useState(false);
@@ -56,7 +56,7 @@ const Home = ({ route }) => {
     <>
       {!weather && error?.status === 401 && (
         <ScrollView
-          style={[styles.container, { backgroundColor: theme.background }]}
+          style={[styles.container, { backgroundColor: '#f5f5f5' }]}
           contentContainerStyle={{
             flexGrow: 1,
             justifyContent: 'center',
@@ -78,17 +78,13 @@ const Home = ({ route }) => {
 
       {weather && (
         <ScrollView
-          style={[styles.container, { backgroundColor: theme.background }]}
+          style={[styles.container, { backgroundColor: '#f5f5f5' }]}
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          <StatusBar
-            hidden={false}
-            style='auto'
-            backgroundColor={theme === 'light' ? '#f5f5f5' : '#222222'}
-          />
+          <StatusBar hidden={false} style='auto' backgroundColor={'#f5f5f5'} />
           <WeatherCard current={weather?.BASIC_INFO || {}} loading={loading} />
           <AdditionalInfo InfoObject={weather?.ADDITIONAL_INFO} loading={loading} />
           <HourlyWeather hourly={weather?.HOURLY_WEATHER} loading={loading} />

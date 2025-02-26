@@ -2,7 +2,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import getLocation from './libs/getLocation';
-import ThemeContext from './context/theme';
+import { ThemeProvider } from './context/theme';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -67,7 +67,7 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   return (
-    <ThemeContext.Provider value={colorScheme}>
+    <ThemeProvider initialTheme={colorScheme}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {firstLoad ? (
@@ -84,6 +84,6 @@ export default function App() {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }

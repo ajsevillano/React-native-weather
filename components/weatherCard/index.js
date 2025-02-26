@@ -14,10 +14,10 @@ import styles from './WeatherCard.styles';
 
 const WeatherCard = ({ current, loading }) => {
   const { weather, temperature, city, country, feelsLike, isDay, iconCode } = current;
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container]}>
       {loading ? (
         <Loading />
       ) : (
