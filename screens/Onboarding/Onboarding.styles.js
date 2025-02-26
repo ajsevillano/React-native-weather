@@ -33,23 +33,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     lineHeight: 20,
   },
-
-  //Theme
-  light_background: {
-    backgroundColor: 'white',
-  },
-
-  dark_background: {
-    backgroundColor: '#222222',
-  },
-
-  light_text: {
-    color: '#273365',
-  },
-
-  dark_text: {
-    color: 'white',
-  },
 });
 
 export default styles;

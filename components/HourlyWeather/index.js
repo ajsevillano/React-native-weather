@@ -1,6 +1,5 @@
 //Libs
 import { Text, View, FlatList } from 'react-native';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -15,7 +14,7 @@ import styles from './HourlyWeather.styles';
 
 const HourlyWeather = ({ hourly, loading }) => {
   const HOURS_TO_SHOW = 12;
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   // Filter the hourly array to only show the next 12 hours.
   const now = new Date();
@@ -26,11 +25,9 @@ const HourlyWeather = ({ hourly, loading }) => {
   });
 
   return (
-    <View style={[styles.Container, styles[getTheme('background', theme)]]}>
+    <View style={[styles.Container, { backgroundColor: theme.background.primary }]}>
       <View>
-        <Text style={[styles.titleHeader, styles[getTheme('text', theme)]]}>
-          Hourly weather
-        </Text>
+        <Text style={[styles.titleHeader, { color: theme.text }]}>Hourly weather</Text>
       </View>
       {loading ? (
         <Loading theme={theme} />

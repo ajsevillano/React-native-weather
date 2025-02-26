@@ -1,6 +1,6 @@
 //Libs
-import getTheme from '../../libs/getTheme';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { Text, View } from 'react-native';
 import getIcons from '../../libs/getIcons';
 //Context
 import { useContext } from 'react';
@@ -14,18 +14,18 @@ import styles from './WeatherCard.styles';
 
 const WeatherCard = ({ current, loading }) => {
   const { weather, temperature, city, country, feelsLike, isDay, iconCode } = current;
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, styles[getTheme('background', theme)]]}>
+    <View style={[styles.container]}>
       {loading ? (
         <Loading />
       ) : (
         current && (
           <>
             {getIcons(iconCode, isDay, 'big')}
-            <Text style={styles[getTheme('text', theme)]}>{weather}</Text>
-            <Text style={[styles.temperature_number, styles[getTheme('text', theme)]]}>
+            <Text style={{ color: theme.text }}>{weather}</Text>
+            <Text style={[styles.temperature_number, { color: theme.text }]}>
               {/* {current.temp.toFixed(0)}° */}
               {temperature?.toFixed(0)}°
             </Text>

@@ -1,6 +1,5 @@
 //Libs
 import { Text, View } from 'react-native';
-import getTheme from '../../libs/getTheme';
 
 //Context
 import { useContext } from 'react';
@@ -18,8 +17,8 @@ import Sunset from '../Svgs/Sunset';
 import styles from './Card.styles';
 
 const Card = ({ title, loading, condition, unit }) => {
-  //Theme from Context
   const theme = useContext(ThemeContext);
+
   const ConditionsIcons = {
     Wind: Wind,
     Press: Pressure,
@@ -38,7 +37,7 @@ const Card = ({ title, loading, condition, unit }) => {
         {loading ? (
           `- - ${unit ? unit : ''}`
         ) : (
-          <Text style={[styles.bold, styles[getTheme('text', theme)]]}>{`${condition} ${
+          <Text style={[styles.bold, { color: theme.text }]}>{`${condition} ${
             unit ? unit : ''
           }`}</Text>
         )}

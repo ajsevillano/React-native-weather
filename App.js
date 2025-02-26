@@ -2,13 +2,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import getLocation from './libs/getLocation';
-import ThemeContext from './context/theme';
+import { ThemeProvider } from './context/theme';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
-import { Alert, useColorScheme } from 'react-native';
+import { Alert, useColorScheme, View, Text } from 'react-native';
 
 //Components
 import Home from './screens/Home/Home';
@@ -37,7 +37,6 @@ export default function App() {
       if (firstTimeRunningApp === 'false') {
         //if the permissions has been remove, request them again.
         let { status } = await Location.requestForegroundPermissionsAsync();
-
         //If they denied again, show an alert
         status === 'denied' && showAlert();
 
@@ -63,11 +62,16 @@ export default function App() {
     );
   };
 
-  if (!isLoaded) return null;
+  if (!isLoaded)
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
 
   const Stack = createNativeStackNavigator();
   return (
-    <ThemeContext.Provider value={colorScheme}>
+    <ThemeProvider initialTheme={colorScheme}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {firstLoad ? (
@@ -84,6 +88,6 @@ export default function App() {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }
