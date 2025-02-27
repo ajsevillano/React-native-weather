@@ -11,7 +11,7 @@ import { useContext } from 'react';
 import ThemeContext from '@context/theme';
 
 //Components
-import Button from '@components/Button';
+import Button from '@components/Button/Button';
 import LightImage from '@components/Svgs/Onboarding/LightImage';
 import DarkImage from '@components/Svgs/Onboarding/DarkImage';
 

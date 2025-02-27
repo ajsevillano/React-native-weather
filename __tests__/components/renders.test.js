@@ -2,11 +2,11 @@
 import renderer from 'react-test-renderer';
 
 //Components
-import AdditionalInfo from '../../components/AdditionalInfo';
+import AdditionalInfo from '../../components/AdditionalInfo/AdditionalInfo';
 import AdditionalInfoCard from '../../components/AdditionalInfo/Card';
 import HourlyWeather from '../../components/HourlyWeather';
 import WeatherCard from '../../components/WeatherCard';
-import Button from '../../components/Button';
+import Button from '../../components/Button/Button';
 
 describe('Test all components render properly', () => {
   it(`Additional info component renders correctly`, () => {

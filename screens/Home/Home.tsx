@@ -9,7 +9,7 @@ import { useState, useEffect, useContext } from 'react';
 import ThemeContext from '@context/theme';
 
 //Components
-import AdditionalInfo from '@components/AdditionalInfo';
+import AdditionalInfo from '@components/AdditionalInfo/AdditionalInfo';
 import WeatherCard from '@components/WeatherCard';
 import HourlyWeather from '@components/HourlyWeather';
 
