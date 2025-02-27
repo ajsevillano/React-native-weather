@@ -5,10 +5,12 @@ const themes = {
   light: {
     background: { primary: 'white', secondary: '#f5f5f5' },
     text: '#273365',
+    loadingIndicator: '#273365',
   },
   dark: {
     background: { primary: '#1B1B1B', secondary: '#222222' },
     text: 'white',
+    loadingIndicator: '#9e9e9e',
   },
 };
 

@@ -1,6 +1,5 @@
 //Libs
-import { ScrollView, RefreshControl, Alert, Text } from 'react-native';
-import * as Location from 'expo-location';
+import { ScrollView, RefreshControl, Text } from 'react-native';
 import useWeather from '../../hooks/useWeather';
 import * as NavigationBar from 'expo-navigation-bar';
 
@@ -28,23 +27,10 @@ const Home = ({ route }) => {
 
   useEffect(() => {
     const loadHomeScreen = async () => {
-      askPermision();
       NavigationBar.setBackgroundColorAsync(theme.background.primary);
     };
     loadHomeScreen();
   }, [refreshing]);
-
-  /* Asking for permission to access the user's location. */
-  const askPermision = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert(
-        'Permission denied',
-        'This app needs access to your location to show the weather in your area',
-        [{ text: 'OK' }],
-      );
-    }
-  };
 
   // // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
   const onRefresh = () => {

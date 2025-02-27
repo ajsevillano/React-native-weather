@@ -3,16 +3,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import getLocation from './libs/getLocation';
 import { ThemeProvider } from './context/theme';
+import { Alert, useColorScheme } from 'react-native';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
-import { Alert, useColorScheme, View, Text } from 'react-native';
 
 //Components
 import Home from './screens/Home/Home';
 import Onboarding from './screens/Onboarding/Onboarding';
+import LoadingScreen from '@components/LoadingScreen/LoadingScreen';
 
 export default function App() {
   const [firstLoad, setFirstLoad] = useState(null);
@@ -62,32 +63,29 @@ export default function App() {
     );
   };
 
-  if (!isLoaded)
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-
   const Stack = createNativeStackNavigator();
   return (
     <ThemeProvider initialTheme={colorScheme}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {firstLoad ? (
-            <>
-              <Stack.Screen name='Onboarding' component={Onboarding} />
-              <Stack.Screen name='Home' component={Home} />
-            </>
-          ) : (
-            <Stack.Screen
-              name='Home'
-              component={Home}
-              initialParams={{ location: location }}
-            />
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      {!isLoaded ? (
+        <LoadingScreen />
+      ) : (
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {firstLoad ? (
+              <>
+                <Stack.Screen name='Onboarding' component={Onboarding} />
+                <Stack.Screen name='Home' component={Home} />
+              </>
+            ) : (
+              <Stack.Screen
+                name='Home'
+                component={Home}
+                initialParams={{ location: location }}
+              />
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
     </ThemeProvider>
   );
 }
