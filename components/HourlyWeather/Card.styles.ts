@@ -11,26 +11,10 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
 
-  light_background: {
-    backgroundColor: '#f5f5f5',
-  },
-
-  dark_background: {
-    backgroundColor: '#222222',
-  },
-
   temperatureText: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 15,
-  },
-
-  light_text: {
-    color: '#273365',
-  },
-
-  dark_text: {
-    color: 'white',
   },
 
   hour: {

@@ -10,7 +10,7 @@ import ThemeContext from '../../context/theme';
 //Components
 import AdditionalInfo from '../../components/AdditionalInfo';
 import WeatherCard from '../../components/WeatherCard';
-import HourlyWeather from '../../components/HourlyWeather';
+import HourlyWeather from '../../components/HourlyWeather/HourlyWeather';
 import { StatusBar } from 'expo-status-bar';
 
 //Styles
