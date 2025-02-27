@@ -20,7 +20,7 @@ const HourlyWeather = ({ hourly, loading }) => {
   const now = new Date();
   const next12Hours = hourly?.filter(hour => {
     const forecastTime = new Date(hour.time);
-    const hourDifference = (forecastTime - now) / (1000 * 60 * 60);
+    const hourDifference = (forecastTime.getTime() - now.getTime()) / (1000 * 60 * 60);
     return hourDifference >= 0 && hourDifference < HOURS_TO_SHOW;
   });
 
