@@ -4,25 +4,23 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import getLocation from '../../libs/getLocation';
+import getLocation from '@libs/getLocation';
 
 //Context
 import { useContext } from 'react';
-import ThemeContext, { ThemeProvider } from '../../context/theme';
+import ThemeContext from '@context/theme';
 
 //Components
-import Button from '../../components/Button';
-
-//SVG
-import LightImage from '../../components/Svgs/Onboarding/LightImage';
-import DarkImage from '../../components/Svgs/Onboarding/DarkImage';
+import Button from '@components/Button/Button';
+import LightImage from '@components/Svgs/Onboarding/LightImage';
+import DarkImage from '@components/Svgs/Onboarding/DarkImage';
 
 // Styles
 import styles from './Onboarding.styles';
 
 const Onboarding = ({ navigation }) => {
   //Theme from Context
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const [buttonIsLoading, setButtonIsLoading] = useState(false);
   const fetchUserLocation = async () => {
     setButtonIsLoading(true);
@@ -56,10 +54,10 @@ const Onboarding = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background.primary }]}>
       <StatusBar hidden={true} />
       <View style={styles.imgContainer}>
-        {theme === 'light' ? <LightImage /> : <DarkImage />}
+        {theme.background.primary === 'white' ? <LightImage /> : <DarkImage />}
       </View>
       <View style={styles.bottonContainer}>
         <Text style={[styles.welcomeHeader, { color: theme.text }]}>

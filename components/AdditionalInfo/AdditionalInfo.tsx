@@ -27,7 +27,7 @@ const AdditionalInfo = ({ InfoObject, loading }) => {
   /* Mapping through the array of objects and returning a card component for each object. */
   const cardData = conditionObject?.map(element => {
     const condition = Object.keys(element);
-    const { id, value, unit } = element[condition];
+    const { id, value, unit } = element[condition[0]];
 
     return (
       <Card key={id} title={condition} loading={loading} condition={value} unit={unit} />

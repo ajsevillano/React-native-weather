@@ -1,17 +1,17 @@
 //Libs
 import { ScrollView, RefreshControl, Text } from 'react-native';
-import useWeather from '../../hooks/useWeather';
+import useWeather from '@hooks/useWeather';
 import * as NavigationBar from 'expo-navigation-bar';
+import { StatusBar } from 'expo-status-bar';
 
 //Context
 import { useState, useEffect, useContext } from 'react';
-import ThemeContext from '../../context/theme';
+import ThemeContext from '@context/theme';
 
 //Components
-import AdditionalInfo from '../../components/AdditionalInfo';
-import WeatherCard from '../../components/WeatherCard';
-import HourlyWeather from '../../components/HourlyWeather/HourlyWeather';
-import { StatusBar } from 'expo-status-bar';
+import AdditionalInfo from '@components/AdditionalInfo/AdditionalInfo';
+import WeatherCard from '@components/WeatherCard';
+import HourlyWeather from '@components/HourlyWeather';
 
 //Styles
 import styles from './Home.styles';
@@ -19,7 +19,6 @@ import styles from './Home.styles';
 const Home = ({ route }) => {
   const location = `${route.params.location.coords.latitude},${route.params.location.coords.longitude}`;
   const { weather, loading, error } = useWeather(location);
-
   const { theme } = useContext(ThemeContext);
 
   //Refresh state
@@ -58,7 +57,7 @@ const Home = ({ route }) => {
           <StatusBar
             hidden={false}
             style='auto'
-            backgroundColor={theme === 'light' ? theme.background.secondary : '#222222'}
+            backgroundColor={theme.background.secondary}
           />
           <Text style={styles.light_text}>Ups! Something went wrong</Text>
           <Text style={styles.error_text}>{error.message}</Text>

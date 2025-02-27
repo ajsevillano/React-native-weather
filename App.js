@@ -1,8 +1,8 @@
 //Libs
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
-import getLocation from './libs/getLocation';
-import { ThemeProvider } from './context/theme';
+import getLocation from '@libs/getLocation';
+import { ThemeProvider } from '@context/theme';
 import { Alert, useColorScheme } from 'react-native';
 
 //Navigation
@@ -11,9 +11,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
 
 //Components
-import Home from './screens/Home/Home';
-import Onboarding from './screens/Onboarding/Onboarding';
-import LoadingScreen from '@components/LoadingScreen/LoadingScreen';
+import Home from '@screens/Home';
+import Onboarding from '@screens/Onboarding';
+import LoadingScreen from '@components/LoadingScreen';
 
 export default function App() {
   const [firstLoad, setFirstLoad] = useState(null);
