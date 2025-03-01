@@ -31,14 +31,15 @@ const Home = ({ route }) => {
     loadHomeScreen();
   }, [refreshing]);
 
-  // // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
-  const onRefresh = () => {
-    setRefreshing(true);
-    useWeather(location);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
-  };
+  // When the user pulls down on the screen, the screen will refresh and the data will be fetched again.
+  // Temporary disabled due a bug.
+  // const onRefresh = () => {
+  //   setRefreshing(true);
+  //   useWeather(location);
+  //   setTimeout(() => {
+  //     setRefreshing(false);
+  //   }, 1000);
+  // };
 
   return (
     <>
@@ -50,9 +51,9 @@ const Home = ({ route }) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
+          // refreshControl={
+          //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          // }
         >
           <StatusBar
             hidden={false}
@@ -68,9 +69,9 @@ const Home = ({ route }) => {
         <ScrollView
           style={[styles.container, { backgroundColor: theme.background.secondary }]}
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
+          // refreshControl={
+          //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          // }
         >
           <StatusBar
             hidden={false}
