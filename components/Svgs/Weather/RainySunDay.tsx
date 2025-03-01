@@ -1,13 +1,7 @@
 import Svg, { Path, Defs, G, Rect, ClipPath } from 'react-native-svg';
 
-const RainySunDay = ({ width, height, theme }) => (
-  <Svg
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 100 88'
-    fill='none'
-    width={width}
-    height={height}
-  >
+const RainySunDay = ({ width, height }) => (
+  <Svg viewBox='0 0 100 88' fill='none' width={width} height={height}>
     <G clipPath='url(#clip0_101_2)'>
       <Path
         d='M74.4649 43.445C80.45 37.9868 80.8772 28.7102 75.4191 22.7251C69.9609 16.74 60.6843 16.3128 54.6992 21.771'

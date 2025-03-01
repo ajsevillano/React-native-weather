@@ -1,13 +1,7 @@
 import Svg, { Path } from 'react-native-svg';
 
 const CloudyDay = ({ width, height, theme }) => (
-  <Svg
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 88 88'
-    fill='none'
-    width={width}
-    height={height}
-  >
+  <Svg viewBox='0 0 88 88' fill='none' width={width} height={height}>
     <Path
       d='M70.6451 40.445C76.0791 35.4894 76.467 27.0669 71.5114 21.6329C66.5558 16.1988 58.1333 15.811 52.6992 20.7666'
       stroke='#FFBF00'

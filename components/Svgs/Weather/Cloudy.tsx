@@ -2,8 +2,6 @@ import Svg, { Path } from 'react-native-svg';
 
 const Cloudy = ({ width, height, theme }) => (
   <Svg
-    xmlns='http://www.w3.org/2000/svg'
-    class='icon icon-tabler icon-tabler-cloud'
     viewBox='0 0 24 24'
     strokeWidth='1.5'
     stroke='#9e9e9e'

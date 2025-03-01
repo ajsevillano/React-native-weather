@@ -1,23 +1,15 @@
 //Libs
 import { Text, View } from 'react-native';
-
 //Context
 import { useContext } from 'react';
-import ThemeContext from '../../context/theme';
-
-//SVG Icons
-import Pressure from '../Svgs/Pressure';
-import Humidity from '../Svgs/Humidity';
-import UV from '../Svgs/UV';
-import Wind from '../Svgs/Windy';
-import Sunrise from '../Svgs/Sunrise';
-import Sunset from '../Svgs/Sunset';
-
+import ThemeContext from '@context/theme';
+// Components
+import { Pressure, Humidity, UV, Wind, Sunrise, Sunset } from '@components/Svgs';
 // Styles
 import styles from './Card.styles';
 
 const Card = ({ title, loading, condition, unit }) => {
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const ConditionsIcons = {
     Wind: Wind,

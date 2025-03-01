@@ -10,11 +10,11 @@ import styles from './WeatherCard.styles';
 
 const Loading = () => {
   //Theme from Context
-  const theme = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
     <>
       <Svg height='88' width='88'>
-        <Circle cx='40' cy='40' r='40' fill={theme === 'light' ? '#eaeaea' : '#414141'} />
+        <Circle cx='40' cy='40' r='40' fill={theme.text} />
       </Svg>
       <Text style={{ color: theme.text }}>Loading</Text>
       <Text style={[styles.temperature_number, { color: theme.text }]}>--°</Text>
