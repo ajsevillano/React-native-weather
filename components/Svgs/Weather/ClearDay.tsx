@@ -1,9 +1,7 @@
 import Svg, { Path, Circle } from 'react-native-svg';
 
-const ClearDay = ({ width, height, theme }) => (
+const ClearDay = ({ width, height }) => (
   <Svg
-    xmlns='http://www.w3.org/2000/svg'
-    class='icon icon-tabler icon-tabler-sun'
     width={width}
     height={height}
     viewBox='0 0 24 24'

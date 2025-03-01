@@ -8,7 +8,7 @@ import ThemeContext from '../../context/theme';
 //Components
 import Loading from './Loading';
 //SVG icons
-import Location from '../Svgs/Location';
+import { Location } from '@components/Svgs';
 // Styles
 import styles from './WeatherCard.styles';
 

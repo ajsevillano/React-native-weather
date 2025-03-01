@@ -2,8 +2,6 @@ import Svg, { Path } from 'react-native-svg';
 
 const ClearNight = ({ width, height, theme }) => (
   <Svg
-    xmlns='http://www.w3.org/2000/svg'
-    class='icon icon-tabler icon-tabler-moon'
     viewBox='0 0 24 24'
     strokeWidth='1.5'
     stroke='#FFBF00'
