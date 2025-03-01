@@ -30,6 +30,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0252e17e-bf24-4cac-b333-4343cb565516"
+      }
+    },
+    "owner": "ajsevillano"
   }
 }
