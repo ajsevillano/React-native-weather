@@ -1,0 +1,64 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: EAS build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for WEATHER_APP
+        run: |
+          if [ -z "${{ secrets.WEATHER_APP }}" ]; then
+            echo "You must provide an WEATHER_APP secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            exit 1
+          fi
+
+      - name: 'Set ENV'
+        run: echo "$(BASE_URL)"
+        env:
+          BASE_URL: https://exampleapp.com
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+          cache: npm
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.WEATHER_APP }}
+
+      - name: Check for package-lock.json
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "Error: package-lock.json file not found"
+            exit 1
+          fi
+
+      - name: Find npm cache
+        id: npm-cache-path
+        run: echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            package-lock.json
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Publish build
+        run: eas build -p android --profile preview --non-interactive
