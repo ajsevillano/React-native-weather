@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { getCachedData, saveDataToCache } from '@libs/cacheHelpers';
 
 export default function useFetch(url) {
   const [data, setData] = useState(null);
@@ -12,6 +13,17 @@ export default function useFetch(url) {
   const fetchUrl = async () => {
     try {
       setLoading(true);
+
+      // Check if there are cached data
+      const cachedData = await getCachedData();
+
+      if (cachedData) {
+        setData(cachedData);
+        setLoading(false);
+        return;
+      }
+
+      // If there are no cached data, fetch the data from the API
       const response = await fetch(url);
       if (!response.ok) {
         if (response.status === 401) {
@@ -19,8 +31,11 @@ export default function useFetch(url) {
         }
         throw new Error('An error occurred');
       }
-      const data = await response.json();
-      setData(data);
+      const freshData = await response.json();
+      setData(freshData);
+
+      // Save the data in the cache
+      await saveDataToCache(freshData);
     } catch (err) {
       setError(err);
     } finally {
