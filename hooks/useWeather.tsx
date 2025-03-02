@@ -1,12 +1,6 @@
 import useFetch from './useFetch';
 import { API_KEY } from '@env';
 
-// interface WeatherData {
-//   city: string;
-//   temperature: number;
-//   feelsLike: number;
-// }
-
 const useWeather = city => {
   const API_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=2`;
 
